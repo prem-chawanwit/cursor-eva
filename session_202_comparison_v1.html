@@ -116,18 +116,20 @@
         }
 
         .gulf-logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            color: var(--gulf-blue);
-            font-size: 32px;
-            font-weight: 950;
-            letter-spacing: 0.02em;
+            display: inline-grid;
+            place-items: center;
+            width: 156px;
+            height: 48px;
+            padding: 7px 12px;
+            background: var(--gulf-blue);
+            border-radius: 18px;
+            box-shadow: 0 16px 36px rgba(0, 63, 112, 0.18);
         }
 
         .gulf-logo svg {
-            width: 33px;
-            height: 24px;
+            display: block;
+            width: 132px;
+            height: auto;
         }
 
         .hero {
@@ -781,12 +783,13 @@
     <main class="page">
         <nav class="topbar" aria-label="Report header">
             <span class="doc-label">Project Update / Session 202 v.3</span>
-            <div class="gulf-logo" aria-label="GULF">
-                <svg viewBox="0 0 54 36" aria-hidden="true">
-                    <path d="M4 19C17 6 31 4 50 4C39 18 27 28 10 33C8 27 6 23 4 19Z" fill="#63bd74"/>
-                    <path d="M4 19C15 18 28 14 42 6C31 20 22 28 10 33C8 27 6 23 4 19Z" fill="#003f70"/>
+            <div class="gulf-logo" aria-label="GULF logo">
+                <svg viewBox="0 0 190 52" role="img" aria-labelledby="gulf-logo-title">
+                    <title id="gulf-logo-title">GULF</title>
+                    <path d="M5 30C16 15 31 8 52 8C42 24 30 37 12 44C10 39 7 34 5 30Z" fill="#ffffff"/>
+                    <path d="M8 30C19 29 32 23 46 10C37 26 27 37 12 44C11 39 9 34 8 30Z" fill="#63bd74"/>
+                    <text x="58" y="38" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="900" letter-spacing="-1.4">GULF</text>
                 </svg>
-                <span>GULF</span>
             </div>
         </nav>
 
