@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Update - AI Assistant Evaluation</title>
+    <title>GULF Project Update - AI Assistant Evaluation</title>
     <style>
         @page {
             size: A4;
@@ -13,16 +13,17 @@
 
         :root {
             --gulf-blue: #003f70;
-            --gulf-blue-2: #06598f;
+            --gulf-blue-2: #075f94;
+            --gulf-blue-3: #e7f2f8;
             --gulf-green: #63bd74;
-            --gulf-green-2: #2fa65a;
-            --ink: #12344d;
-            --muted: #6b7a8a;
-            --soft: #f4f8fb;
-            --line: #dce8ef;
-            --white: #ffffff;
-            --shadow: 0 18px 45px rgba(0, 63, 112, 0.12);
-            --radius: 24px;
+            --gulf-green-2: #35a865;
+            --ink: #15384f;
+            --muted: #647788;
+            --line: #dbe8ef;
+            --panel: rgba(255, 255, 255, 0.94);
+            --shadow: 0 22px 56px rgba(0, 63, 112, 0.14);
+            --radius-lg: 32px;
+            --radius-md: 22px;
         }
 
         * {
@@ -34,15 +35,41 @@
         }
 
         body {
+            min-height: 100vh;
             margin: 0;
             color: var(--ink);
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
             font-size: 15px;
             line-height: 1.65;
             background:
-                radial-gradient(circle at -10% 6%, var(--gulf-blue) 0 22rem, transparent 22.1rem),
-                radial-gradient(circle at 104% 42rem, var(--gulf-green) 0 14rem, transparent 14.1rem),
-                #ffffff;
+                radial-gradient(circle at -8% -6%, #003f70 0 23rem, transparent 23.1rem),
+                radial-gradient(circle at 106% 95%, #63bd74 0 17rem, transparent 17.1rem),
+                linear-gradient(135deg, #ffffff 0%, #f8fcff 48%, #ffffff 100%);
+        }
+
+        body::before,
+        body::after {
+            position: fixed;
+            z-index: -1;
+            content: "";
+            border-radius: 999px;
+            pointer-events: none;
+        }
+
+        body::before {
+            top: -260px;
+            left: -260px;
+            width: 620px;
+            height: 620px;
+            border: 86px solid rgba(0, 63, 112, 0.12);
+        }
+
+        body::after {
+            right: -210px;
+            bottom: -190px;
+            width: 480px;
+            height: 480px;
+            background: rgba(99, 189, 116, 0.1);
         }
 
         button,
@@ -50,438 +77,611 @@
             font: inherit;
         }
 
-        .deck {
-            width: min(1120px, calc(100% - 36px));
+        .page {
+            width: min(1160px, calc(100% - 36px));
             margin: 0 auto;
-            padding: 34px 0 42px;
+            padding: 28px 0 44px;
         }
 
         .topbar {
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            min-height: 54px;
+            justify-content: space-between;
+            gap: 24px;
+            min-height: 64px;
+        }
+
+        .doc-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 13px;
+            color: var(--gulf-blue);
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            box-shadow: 0 12px 30px rgba(0, 63, 112, 0.08);
+        }
+
+        .doc-label::before {
+            width: 9px;
+            height: 9px;
+            content: "";
+            background: var(--gulf-green);
+            border-radius: 50%;
         }
 
         .gulf-logo {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 9px;
             color: var(--gulf-blue);
-            font-size: 30px;
-            font-weight: 900;
+            font-size: 32px;
+            font-weight: 950;
             letter-spacing: 0.02em;
         }
 
-        .leaf {
-            width: 28px;
-            height: 18px;
+        .gulf-logo svg {
+            width: 33px;
+            height: 24px;
         }
 
         .hero {
             display: grid;
-            grid-template-columns: 1fr 360px;
+            grid-template-columns: minmax(0, 1fr) 370px;
             gap: 28px;
-            align-items: end;
-            min-height: 360px;
-            padding: 54px 0 32px;
+            align-items: stretch;
+            margin-top: 34px;
         }
 
-        .hero h1 {
-            max-width: 720px;
-            margin: 0;
-            color: var(--gulf-blue);
-            font-size: clamp(38px, 6vw, 72px);
-            line-height: 1.05;
-            letter-spacing: -0.055em;
-        }
-
-        .hero-subtitle {
-            margin: 18px 0 0;
-            color: var(--gulf-blue);
-            font-size: clamp(20px, 2.4vw, 30px);
-            font-weight: 750;
-        }
-
-        .hero-date {
-            margin: 6px 0 0;
-            color: var(--gulf-green-2);
-            font-size: clamp(17px, 2vw, 22px);
-            font-weight: 750;
-            letter-spacing: 0.02em;
-        }
-
-        .recommendation {
-            padding: 22px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid var(--line);
-            border-radius: var(--radius);
+        .hero-main,
+        .hero-side,
+        .glass-panel,
+        .tool-card,
+        .detail-panel,
+        .matrix-card,
+        .source-note {
+            background: var(--panel);
+            border: 1px solid rgba(219, 232, 239, 0.92);
             box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
         }
 
-        .recommendation span {
+        .hero-main {
+            position: relative;
+            min-height: 390px;
+            overflow: hidden;
+            padding: clamp(30px, 5vw, 58px);
+            border-radius: var(--radius-lg);
+        }
+
+        .hero-main::before {
+            position: absolute;
+            right: -110px;
+            bottom: -170px;
+            width: 390px;
+            height: 390px;
+            content: "";
+            background: var(--gulf-green);
+            border-radius: 50%;
+            opacity: 0.22;
+        }
+
+        .hero-main::after {
+            position: absolute;
+            top: -190px;
+            left: -170px;
+            width: 390px;
+            height: 390px;
+            content: "";
+            background: var(--gulf-blue);
+            border-radius: 50%;
+            opacity: 0.12;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 760px;
+        }
+
+        .eyebrow {
             display: inline-flex;
-            margin-bottom: 10px;
-            padding: 4px 11px;
-            color: var(--gulf-blue);
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 0.08em;
+            margin-bottom: 24px;
+            padding: 7px 13px;
+            color: var(--gulf-green-2);
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            background: #e8f3f9;
+            background: #e9f8ef;
             border-radius: 999px;
         }
 
-        .recommendation h2 {
-            margin: 0 0 10px;
+        h1 {
+            margin: 0;
             color: var(--gulf-blue);
-            font-size: 22px;
-            line-height: 1.25;
+            font-size: clamp(42px, 7vw, 82px);
+            line-height: 0.98;
+            letter-spacing: -0.065em;
         }
 
-        .recommendation p {
+        .subtitle {
+            max-width: 620px;
+            margin: 20px 0 0;
+            color: #31566d;
+            font-size: clamp(18px, 2.2vw, 25px);
+            font-weight: 750;
+            line-height: 1.4;
+        }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 34px;
+        }
+
+        .meta-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 13px;
+            color: var(--gulf-blue);
+            font-size: 13px;
+            font-weight: 850;
+            background: #f2f8fb;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+        }
+
+        .meta-chip::before {
+            width: 8px;
+            height: 8px;
+            content: "";
+            background: var(--gulf-green);
+            border-radius: 50%;
+        }
+
+        .hero-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 26px;
+            border-radius: var(--radius-lg);
+        }
+
+        .recommendation-label {
+            display: inline-flex;
+            width: fit-content;
+            padding: 6px 12px;
+            color: #176a3c;
+            font-size: 12px;
+            font-weight: 950;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: #e6f7ec;
+            border-radius: 999px;
+        }
+
+        .hero-side h2 {
+            margin: 16px 0 10px;
+            color: var(--gulf-blue);
+            font-size: 26px;
+            line-height: 1.16;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-side p {
             margin: 0;
-            color: #34556d;
+            color: #385a70;
+        }
+
+        .quick-score {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .score-box {
+            padding: 13px;
+            background: #f6fbfd;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+        }
+
+        .score-box strong {
+            display: block;
+            color: var(--gulf-blue);
+            font-size: 20px;
+            line-height: 1.1;
+        }
+
+        .score-box span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800;
         }
 
         .section {
-            margin-top: 30px;
+            margin-top: 34px;
         }
 
         .section-head {
             display: flex;
-            align-items: end;
+            align-items: flex-end;
             justify-content: space-between;
             gap: 22px;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
-        .section-kicker {
+        .kicker {
             display: inline-flex;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             color: var(--gulf-green-2);
             font-size: 12px;
-            font-weight: 900;
-            letter-spacing: 0.1em;
+            font-weight: 950;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
         }
 
         .section h2 {
             margin: 0;
             color: var(--gulf-blue);
-            font-size: 28px;
-            line-height: 1.18;
-            letter-spacing: -0.03em;
+            font-size: clamp(25px, 3vw, 34px);
+            line-height: 1.15;
+            letter-spacing: -0.045em;
         }
 
         .section-head p {
-            max-width: 420px;
+            max-width: 440px;
             margin: 0;
             color: var(--muted);
             text-align: right;
         }
 
         .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 10px;
-            background: #eef6f9;
-            border: 1px solid var(--line);
-            border-radius: 999px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
         }
 
         .tool-button {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 8px;
-            min-height: 44px;
-            padding: 8px 16px;
+            gap: 13px;
+            min-height: 68px;
+            padding: 12px 16px;
             color: var(--gulf-blue);
-            font-weight: 800;
-            background: var(--white);
-            border: 1px solid transparent;
-            border-radius: 999px;
+            text-align: left;
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            box-shadow: 0 12px 28px rgba(0, 63, 112, 0.08);
             cursor: pointer;
-            transition: 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
         }
 
         .tool-button:hover,
         .tool-button:focus-visible {
-            transform: translateY(-1px);
-            border-color: rgba(0, 63, 112, 0.25);
-            box-shadow: 0 10px 22px rgba(0, 63, 112, 0.12);
+            transform: translateY(-2px);
+            border-color: rgba(0, 63, 112, 0.28);
+            box-shadow: 0 18px 38px rgba(0, 63, 112, 0.14);
             outline: none;
         }
 
         .tool-button.is-active {
             color: #ffffff;
-            background: var(--gulf-blue);
-            border-color: var(--gulf-blue);
+            background: linear-gradient(135deg, var(--gulf-blue), #075f94);
+            border-color: transparent;
         }
 
-        .icon-shell {
-            position: relative;
+        .tool-button small {
+            display: block;
+            color: currentColor;
+            font-size: 12px;
+            font-weight: 600;
+            opacity: 0.74;
+        }
+
+        .brand-icon {
             display: inline-grid;
             place-items: center;
             flex: 0 0 auto;
-            width: 30px;
-            height: 30px;
-            overflow: hidden;
+            width: 46px;
+            height: 46px;
+            color: #14161a;
             background: #ffffff;
-            border: 1px solid rgba(0, 63, 112, 0.1);
-            border-radius: 10px;
+            border: 1px solid rgba(0, 63, 112, 0.12);
+            border-radius: 16px;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
         }
 
-        .icon-shell img {
-            width: 20px;
-            height: 20px;
-            object-fit: contain;
+        .brand-icon svg {
+            display: block;
+            width: 28px;
+            height: 28px;
         }
 
-        .fallback-icon {
-            display: none;
-            place-items: center;
-            width: 100%;
-            height: 100%;
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 900;
+        .brand-icon.cursor {
+            color: #111827;
         }
 
-        .fallback-cursor { background: #111827; }
-        .fallback-copilot { background: #24292f; }
-        .fallback-claude { background: #c15f3c; }
+        .brand-icon.copilot {
+            color: #24292f;
+        }
 
-        .tool-card-grid {
+        .brand-icon.claude {
+            color: #c15f3c;
+        }
+
+        .tool-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 16px;
-            margin-top: 16px;
-        }
-
-        .tool-card,
-        .panel,
-        .matrix,
-        .research-note {
-            background: rgba(255, 255, 255, 0.94);
-            border: 1px solid var(--line);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
         }
 
         .tool-card {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            padding: 20px;
+            position: relative;
+            min-height: 275px;
+            overflow: hidden;
+            padding: 22px;
+            border-radius: var(--radius-md);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .tool-card::after {
+            position: absolute;
+            right: -52px;
+            bottom: -54px;
+            width: 150px;
+            height: 150px;
+            content: "";
+            background: var(--gulf-green);
+            border-radius: 50%;
+            opacity: 0.11;
         }
 
         .tool-card.is-highlighted {
-            outline: 3px solid rgba(99, 189, 116, 0.35);
+            transform: translateY(-3px);
+            border-color: rgba(99, 189, 116, 0.78);
         }
 
-        .tool-title {
+        .tool-card-head {
+            position: relative;
+            z-index: 1;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 13px;
         }
 
-        .tool-title h3 {
+        .tool-card h3 {
             margin: 0;
             color: var(--gulf-blue);
-            font-size: 20px;
+            font-size: 22px;
+            line-height: 1.2;
         }
 
-        .tag {
+        .tool-card .role {
             display: inline-flex;
+            position: relative;
+            z-index: 1;
             width: fit-content;
-            padding: 4px 10px;
+            margin-top: 18px;
+            padding: 6px 11px;
             color: var(--gulf-blue);
             font-size: 12px;
-            font-weight: 800;
-            background: #e8f3f9;
+            font-weight: 950;
+            background: var(--gulf-blue-3);
             border-radius: 999px;
         }
 
         .tool-card p {
-            margin: 0;
-            color: #34556d;
+            position: relative;
+            z-index: 1;
+            margin: 14px 0 0;
+            color: #385a70;
         }
 
-        .simple-list {
+        .point-list {
+            position: relative;
+            z-index: 1;
             display: grid;
-            gap: 8px;
-            margin: 0;
+            gap: 9px;
+            margin: 16px 0 0;
             padding: 0;
             list-style: none;
         }
 
-        .simple-list li {
-            position: relative;
-            padding-left: 18px;
+        .point-list li {
+            display: grid;
+            grid-template-columns: 10px 1fr;
+            gap: 9px;
+            color: #24465c;
         }
 
-        .simple-list li::before {
-            position: absolute;
-            top: 0.66em;
-            left: 0;
-            width: 7px;
-            height: 7px;
+        .point-list li::before {
+            width: 9px;
+            height: 9px;
+            margin-top: 8px;
             content: "";
             background: var(--gulf-green);
             border-radius: 50%;
         }
 
-        .panel {
+        .detail-panel {
             display: none;
-            margin-top: 16px;
-            padding: 22px;
+            padding: 24px;
+            border-radius: var(--radius-md);
         }
 
-        .panel.is-active {
-            display: grid;
-            gap: 18px;
+        .detail-panel.is-active {
+            display: block;
         }
 
-        .panel-layout {
+        .detail-layout {
             display: grid;
             grid-template-columns: 0.95fr 1.05fr;
-            gap: 20px;
+            gap: 22px;
+            align-items: start;
         }
 
-        .panel h3 {
+        .detail-panel h3 {
             margin: 0;
             color: var(--gulf-blue);
-            font-size: 24px;
+            font-size: 28px;
+            line-height: 1.16;
+            letter-spacing: -0.04em;
         }
 
-        .panel p {
-            margin: 8px 0 0;
-            color: #34556d;
+        .detail-panel p {
+            margin: 12px 0 0;
+            color: #385a70;
         }
 
-        .mini-metrics {
+        .insight-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
         }
 
-        .metric {
-            padding: 13px;
-            text-align: center;
-            background: var(--soft);
+        .insight {
+            min-height: 124px;
+            padding: 16px;
+            background: #f6fbfd;
             border: 1px solid var(--line);
-            border-radius: 16px;
+            border-radius: 18px;
         }
 
-        .metric strong {
+        .insight strong {
             display: block;
+            margin-bottom: 7px;
             color: var(--gulf-blue);
-            font-size: 22px;
-            line-height: 1;
+            font-size: 15px;
         }
 
-        .metric span {
-            display: block;
-            margin-top: 4px;
+        .insight span {
             color: var(--muted);
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .matrix {
-            overflow: hidden;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        caption {
-            padding: 14px 18px;
-            color: var(--muted);
-            text-align: left;
-            background: #f8fbfc;
-            border-bottom: 1px solid var(--line);
-        }
-
-        th,
-        td {
-            padding: 14px 18px;
-            text-align: left;
-            vertical-align: top;
-            border-bottom: 1px solid var(--line);
-        }
-
-        th {
-            color: #ffffff;
             font-size: 13px;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            background: var(--gulf-blue);
         }
 
-        tbody tr:last-child td {
-            border-bottom: 0;
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
         }
 
-        tbody tr:nth-child(even) td {
-            background: #fbfdfe;
+        .matrix-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 240px;
+            padding: 18px;
+            border-radius: 22px;
         }
 
-        .matrix strong {
-            display: block;
-            color: var(--gulf-blue);
-            line-height: 1.35;
-        }
-
-        .matrix small {
-            color: var(--muted);
-        }
-
-        .badge {
-            display: inline-flex;
+        .matrix-card span {
             width: fit-content;
-            margin-top: 8px;
-            padding: 4px 9px;
-            color: var(--gulf-blue);
+            margin-bottom: 15px;
+            padding: 5px 10px;
+            color: #176a3c;
             font-size: 12px;
-            font-weight: 900;
-            background: #e8f3f9;
+            font-weight: 950;
+            background: #e6f7ec;
             border-radius: 999px;
         }
 
-        .badge.green {
-            color: #17693b;
-            background: #e4f6e8;
-        }
-
-        .badge.warn {
-            color: #9a5a00;
-            background: #fff2cf;
-        }
-
-        .research-note {
-            padding: 18px;
-        }
-
-        .research-note h3 {
-            margin: 0 0 8px;
+        .matrix-card h3 {
+            margin: 0;
             color: var(--gulf-blue);
             font-size: 18px;
+            line-height: 1.24;
         }
 
-        .research-note ul {
-            margin: 0;
-            padding-left: 20px;
-            color: #34556d;
+        .matrix-card p {
+            margin: 12px 0 0;
+            color: #385a70;
         }
 
-        .research-note a {
-            color: var(--gulf-blue);
+        .matrix-card small {
+            display: block;
+            margin-top: auto;
+            padding-top: 16px;
+            color: var(--muted);
             font-weight: 800;
+        }
+
+        .pilot-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 18px;
+        }
+
+        .glass-panel {
+            padding: 24px;
+            border-radius: var(--radius-md);
+        }
+
+        .glass-panel h3 {
+            margin: 0 0 12px;
+            color: var(--gulf-blue);
+            font-size: 23px;
+            letter-spacing: -0.03em;
+        }
+
+        .steps {
+            display: grid;
+            gap: 12px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .steps li {
+            display: grid;
+            grid-template-columns: 34px 1fr;
+            gap: 12px;
+            align-items: start;
+            color: #385a70;
+        }
+
+        .steps b {
+            display: inline-grid;
+            place-items: center;
+            width: 34px;
+            height: 34px;
+            color: #ffffff;
+            background: var(--gulf-blue);
+            border-radius: 12px;
+        }
+
+        .source-note {
+            padding: 18px 20px;
+            border-radius: 20px;
+        }
+
+        .source-note h3 {
+            margin: 0 0 9px;
+            color: var(--gulf-blue);
+            font-size: 17px;
+        }
+
+        .source-note ul {
+            margin: 0;
+            padding-left: 19px;
+            color: #385a70;
+        }
+
+        .source-note a {
+            color: var(--gulf-blue);
+            font-weight: 850;
         }
 
         .footer {
@@ -493,52 +693,40 @@
             border-top: 1px solid var(--line);
         }
 
-        .print-only {
-            display: none;
-        }
-
-        @media (max-width: 920px) {
+        @media (max-width: 980px) {
             body {
                 background:
-                    radial-gradient(circle at -12% 0, var(--gulf-blue) 0 13rem, transparent 13.1rem),
-                    radial-gradient(circle at 108% 45rem, var(--gulf-green) 0 10rem, transparent 10.1rem),
+                    radial-gradient(circle at -8% -4%, #003f70 0 14rem, transparent 14.1rem),
+                    radial-gradient(circle at 106% 100%, #63bd74 0 12rem, transparent 12.1rem),
                     #ffffff;
             }
 
-            .hero,
-            .panel-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .hero {
-                min-height: auto;
-                padding-top: 36px;
-            }
-
-            .tool-card-grid,
-            .mini-metrics {
-                grid-template-columns: 1fr;
-            }
-
+            .topbar,
             .section-head {
-                display: block;
+                align-items: flex-start;
+                flex-direction: column;
             }
 
             .section-head p {
-                margin-top: 8px;
                 text-align: left;
             }
 
-            .controls {
-                border-radius: 22px;
+            .hero,
+            .detail-layout,
+            .pilot-grid {
+                grid-template-columns: 1fr;
             }
 
-            .matrix {
-                overflow-x: auto;
+            .hero-main {
+                min-height: auto;
             }
 
-            table {
-                min-width: 760px;
+            .controls,
+            .tool-grid,
+            .matrix-grid,
+            .insight-grid,
+            .quick-score {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -548,33 +736,29 @@
                 font-size: 10pt;
             }
 
-            .deck {
+            body::before,
+            body::after {
+                display: none;
+            }
+
+            .page {
                 width: 100%;
                 padding: 0;
             }
 
-            .topbar {
-                min-height: auto;
+            .hero,
+            .detail-layout,
+            .pilot-grid {
+                grid-template-columns: 1fr;
             }
 
-            .gulf-logo {
-                font-size: 22px;
-            }
-
-            .hero {
-                min-height: auto;
-                padding: 28px 0 18px;
-            }
-
-            .hero h1 {
-                font-size: 34pt;
-            }
-
-            .recommendation,
+            .hero-main,
+            .hero-side,
+            .glass-panel,
             .tool-card,
-            .panel,
-            .matrix,
-            .research-note {
+            .detail-panel,
+            .matrix-card,
+            .source-note {
                 box-shadow: none;
             }
 
@@ -582,176 +766,189 @@
                 display: none;
             }
 
-            .panel {
+            .detail-panel {
                 display: block;
                 page-break-inside: avoid;
             }
 
-            .print-only {
-                display: block;
+            h1 {
+                font-size: 40pt;
             }
         }
     </style>
 </head>
 <body>
-    <main class="deck">
-        <div class="topbar" aria-label="Gulf inspired brand header">
-            <div class="gulf-logo">
-                <svg class="leaf" viewBox="0 0 48 32" aria-hidden="true">
-                    <path d="M3 17C15 5 28 3 44 3C35 16 24 25 9 29C7 24 5 20 3 17Z" fill="#63bd74"/>
-                    <path d="M3 17C13 16 24 13 36 5C27 16 18 24 9 29C7 24 5 20 3 17Z" fill="#003f70"/>
+    <main class="page">
+        <nav class="topbar" aria-label="Report header">
+            <span class="doc-label">Project Update / Session 202 v.3</span>
+            <div class="gulf-logo" aria-label="GULF">
+                <svg viewBox="0 0 54 36" aria-hidden="true">
+                    <path d="M4 19C17 6 31 4 50 4C39 18 27 28 10 33C8 27 6 23 4 19Z" fill="#63bd74"/>
+                    <path d="M4 19C15 18 28 14 42 6C31 20 22 28 10 33C8 27 6 23 4 19Z" fill="#003f70"/>
                 </svg>
                 <span>GULF</span>
             </div>
-        </div>
+        </nav>
 
         <header class="hero">
-            <div>
-                <h1>Project Update</h1>
-                <p class="hero-subtitle">Enterprise AI Assistant Evaluation</p>
-                <p class="hero-date">SESSION 202 - V.2</p>
-            </div>
+            <section class="hero-main" aria-labelledby="hero-title">
+                <div class="hero-content">
+                    <span class="eyebrow">Enterprise AI Assistant Evaluation</span>
+                    <h1 id="hero-title">AI Tools<br>Project Update</h1>
+                    <p class="subtitle">
+                        สรุปให้ตัดสินใจง่ายขึ้นว่า Cursor, GitHub Copilot และ Claude ควรใช้กับงานประเภทใด
+                        พร้อมข้อควรทดสอบก่อน rollout ระดับองค์กร
+                    </p>
+                    <div class="meta-row" aria-label="Report focus">
+                        <span class="meta-chip">Developer workflow</span>
+                        <span class="meta-chip">Microsoft ecosystem</span>
+                        <span class="meta-chip">Governance</span>
+                    </div>
+                </div>
+            </section>
 
-            <aside class="recommendation" aria-label="Executive recommendation">
-                <span>Recommendation</span>
-                <h2>เลือกใช้แบบแบ่งบทบาท ไม่ควรเลือกตัวเดียวแทนทั้งหมด</h2>
-                <p>
-                    Cursor เหมาะกับงาน Agentic Development, GitHub Copilot เหมาะกับ Microsoft/Azure workflow,
-                    และ Claude เหมาะกับงาน Co-work + Governance ที่มีผู้ใช้หลายกลุ่ม
-                </p>
+            <aside class="hero-side">
+                <div>
+                    <span class="recommendation-label">Recommendation</span>
+                    <h2>ใช้แบบแบ่งบทบาท แทนการเลือกเครื่องมือเดียว</h2>
+                    <p>
+                        Cursor เหมาะกับงานลงมือแก้โค้ด, Copilot เหมาะกับทีมที่อยู่ใน Microsoft/GitHub workflow,
+                        ส่วน Claude เหมาะกับ Co-work และ governance
+                    </p>
+                </div>
+                <div class="quick-score" aria-label="Executive quick score">
+                    <div class="score-box"><strong>Cursor</strong><span>Build task</span></div>
+                    <div class="score-box"><strong>Copilot</strong><span>MS stack</span></div>
+                    <div class="score-box"><strong>Claude</strong><span>Co-work</span></div>
+                    <div class="score-box"><strong>Pilot</strong><span>Before rollout</span></div>
+                </div>
             </aside>
         </header>
 
-        <section class="section" aria-labelledby="story-title">
+        <section class="section" aria-labelledby="tools-title">
             <div class="section-head">
                 <div>
-                    <span class="section-kicker">01 / Executive view</span>
-                    <h2 id="story-title">อ่านแบบเร็ว: แต่ละเครื่องมือควรอยู่ตรงไหน</h2>
+                    <span class="kicker">01 / Tool fit</span>
+                    <h2 id="tools-title">เลือกดูแต่ละเครื่องมือ</h2>
                 </div>
-                <p>ลด bullet ที่ซ้ำกัน เหลือเฉพาะเหตุผลที่ช่วยตัดสินใจได้จริง</p>
+                <p>คลิกปุ่มเพื่อเปลี่ยนรายละเอียดด้านล่าง เนื้อหาถูกย่อให้เหลือเฉพาะจุดตัดสินใจ</p>
             </div>
 
-            <div class="controls" aria-label="เลือกดูรายละเอียดเครื่องมือ">
+            <div class="controls" aria-label="Tool selector">
                 <button class="tool-button is-active" type="button" data-tool="cursor">
-                    <span class="icon-shell">
-                        <img src="https://www.cursor.com/assets/images/logo.svg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-                        <span class="fallback-icon fallback-cursor">C</span>
+                    <span class="brand-icon cursor" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" role="img">
+                            <path fill="currentColor" fill-rule="evenodd" d="M22.106 5.68L12.5.135a.998.998 0 00-.998 0L1.893 5.68a.84.84 0 00-.419.726v11.186c0 .3.16.577.42.727l9.607 5.547a.999.999 0 00.998 0l9.608-5.547a.84.84 0 00.42-.727V6.407a.84.84 0 00-.42-.726zm-.603 1.176L12.228 22.92c-.063.108-.228.064-.228-.061V12.34a.59.59 0 00-.295-.51l-9.11-5.26c-.107-.062-.063-.228.062-.228h18.55c.264 0 .428.286.296.514z"/>
+                        </svg>
                     </span>
-                    Cursor
+                    <span>Cursor<small>Agentic development</small></span>
                 </button>
                 <button class="tool-button" type="button" data-tool="copilot">
-                    <span class="icon-shell">
-                        <img src="https://raw.githubusercontent.com/primer/octicons/main/icons/copilot-24.svg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-                        <span class="fallback-icon fallback-copilot">GH</span>
+                    <span class="brand-icon copilot" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" role="img">
+                            <path fill="currentColor" d="M23.922 16.992c-.861 1.495-5.859 5.023-11.922 5.023-6.063 0-11.061-3.528-11.922-5.023A.641.641 0 0 1 0 16.736v-2.869a.841.841 0 0 1 .053-.22c.372-.935 1.347-2.292 2.605-2.656.167-.429.414-1.055.644-1.517a10.195 10.195 0 0 1-.052-1.086c0-1.331.282-2.499 1.132-3.368.397-.406.89-.717 1.474-.952 1.399-1.136 3.392-2.093 6.122-2.093 2.731 0 4.767.957 6.166 2.093.584.235 1.077.546 1.474.952.85.869 1.132 2.037 1.132 3.368 0 .368-.014.733-.052 1.086.23.462.477 1.088.644 1.517 1.258.364 2.233 1.721 2.605 2.656a.832.832 0 0 1 .053.22v2.869a.641.641 0 0 1-.078.256ZM12.172 11h-.344a4.323 4.323 0 0 1-.355.508C10.703 12.455 9.555 13 7.965 13c-1.725 0-2.989-.359-3.782-1.259a2.005 2.005 0 0 1-.085-.104L4 11.741v6.585c1.435.779 4.514 2.179 8 2.179 3.486 0 6.565-1.4 8-2.179v-6.585l-.098-.104s-.033.045-.085.104c-.793.9-2.057 1.259-3.782 1.259-1.59 0-2.738-.545-3.508-1.492a4.323 4.323 0 0 1-.355-.508h-.016.016Zm.641-2.935c.136 1.057.403 1.913.878 2.497.442.544 1.134.938 2.344.938 1.573 0 2.292-.337 2.657-.751.384-.435.558-1.15.558-2.361 0-1.14-.243-1.847-.705-2.319-.477-.488-1.319-.862-2.824-1.025-1.487-.161-2.192.138-2.533.529-.269.307-.437.808-.438 1.578v.021c0 .265.021.562.063.893Zm-1.626 0c.042-.331.063-.628.063-.894v-.02c-.001-.77-.169-1.271-.438-1.578-.341-.391-1.046-.69-2.533-.529-1.505.163-2.347.537-2.824 1.025-.462.472-.705 1.179-.705 2.319 0 1.211.175 1.926.558 2.361.365.414 1.084.751 2.657.751 1.21 0 1.902-.394 2.344-.938.475-.584.742-1.44.878-2.497Z"/>
+                            <path fill="currentColor" d="M14.5 14.25a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Zm-5 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Z"/>
+                        </svg>
                     </span>
-                    GitHub Copilot
+                    <span>GitHub Copilot<small>Microsoft ecosystem</small></span>
                 </button>
                 <button class="tool-button" type="button" data-tool="claude">
-                    <span class="icon-shell">
-                        <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Claude_AI_symbol.svg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-                        <span class="fallback-icon fallback-claude">CL</span>
+                    <span class="brand-icon claude" aria-hidden="true">
+                        <svg viewBox="0 0 100 100" role="img">
+                            <path fill="currentColor" d="m19.6 66.5 19.7-11 .3-1-.3-.5h-1l-3.3-.2-11.2-.3L14 53l-9.5-.5-2.4-.5L0 49l.2-1.5 2-1.3 2.9.2 6.3.5 9.5.6 6.9.4L38 49.1h1.6l.2-.7-.5-.4-.4-.4L29 41l-10.6-7-5.6-4.1-3-2-1.5-2-.6-4.2 2.7-3 3.7.3.9.2 3.7 2.9 8 6.1L37 36l1.5 1.2.6-.4.1-.3-.7-1.1L33 25l-6-10.4-2.7-4.3-.7-2.6c-.3-1-.4-2-.4-3l3-4.2L28 0l4.2.6L33.8 2l2.6 6 4.1 9.3L47 29.9l2 3.8 1 3.4.3 1h.7v-.5l.5-7.2 1-8.7 1-11.2.3-3.2 1.6-3.8 3-2L61 2.6l2 2.9-.3 1.8-1.1 7.7L59 27.1l-1.5 8.2h.9l1-1.1 4.1-5.4 6.9-8.6 3-3.5L77 13l2.3-1.8h4.3l3.1 4.7-1.4 4.9-4.4 5.6-3.7 4.7-5.3 7.1-3.2 5.7.3.4h.7l12-2.6 6.4-1.1 7.6-1.3 3.5 1.6.4 1.6-1.4 3.4-8.2 2-9.6 2-14.3 3.3-.2.1.2.3 6.4.6 2.8.2h6.8l12.6 1 3.3 2 1.9 2.7-.3 2-5.1 2.6-6.8-1.6-16-3.8-5.4-1.3h-.8v.4l4.6 4.5 8.3 7.5L89 80.1l.5 2.4-1.3 2-1.4-.2-9.2-7-3.6-3-8-6.8h-.5v.7l1.8 2.7 9.8 14.7.5 4.5-.7 1.4-2.6 1-2.7-.6-5.8-8-6-9-4.7-8.2-.5.4-2.9 30.2-1.3 1.5-3 1.2-2.5-2-1.4-3 1.4-6.2 1.6-8 1.3-6.4 1.2-7.9.7-2.6v-.2H49L43 72l-9 12.3-7.2 7.6-1.7.7-3-1.5.3-2.8L24 86l10-12.8 6-7.9 4-4.6-.1-.5h-.3L17.2 77.4l-4.7.6-2-2 .2-3 1-1 8-5.5Z"/>
+                        </svg>
                     </span>
-                    Claude
+                    <span>Claude<small>Co-work & governance</small></span>
                 </button>
             </div>
 
-            <div class="tool-card-grid" aria-label="สรุปภาพรวมเครื่องมือ">
+            <div class="tool-grid" aria-label="Tool summary cards">
                 <article class="tool-card is-highlighted" data-card="cursor">
-                    <div class="tool-title">
-                        <span class="icon-shell">
-                            <img src="https://www.cursor.com/assets/images/logo.svg" alt="Cursor logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-                            <span class="fallback-icon fallback-cursor">C</span>
+                    <div class="tool-card-head">
+                        <span class="brand-icon cursor" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M22.106 5.68L12.5.135a.998.998 0 00-.998 0L1.893 5.68a.84.84 0 00-.419.726v11.186c0 .3.16.577.42.727l9.607 5.547a.999.999 0 00.998 0l9.608-5.547a.84.84 0 00.42-.727V6.407a.84.84 0 00-.42-.726zm-.603 1.176L12.228 22.92c-.063.108-.228.064-.228-.061V12.34a.59.59 0 00-.295-.51l-9.11-5.26c-.107-.062-.063-.228.062-.228h18.55c.264 0 .428.286.296.514z"/></svg>
                         </span>
                         <h3>Cursor</h3>
                     </div>
-                    <span class="tag">Best for: Developer Automation</span>
-                    <p>ใช้เมื่อทีมต้องการให้ AI ลงมือทำงานกับ repository ได้เป็น workflow เช่น plan, edit, test และ review</p>
-                    <ul class="simple-list">
-                        <li>แข็งแรงด้าน Agent workflow และ Cloud sandbox</li>
-                        <li>เหมาะกับ Developer / SE มากกว่า Business user</li>
+                    <span class="role">Best fit: Developer Automation</span>
+                    <p>เหมาะกับงานที่ต้องการให้ AI ลงมือแก้โค้ดจริงใน repository และทำงานวนเป็นขั้นตอนจนจบ task</p>
+                    <ul class="point-list">
+                        <li>เด่นด้าน Agent workflow, Plan Mode, Ask Mode</li>
+                        <li>ต้องทดสอบ integration กับ Azure DevOps / Microsoft extension เพิ่ม</li>
                     </ul>
                 </article>
 
                 <article class="tool-card" data-card="copilot">
-                    <div class="tool-title">
-                        <span class="icon-shell">
-                            <img src="https://raw.githubusercontent.com/primer/octicons/main/icons/copilot-24.svg" alt="GitHub Copilot icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-                            <span class="fallback-icon fallback-copilot">GH</span>
+                    <div class="tool-card-head">
+                        <span class="brand-icon copilot" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M23.922 16.992c-.861 1.495-5.859 5.023-11.922 5.023-6.063 0-11.061-3.528-11.922-5.023A.641.641 0 0 1 0 16.736v-2.869a.841.841 0 0 1 .053-.22c.372-.935 1.347-2.292 2.605-2.656.167-.429.414-1.055.644-1.517a10.195 10.195 0 0 1-.052-1.086c0-1.331.282-2.499 1.132-3.368.397-.406.89-.717 1.474-.952 1.399-1.136 3.392-2.093 6.122-2.093 2.731 0 4.767.957 6.166 2.093.584.235 1.077.546 1.474.952.85.869 1.132 2.037 1.132 3.368 0 .368-.014.733-.052 1.086.23.462.477 1.088.644 1.517 1.258.364 2.233 1.721 2.605 2.656a.832.832 0 0 1 .053.22v2.869a.641.641 0 0 1-.078.256ZM12.172 11h-.344a4.323 4.323 0 0 1-.355.508C10.703 12.455 9.555 13 7.965 13c-1.725 0-2.989-.359-3.782-1.259a2.005 2.005 0 0 1-.085-.104L4 11.741v6.585c1.435.779 4.514 2.179 8 2.179 3.486 0 6.565-1.4 8-2.179v-6.585l-.098-.104s-.033.045-.085.104c-.793.9-2.057 1.259-3.782 1.259-1.59 0-2.738-.545-3.508-1.492a4.323 4.323 0 0 1-.355-.508h-.016.016Zm.641-2.935c.136 1.057.403 1.913.878 2.497.442.544 1.134.938 2.344.938 1.573 0 2.292-.337 2.657-.751.384-.435.558-1.15.558-2.361 0-1.14-.243-1.847-.705-2.319-.477-.488-1.319-.862-2.824-1.025-1.487-.161-2.192.138-2.533.529-.269.307-.437.808-.438 1.578v.021c0 .265.021.562.063.893Zm-1.626 0c.042-.331.063-.628.063-.894v-.02c-.001-.77-.169-1.271-.438-1.578-.341-.391-1.046-.69-2.533-.529-1.505.163-2.347.537-2.824 1.025-.462.472-.705 1.179-.705 2.319 0 1.211.175 1.926.558 2.361.365.414 1.084.751 2.657.751 1.21 0 1.902-.394 2.344-.938.475-.584.742-1.44.878-2.497Z"/><path fill="currentColor" d="M14.5 14.25a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Zm-5 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Z"/></svg>
                         </span>
                         <h3>GitHub Copilot</h3>
                     </div>
-                    <span class="tag">Best for: Microsoft Ecosystem</span>
-                    <p>ใช้เมื่อ workflow หลักอยู่บน VS Code, GitHub และ Azure และต้องการลดความเสี่ยงเรื่อง official support</p>
-                    <ul class="simple-list">
-                        <li>ได้เปรียบด้าน ecosystem integration</li>
-                        <li>Sub-agent workflow ยังไม่ใช่จุดเด่นหลัก</li>
+                    <span class="role">Best fit: Microsoft stack</span>
+                    <p>เหมาะกับทีมที่ใช้ VS Code, GitHub และ Azure เป็น workflow หลัก และต้องการ official support ชัดเจน</p>
+                    <ul class="point-list">
+                        <li>เด่นด้าน ecosystem fit และ developer adoption</li>
+                        <li>ควรทดสอบงานขนาดใหญ่และ agent flow เพิ่ม</li>
                     </ul>
                 </article>
 
                 <article class="tool-card" data-card="claude">
-                    <div class="tool-title">
-                        <span class="icon-shell">
-                            <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Claude_AI_symbol.svg" alt="Claude icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-                            <span class="fallback-icon fallback-claude">CL</span>
+                    <div class="tool-card-head">
+                        <span class="brand-icon claude" aria-hidden="true">
+                            <svg viewBox="0 0 100 100"><path fill="currentColor" d="m19.6 66.5 19.7-11 .3-1-.3-.5h-1l-3.3-.2-11.2-.3L14 53l-9.5-.5-2.4-.5L0 49l.2-1.5 2-1.3 2.9.2 6.3.5 9.5.6 6.9.4L38 49.1h1.6l.2-.7-.5-.4-.4-.4L29 41l-10.6-7-5.6-4.1-3-2-1.5-2-.6-4.2 2.7-3 3.7.3.9.2 3.7 2.9 8 6.1L37 36l1.5 1.2.6-.4.1-.3-.7-1.1L33 25l-6-10.4-2.7-4.3-.7-2.6c-.3-1-.4-2-.4-3l3-4.2L28 0l4.2.6L33.8 2l2.6 6 4.1 9.3L47 29.9l2 3.8 1 3.4.3 1h.7v-.5l.5-7.2 1-8.7 1-11.2.3-3.2 1.6-3.8 3-2L61 2.6l2 2.9-.3 1.8-1.1 7.7L59 27.1l-1.5 8.2h.9l1-1.1 4.1-5.4 6.9-8.6 3-3.5L77 13l2.3-1.8h4.3l3.1 4.7-1.4 4.9-4.4 5.6-3.7 4.7-5.3 7.1-3.2 5.7.3.4h.7l12-2.6 6.4-1.1 7.6-1.3 3.5 1.6.4 1.6-1.4 3.4-8.2 2-9.6 2-14.3 3.3-.2.1.2.3 6.4.6 2.8.2h6.8l12.6 1 3.3 2 1.9 2.7-.3 2-5.1 2.6-6.8-1.6-16-3.8-5.4-1.3h-.8v.4l4.6 4.5 8.3 7.5L89 80.1l.5 2.4-1.3 2-1.4-.2-9.2-7-3.6-3-8-6.8h-.5v.7l1.8 2.7 9.8 14.7.5 4.5-.7 1.4-2.6 1-2.7-.6-5.8-8-6-9-4.7-8.2-.5.4-2.9 30.2-1.3 1.5-3 1.2-2.5-2-1.4-3 1.4-6.2 1.6-8 1.3-6.4 1.2-7.9.7-2.6v-.2H49L43 72l-9 12.3-7.2 7.6-1.7.7-3-1.5.3-2.8L24 86l10-12.8 6-7.9 4-4.6-.1-.5h-.3L17.2 77.4l-4.7.6-2-2 .2-3 1-1 8-5.5Z"/></svg>
                         </span>
                         <h3>Claude</h3>
                     </div>
-                    <span class="tag">Best for: Co-work & Governance</span>
-                    <p>ใช้เมื่อมีทั้งทีมเทคนิคและ business users ต้องแชร์ความรู้ ติดตาม usage และคุมงบประมาณ</p>
-                    <ul class="simple-list">
-                        <li>เหมาะกับ workspace และการทำงานร่วมกัน</li>
-                        <li>ควรทดสอบ stability กับงานหลายขั้นตอนเพิ่มเติม</li>
+                    <span class="role">Best fit: Co-work & Governance</span>
+                    <p>เหมาะกับงานที่ต้องแชร์ context ระหว่างทีมเทคนิคกับ business และต้องการมุมมองด้าน usage/governance</p>
+                    <ul class="point-list">
+                        <li>เด่นด้าน workspace, knowledge sharing, spend visibility</li>
+                        <li>ควรทดสอบ step-by-step task ที่ยาวและซับซ้อน</li>
                     </ul>
                 </article>
             </div>
+        </section>
 
-            <article class="panel is-active" data-panel="cursor">
-                <div class="panel-layout">
+        <section class="section" aria-label="Selected tool details">
+            <article class="detail-panel is-active" data-panel="cursor">
+                <div class="detail-layout">
                     <div>
-                        <h3>Cursor: ตัวเลือกหลักสำหรับ Agentic Development</h3>
-                        <p>
-                            จุดแข็งคือให้ AI ทำงานเป็นขั้นตอนใน repository ได้จริง เช่น วางแผน แก้โค้ด ตรวจ diff
-                            รันทดสอบ และวนแก้จนเสร็จ เหมาะกับทีมที่ต้องการเพิ่ม throughput ของงาน software delivery
-                        </p>
+                        <h3>Cursor เหมาะกับทีมที่อยากให้ AI ลงมือทำงานจริง</h3>
+                        <p>ใช้กับ task ที่มี outcome ชัด เช่น refactor, bug fix, test generation หรือ review change set เพราะ flow ของ Cursor ถูกออกแบบให้ทำงานกับ repository โดยตรง</p>
                     </div>
-                    <div class="mini-metrics" aria-label="Cursor quick scores">
-                        <div class="metric"><strong>สูง</strong><span>Automation</span></div>
-                        <div class="metric"><strong>กลาง</strong><span>Co-work</span></div>
-                        <div class="metric"><strong>ต้องดู</strong><span>Azure DevOps</span></div>
+                    <div class="insight-grid">
+                        <div class="insight"><strong>เหมาะที่สุด</strong><span>Developer task ที่วัดผลจาก diff, test และ PR ได้</span></div>
+                        <div class="insight"><strong>จุดแข็ง</strong><span>Plan Mode, Ask Mode, Sub-agent และ Cloud sandbox</span></div>
+                        <div class="insight"><strong>ต้องระวัง</strong><span>Azure DevOps native flow และ Microsoft extension compatibility</span></div>
                     </div>
                 </div>
             </article>
 
-            <article class="panel" data-panel="copilot">
-                <div class="panel-layout">
+            <article class="detail-panel" data-panel="copilot">
+                <div class="detail-layout">
                     <div>
-                        <h3>GitHub Copilot: ตัวเลือกปลอดภัยสำหรับ Microsoft stack</h3>
-                        <p>
-                            จุดแข็งคือเข้ากับ VS Code, GitHub และ Azure ได้ตรงที่สุด เหมาะกับทีมที่ให้ความสำคัญกับ
-                            official support, extension compatibility และการใช้งานใน flow เดิมของนักพัฒนา
-                        </p>
+                        <h3>GitHub Copilot เหมาะกับทีมที่อยู่ใน Microsoft ecosystem</h3>
+                        <p>เหมาะกับ adoption ที่ต้องการให้ developer ใช้งานได้ทันทีใน VS Code / GitHub และเชื่อมกับ Azure workflow โดยมี official support เป็นจุดแข็ง</p>
                     </div>
-                    <div class="mini-metrics" aria-label="GitHub Copilot quick scores">
-                        <div class="metric"><strong>สูง</strong><span>MS Integration</span></div>
-                        <div class="metric"><strong>กลาง</strong><span>Agent Flow</span></div>
-                        <div class="metric"><strong>ต้องดู</strong><span>Large Tasks</span></div>
+                    <div class="insight-grid">
+                        <div class="insight"><strong>เหมาะที่สุด</strong><span>ทีมที่ใช้ VS Code, GitHub, Azure เป็นมาตรฐานอยู่แล้ว</span></div>
+                        <div class="insight"><strong>จุดแข็ง</strong><span>Developer adoption ง่าย และลด friction ด้าน ecosystem</span></div>
+                        <div class="insight"><strong>ต้องระวัง</strong><span>งานหลายขั้นตอนหรือขนาดใหญ่ที่ต้องการ agent orchestration</span></div>
                     </div>
                 </div>
             </article>
 
-            <article class="panel" data-panel="claude">
-                <div class="panel-layout">
+            <article class="detail-panel" data-panel="claude">
+                <div class="detail-layout">
                     <div>
-                        <h3>Claude: ตัวเลือกสำหรับ Co-work และ Governance</h3>
-                        <p>
-                            จุดแข็งคือเหมาะกับการแชร์ context ระหว่างทีม technical และ business รวมถึงการดู usage,
-                            budget control และ audit trail ในภาพรวมองค์กร
-                        </p>
+                        <h3>Claude เหมาะกับ Co-work และภาพรวม governance</h3>
+                        <p>เหมาะกับ use case ที่มีหลายกลุ่มผู้ใช้ร่วมกัน เช่น business users, analyst และ developer ที่ต้องแชร์ context และควบคุม usage/budget ระดับทีม</p>
                     </div>
-                    <div class="mini-metrics" aria-label="Claude quick scores">
-                        <div class="metric"><strong>สูง</strong><span>Co-work</span></div>
-                        <div class="metric"><strong>สูง</strong><span>Governance</span></div>
-                        <div class="metric"><strong>ต้องดู</strong><span>Step Tasks</span></div>
+                    <div class="insight-grid">
+                        <div class="insight"><strong>เหมาะที่สุด</strong><span>Knowledge sharing, writing, analysis และ workspace ร่วมกัน</span></div>
+                        <div class="insight"><strong>จุดแข็ง</strong><span>Usage visibility, spend control และ governance dashboard</span></div>
+                        <div class="insight"><strong>ต้องระวัง</strong><span>Stability ของงาน step-by-step ที่ยาวและต้อง execute ต่อเนื่อง</span></div>
                     </div>
                 </div>
             </article>
@@ -760,91 +957,83 @@
         <section class="section" aria-labelledby="matrix-title">
             <div class="section-head">
                 <div>
-                    <span class="section-kicker">02 / Decision matrix</span>
-                    <h2 id="matrix-title">ตารางตัดสินใจแบบย่อ</h2>
+                    <span class="kicker">02 / Decision cards</span>
+                    <h2 id="matrix-title">สรุปการตัดสินใจแบบไม่วน</h2>
                 </div>
-                <p>อ่านจากซ้ายไปขวา: ถ้าโจทย์เป็นแบบนี้ ควรเริ่ม pilot กับเครื่องมือใด</p>
+                <p>เปลี่ยนจากตารางยาวเป็นการ์ด เพื่อให้อ่านทีละโจทย์แล้วตัดสินใจต่อได้ทันที</p>
             </div>
 
-            <div class="matrix">
-                <table>
-                    <caption>สรุปโดยตัดข้อมูลซ้ำออก และคงเฉพาะประเด็นที่ส่งผลต่อการเลือกใช้งาน</caption>
-                    <thead>
-                        <tr>
-                            <th>โจทย์หลัก</th>
-                            <th>เครื่องมือที่เหมาะสุด</th>
-                            <th>เหตุผลสั้น ๆ</th>
-                            <th>สิ่งที่ต้องทดสอบต่อ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>ให้ AI ทำงานกับโค้ดจนจบ task</strong><small>Plan, edit, test, review</small></td>
-                            <td><span class="badge green">Cursor</span></td>
-                            <td>มี Agent workflow, Plan Mode, Ask Mode และ Cloud sandbox ที่ชัดเจน</td>
-                            <td>ความเข้ากันได้กับ Azure DevOps และ Microsoft extensions</td>
-                        </tr>
-                        <tr>
-                            <td><strong>ทำงานใน Microsoft ecosystem</strong><small>VS Code, GitHub, Azure</small></td>
-                            <td><span class="badge green">GitHub Copilot</span></td>
-                            <td>เป็น path ที่ official support ชัดที่สุด และลด friction ของทีมที่ใช้ stack นี้อยู่แล้ว</td>
-                            <td>ความเสถียรเมื่อต้องทำงานขนาดใหญ่หรือหลายขั้นตอน</td>
-                        </tr>
-                        <tr>
-                            <td><strong>แชร์ความรู้กับหลายทีม</strong><small>Developer + Business users</small></td>
-                            <td><span class="badge green">Claude</span></td>
-                            <td>เหมาะกับ workspace, co-work, usage visibility และ spend control</td>
-                            <td>ความนิ่งเมื่อใช้งานแบบ step-by-step ยาว ๆ</td>
-                        </tr>
-                        <tr>
-                            <td><strong>กำกับมาตรฐานและตรวจสอบย้อนหลัง</strong><small>Rules, audit, usage</small></td>
-                            <td><span class="badge warn">Cursor + Claude</span></td>
-                            <td>Cursor ช่วยด้าน coding standard ใน repo ส่วน Claude เด่นด้าน dashboard และ governance</td>
-                            <td>นิยาม policy กลาง และสิทธิ์การเข้าถึงข้อมูลของแต่ละทีม</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="matrix-grid">
+                <article class="matrix-card">
+                    <span>Start here</span>
+                    <h3>ถ้าโจทย์คือให้ AI แก้โค้ดจนจบ task</h3>
+                    <p>เริ่ม pilot ด้วย Cursor เพราะ workflow ถูกออกแบบมาสำหรับ repository-based automation</p>
+                    <small>Measure: diff quality, test pass rate, review rounds</small>
+                </article>
+                <article class="matrix-card">
+                    <span>Safe path</span>
+                    <h3>ถ้าโจทย์คือใช้งานใน Microsoft stack</h3>
+                    <p>เริ่มด้วย GitHub Copilot เพราะเข้ากับ VS Code, GitHub และ Azure ได้ตรงที่สุด</p>
+                    <small>Measure: adoption, extension compatibility, Azure friction</small>
+                </article>
+                <article class="matrix-card">
+                    <span>Co-work</span>
+                    <h3>ถ้าโจทย์คือทำงานร่วมกับ business users</h3>
+                    <p>ใช้ Claude สำหรับสรุป วิเคราะห์ และแชร์ context ระหว่างทีม พร้อม governance view</p>
+                    <small>Measure: reuse of context, usage visibility, budget control</small>
+                </article>
+                <article class="matrix-card">
+                    <span>Hybrid</span>
+                    <h3>ถ้าโจทย์คือ rollout ระดับองค์กร</h3>
+                    <p>ใช้หลายเครื่องมือแบบมี policy กลาง แทนการบังคับใช้ตัวเดียวทุก use case</p>
+                    <small>Measure: data access, audit, team policy, cost</small>
+                </article>
             </div>
         </section>
 
-        <section class="section" aria-labelledby="next-title">
+        <section class="section" aria-labelledby="pilot-title">
             <div class="section-head">
                 <div>
-                    <span class="section-kicker">03 / Next action</span>
-                    <h2 id="next-title">ข้อเสนอแนะสำหรับ Pilot</h2>
+                    <span class="kicker">03 / Pilot plan</span>
+                    <h2 id="pilot-title">ข้อเสนอสำหรับรอบทดลอง</h2>
                 </div>
-                <p>ไม่ต้องเริ่มจากทุก use case ให้เริ่มจากงานที่วัดผลได้ชัดก่อน</p>
+                <p>เน้นวัดผลจากงานจริง แทนการดู feature list อย่างเดียว</p>
             </div>
 
-            <div class="tool-card-grid">
-                <article class="tool-card">
-                    <h3>1. Developer task pilot</h3>
-                    <p>เลือก 3-5 งานจริง เช่น bug fix, refactor, unit test generation แล้วเทียบเวลา คุณภาพ diff และจำนวนรอบแก้</p>
+            <div class="pilot-grid">
+                <article class="glass-panel">
+                    <h3>ทดลอง 3 use cases ที่วัดผลได้</h3>
+                    <ol class="steps">
+                        <li><b>1</b><span>Developer task: bug fix, refactor, unit test generation</span></li>
+                        <li><b>2</b><span>Ecosystem task: VS Code, GitHub, Azure Functions, Azure DevOps</span></li>
+                        <li><b>3</b><span>Governance task: audit log, usage report, budget alert, access control</span></li>
+                    </ol>
                 </article>
-                <article class="tool-card">
-                    <h3>2. Enterprise control pilot</h3>
-                    <p>ทดสอบ rule, audit log, usage report, budget alert และการแยกสิทธิ์ตามทีม เพื่อดูว่าเหมาะกับ governance ขององค์กรหรือไม่</p>
-                </article>
-                <article class="tool-card">
-                    <h3>3. Ecosystem fit pilot</h3>
-                    <p>ทดสอบกับ VS Code, GitHub, Azure Functions, Azure DevOps และ C# Dev Kit เพื่อดู friction ก่อน rollout จริง</p>
+                <article class="glass-panel">
+                    <h3>ผลลัพธ์ที่ควรใช้ตัดสิน</h3>
+                    <ul class="point-list">
+                        <li>คุณภาพ output และจำนวนรอบแก้</li>
+                        <li>เวลาที่ลดได้ต่อ task จริง</li>
+                        <li>ความเข้ากับ workflow และ security policy เดิม</li>
+                        <li>ค่าใช้จ่ายและการควบคุม usage ระดับทีม</li>
+                    </ul>
                 </article>
             </div>
         </section>
 
-        <section class="section" aria-labelledby="research-title">
-            <div class="research-note">
-                <h3 id="research-title">Research notes for icons and unclear points</h3>
+        <section class="section" aria-labelledby="sources-title">
+            <div class="source-note">
+                <h3 id="sources-title">Icon source notes</h3>
                 <ul>
-                    <li>Cursor: ใช้ชื่อแบรนด์ว่า <a href="https://cursor.com/brand" target="_blank" rel="noreferrer">Cursor</a> ตาม brand guideline ไม่ใช้ "Cursor AI"</li>
-                    <li>GitHub Copilot: GitHub ระบุว่าในปี 2025 ไม่ใช้ standalone Copilot logo แบบเดิมเป็น hero แล้ว และให้ใช้ <a href="https://primer.github.io/octicons/copilot-24/" target="_blank" rel="noreferrer">Copilot Octicon</a> สำหรับ icon</li>
-                    <li>Claude: อ้างอิง official media assets จาก <a href="https://www.anthropic.com/news" target="_blank" rel="noreferrer">Anthropic Newsroom</a> และใช้ Claude symbol เป็น icon</li>
+                    <li>Cursor icon: compact SVG from <a href="https://github.com/lobehub/lobe-icons" target="_blank" rel="noreferrer">LobeHub Icons</a>, referencing Cursor official site/brand assets.</li>
+                    <li>GitHub Copilot icon: official <a href="https://primer.github.io/octicons/copilot-24/" target="_blank" rel="noreferrer">Primer Octicon - copilot-24</a>.</li>
+                    <li>Claude icon: Claude symbol SVG from <a href="https://commons.wikimedia.org/wiki/File:Claude_AI_symbol.svg" target="_blank" rel="noreferrer">Wikimedia Commons</a>, sourced from Anthropic.</li>
                 </ul>
             </div>
         </section>
 
         <footer class="footer">
-            Project Update - Enterprise AI Assistant Evaluation • Session 202 v.2 • Gulf-inspired HTML report
+            GULF Project Update - Enterprise AI Assistant Evaluation • Session 202 v.3
         </footer>
     </main>
 
