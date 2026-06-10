@@ -7,7 +7,14 @@
 
 ## Public Deployment
 
-This repo deploys the static report with GitHub Pages on every push to `main`.
+This repo publishes the static report to the `gh-pages` branch on every push to `main`.
 
 - Public URL: `https://prem-chawanwit.github.io/cursor-eva/`
 - Workflow: [`.github/workflows/deploy-pages.yml`](./.github/workflows/deploy-pages.yml)
+
+If the URL is not live yet, enable GitHub Pages once:
+
+1. Go to **Settings** → **Pages**
+2. Set **Source** to **Deploy from a branch**
+3. Select branch **gh-pages** and folder **/** (root)
+4. Save, then wait for GitHub Pages to publish
