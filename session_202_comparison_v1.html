@@ -3,664 +3,873 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise AI Code Assistants Comparison - Session 202</title>
+    <title>Project Update - AI Assistant Evaluation</title>
     <style>
         @page {
             size: A4;
-            margin: 14mm 12mm;
-            background-color: #f8fafc;
+            margin: 12mm;
+            background: #ffffff;
         }
 
         :root {
-            --bg: #f8fafc;
-            --panel: #ffffff;
-            --ink: #0f172a;
-            --muted: #64748b;
-            --line: #e2e8f0;
-            --brand: #2563eb;
-            --brand-dark: #1e3a8a;
-            --brand-soft: #dbeafe;
-            --good: #15803d;
-            --good-soft: #dcfce7;
-            --watch: #b45309;
-            --watch-soft: #fef3c7;
-            --risk: #b91c1c;
-            --risk-soft: #fee2e2;
-            --shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+            --gulf-blue: #003f70;
+            --gulf-blue-2: #06598f;
+            --gulf-green: #63bd74;
+            --gulf-green-2: #2fa65a;
+            --ink: #12344d;
+            --muted: #6b7a8a;
+            --soft: #f4f8fb;
+            --line: #dce8ef;
+            --white: #ffffff;
+            --shadow: 0 18px 45px rgba(0, 63, 112, 0.12);
+            --radius: 24px;
         }
 
         * {
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             color: var(--ink);
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 10.5pt;
+            font-size: 15px;
             line-height: 1.65;
             background:
-                radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 30rem),
-                linear-gradient(180deg, #f8fbff 0%, var(--bg) 44%);
+                radial-gradient(circle at -10% 6%, var(--gulf-blue) 0 22rem, transparent 22.1rem),
+                radial-gradient(circle at 104% 42rem, var(--gulf-green) 0 14rem, transparent 14.1rem),
+                #ffffff;
         }
 
-        .page {
-            width: min(1120px, 100%);
+        button,
+        a {
+            font: inherit;
+        }
+
+        .deck {
+            width: min(1120px, calc(100% - 36px));
             margin: 0 auto;
-            padding: 28px 18px 34px;
+            padding: 34px 0 42px;
         }
 
-        .hero {
-            position: relative;
-            overflow: hidden;
-            color: #ffffff;
-            background:
-                linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(30, 58, 138, 0.92)),
-                radial-gradient(circle at 85% 15%, rgba(96, 165, 250, 0.55), transparent 18rem);
-            border-radius: 22px;
-            padding: 30px;
-            box-shadow: var(--shadow);
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            min-height: 54px;
         }
 
-        .hero::after {
-            position: absolute;
-            right: -80px;
-            bottom: -120px;
-            width: 280px;
-            height: 280px;
-            content: "";
-            border-radius: 50%;
-            background: rgba(147, 197, 253, 0.12);
-        }
-
-        .eyebrow {
+        .gulf-logo {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 14px;
-            padding: 5px 10px;
-            color: #bfdbfe;
-            font-size: 8.5pt;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 999px;
+            color: var(--gulf-blue);
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: 0.02em;
+        }
+
+        .leaf {
+            width: 28px;
+            height: 18px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 28px;
+            align-items: end;
+            min-height: 360px;
+            padding: 54px 0 32px;
         }
 
         .hero h1 {
-            position: relative;
-            z-index: 1;
-            max-width: 830px;
+            max-width: 720px;
             margin: 0;
-            font-size: clamp(22px, 3.2vw, 38px);
-            line-height: 1.22;
-            letter-spacing: -0.04em;
+            color: var(--gulf-blue);
+            font-size: clamp(38px, 6vw, 72px);
+            line-height: 1.05;
+            letter-spacing: -0.055em;
         }
 
-        .hero p {
-            position: relative;
-            z-index: 1;
-            max-width: 760px;
-            margin: 14px 0 0;
-            color: #dbeafe;
-            font-size: 11.5pt;
+        .hero-subtitle {
+            margin: 18px 0 0;
+            color: var(--gulf-blue);
+            font-size: clamp(20px, 2.4vw, 30px);
+            font-weight: 750;
         }
 
-        .hero-meta {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 22px;
+        .hero-date {
+            margin: 6px 0 0;
+            color: var(--gulf-green-2);
+            font-size: clamp(17px, 2vw, 22px);
+            font-weight: 750;
+            letter-spacing: 0.02em;
         }
 
-        .meta-pill {
-            padding: 7px 11px;
-            color: #eff6ff;
-            font-size: 9pt;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.16);
+        .recommendation {
+            padding: 22px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .recommendation span {
+            display: inline-flex;
+            margin-bottom: 10px;
+            padding: 4px 11px;
+            color: var(--gulf-blue);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: #e8f3f9;
             border-radius: 999px;
+        }
+
+        .recommendation h2 {
+            margin: 0 0 10px;
+            color: var(--gulf-blue);
+            font-size: 22px;
+            line-height: 1.25;
+        }
+
+        .recommendation p {
+            margin: 0;
+            color: #34556d;
         }
 
         .section {
-            margin-top: 24px;
+            margin-top: 30px;
         }
 
-        .section-heading {
+        .section-head {
             display: flex;
-            align-items: flex-end;
+            align-items: end;
             justify-content: space-between;
-            gap: 18px;
-            margin: 0 0 12px;
-            page-break-after: avoid;
+            gap: 22px;
+            margin-bottom: 16px;
         }
 
-        .section-heading h2 {
+        .section-kicker {
+            display: inline-flex;
+            margin-bottom: 6px;
+            color: var(--gulf-green-2);
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .section h2 {
             margin: 0;
-            color: var(--brand-dark);
-            font-size: 15pt;
-            line-height: 1.25;
-            letter-spacing: -0.02em;
+            color: var(--gulf-blue);
+            font-size: 28px;
+            line-height: 1.18;
+            letter-spacing: -0.03em;
         }
 
-        .section-heading p {
-            max-width: 520px;
+        .section-head p {
+            max-width: 420px;
             margin: 0;
             color: var(--muted);
-            font-size: 9.5pt;
             text-align: right;
         }
 
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px;
-        }
-
-        .summary-card,
-        .decision-card {
-            background: var(--panel);
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+            background: #eef6f9;
             border: 1px solid var(--line);
-            border-radius: 18px;
-            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
-        }
-
-        .summary-card {
-            padding: 18px;
-        }
-
-        .summary-card strong {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--brand-dark);
-            font-size: 12pt;
-            line-height: 1.35;
-        }
-
-        .summary-card p {
-            margin: 0;
-            color: #334155;
-        }
-
-        .tool-name {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            margin-bottom: 10px;
-            padding: 5px 9px;
-            font-size: 8.5pt;
-            font-weight: 700;
             border-radius: 999px;
         }
 
-        .tool-cursor { color: #1d4ed8; background: #dbeafe; }
-        .tool-copilot { color: #4c1d95; background: #ede9fe; }
-        .tool-claude { color: #9a3412; background: #ffedd5; }
+        .tool-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 44px;
+            padding: 8px 16px;
+            color: var(--gulf-blue);
+            font-weight: 800;
+            background: var(--white);
+            border: 1px solid transparent;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
 
-        .table-wrap {
+        .tool-button:hover,
+        .tool-button:focus-visible {
+            transform: translateY(-1px);
+            border-color: rgba(0, 63, 112, 0.25);
+            box-shadow: 0 10px 22px rgba(0, 63, 112, 0.12);
+            outline: none;
+        }
+
+        .tool-button.is-active {
+            color: #ffffff;
+            background: var(--gulf-blue);
+            border-color: var(--gulf-blue);
+        }
+
+        .icon-shell {
+            position: relative;
+            display: inline-grid;
+            place-items: center;
+            flex: 0 0 auto;
+            width: 30px;
+            height: 30px;
             overflow: hidden;
-            background: var(--panel);
+            background: #ffffff;
+            border: 1px solid rgba(0, 63, 112, 0.1);
+            border-radius: 10px;
+        }
+
+        .icon-shell img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .fallback-icon {
+            display: none;
+            place-items: center;
+            width: 100%;
+            height: 100%;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .fallback-cursor { background: #111827; }
+        .fallback-copilot { background: #24292f; }
+        .fallback-claude { background: #c15f3c; }
+
+        .tool-card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .tool-card,
+        .panel,
+        .matrix,
+        .research-note {
+            background: rgba(255, 255, 255, 0.94);
             border: 1px solid var(--line);
-            border-radius: 20px;
+            border-radius: var(--radius);
             box-shadow: var(--shadow);
+        }
+
+        .tool-card {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            padding: 20px;
+        }
+
+        .tool-card.is-highlighted {
+            outline: 3px solid rgba(99, 189, 116, 0.35);
+        }
+
+        .tool-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tool-title h3 {
+            margin: 0;
+            color: var(--gulf-blue);
+            font-size: 20px;
+        }
+
+        .tag {
+            display: inline-flex;
+            width: fit-content;
+            padding: 4px 10px;
+            color: var(--gulf-blue);
+            font-size: 12px;
+            font-weight: 800;
+            background: #e8f3f9;
+            border-radius: 999px;
+        }
+
+        .tool-card p {
+            margin: 0;
+            color: #34556d;
+        }
+
+        .simple-list {
+            display: grid;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .simple-list li {
+            position: relative;
+            padding-left: 18px;
+        }
+
+        .simple-list li::before {
+            position: absolute;
+            top: 0.66em;
+            left: 0;
+            width: 7px;
+            height: 7px;
+            content: "";
+            background: var(--gulf-green);
+            border-radius: 50%;
+        }
+
+        .panel {
+            display: none;
+            margin-top: 16px;
+            padding: 22px;
+        }
+
+        .panel.is-active {
+            display: grid;
+            gap: 18px;
+        }
+
+        .panel-layout {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 20px;
+        }
+
+        .panel h3 {
+            margin: 0;
+            color: var(--gulf-blue);
+            font-size: 24px;
+        }
+
+        .panel p {
+            margin: 8px 0 0;
+            color: #34556d;
+        }
+
+        .mini-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .metric {
+            padding: 13px;
+            text-align: center;
+            background: var(--soft);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+        }
+
+        .metric strong {
+            display: block;
+            color: var(--gulf-blue);
+            font-size: 22px;
+            line-height: 1;
+        }
+
+        .metric span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .matrix {
+            overflow: hidden;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            page-break-inside: auto;
         }
 
         caption {
             padding: 14px 18px;
             color: var(--muted);
-            font-size: 9pt;
             text-align: left;
-            background: #f8fafc;
+            background: #f8fbfc;
             border-bottom: 1px solid var(--line);
-        }
-
-        tr {
-            page-break-inside: avoid;
-            page-break-after: auto;
         }
 
         th,
         td {
-            padding: 15px 16px;
+            padding: 14px 18px;
             text-align: left;
             vertical-align: top;
             border-bottom: 1px solid var(--line);
+        }
+
+        th {
+            color: #ffffff;
+            font-size: 13px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            background: var(--gulf-blue);
         }
 
         tbody tr:last-child td {
             border-bottom: 0;
         }
 
-        th {
-            color: #e0f2fe;
-            font-size: 9pt;
-            font-weight: 800;
-            letter-spacing: 0.03em;
-            background: #0f172a;
-        }
-
-        th.criterion { width: 20%; }
-        th.cursor { width: 31%; }
-        th.copilot,
-        th.claude { width: 24.5%; }
-
         tbody tr:nth-child(even) td {
-            background: #fbfdff;
+            background: #fbfdfe;
         }
 
-        .criterion-title {
+        .matrix strong {
             display: block;
-            margin-bottom: 6px;
-            color: var(--ink);
-            font-size: 11pt;
-            font-weight: 800;
+            color: var(--gulf-blue);
             line-height: 1.35;
         }
 
-        .criterion-desc {
-            display: block;
+        .matrix small {
             color: var(--muted);
-            font-size: 9pt;
-            line-height: 1.45;
-        }
-
-        .content-stack {
-            display: grid;
-            gap: 12px;
         }
 
         .badge {
             display: inline-flex;
-            align-items: center;
-            gap: 6px;
             width: fit-content;
-            margin-bottom: 7px;
-            padding: 4px 8px;
-            font-size: 8pt;
-            font-weight: 800;
-            line-height: 1;
+            margin-top: 8px;
+            padding: 4px 9px;
+            color: var(--gulf-blue);
+            font-size: 12px;
+            font-weight: 900;
+            background: #e8f3f9;
             border-radius: 999px;
         }
 
-        .badge-pro { color: var(--good); background: var(--good-soft); }
-        .badge-con { color: var(--risk); background: var(--risk-soft); }
-        .badge-neutral { color: #475569; background: #f1f5f9; }
-        .badge-watch { color: var(--watch); background: var(--watch-soft); }
-
-        ul {
-            margin: 0;
-            padding-left: 18px;
+        .badge.green {
+            color: #17693b;
+            background: #e4f6e8;
         }
 
-        li {
-            margin-bottom: 6px;
+        .badge.warn {
+            color: #9a5a00;
+            background: #fff2cf;
         }
 
-        li:last-child {
-            margin-bottom: 0;
+        .research-note {
+            padding: 18px;
         }
 
-        b {
-            color: #0f172a;
-        }
-
-        .empty-state {
-            color: var(--muted);
-            font-style: italic;
-        }
-
-        .decision-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px;
-        }
-
-        .decision-card {
-            padding: 16px;
-        }
-
-        .decision-card h3 {
+        .research-note h3 {
             margin: 0 0 8px;
-            color: var(--brand-dark);
-            font-size: 11.5pt;
+            color: var(--gulf-blue);
+            font-size: 18px;
         }
 
-        .decision-card p {
+        .research-note ul {
             margin: 0;
-            color: #334155;
+            padding-left: 20px;
+            color: #34556d;
+        }
+
+        .research-note a {
+            color: var(--gulf-blue);
+            font-weight: 800;
         }
 
         .footer {
             margin-top: 28px;
-            padding-top: 16px;
+            padding-top: 18px;
             color: var(--muted);
-            font-size: 9pt;
+            font-size: 13px;
             text-align: center;
             border-top: 1px solid var(--line);
         }
 
-        @media (max-width: 900px) {
-            .summary-grid,
-            .decision-grid {
+        .print-only {
+            display: none;
+        }
+
+        @media (max-width: 920px) {
+            body {
+                background:
+                    radial-gradient(circle at -12% 0, var(--gulf-blue) 0 13rem, transparent 13.1rem),
+                    radial-gradient(circle at 108% 45rem, var(--gulf-green) 0 10rem, transparent 10.1rem),
+                    #ffffff;
+            }
+
+            .hero,
+            .panel-layout {
                 grid-template-columns: 1fr;
             }
 
-            .section-heading {
+            .hero {
+                min-height: auto;
+                padding-top: 36px;
+            }
+
+            .tool-card-grid,
+            .mini-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .section-head {
                 display: block;
             }
 
-            .section-heading p {
-                margin-top: 6px;
+            .section-head p {
+                margin-top: 8px;
                 text-align: left;
             }
 
-            .table-wrap {
+            .controls {
+                border-radius: 22px;
+            }
+
+            .matrix {
                 overflow-x: auto;
             }
 
             table {
-                min-width: 860px;
+                min-width: 760px;
             }
         }
 
         @media print {
             body {
-                background: var(--bg);
+                background: #ffffff;
+                font-size: 10pt;
             }
 
-            .page {
+            .deck {
                 width: 100%;
                 padding: 0;
             }
 
-            .hero,
-            .summary-card,
-            .decision-card,
-            .table-wrap {
-                box-shadow: none;
+            .topbar {
+                min-height: auto;
+            }
+
+            .gulf-logo {
+                font-size: 22px;
             }
 
             .hero {
-                border-radius: 14px;
-                padding: 24px;
+                min-height: auto;
+                padding: 28px 0 18px;
             }
 
-            .section {
-                margin-top: 18px;
+            .hero h1 {
+                font-size: 34pt;
             }
 
-            .summary-grid,
-            .decision-grid {
-                gap: 10px;
+            .recommendation,
+            .tool-card,
+            .panel,
+            .matrix,
+            .research-note {
+                box-shadow: none;
             }
 
-            th,
-            td {
-                padding: 10px 11px;
+            .controls {
+                display: none;
+            }
+
+            .panel {
+                display: block;
+                page-break-inside: avoid;
+            }
+
+            .print-only {
+                display: block;
             }
         }
     </style>
 </head>
 <body>
-    <main class="page">
-        <header class="hero">
-            <div class="eyebrow">Session 202 - v.1</div>
-            <h1>สรุปผลการเปรียบเทียบเครื่องมือ AI สำหรับองค์กร</h1>
-            <p>
-                มุมมองเชิงลึกด้าน Automation, Workflow, Multi-models, Enterprise Governance,
-                Auditability และ Ecosystem Integration เพื่อช่วยคัดเลือกเครื่องมือให้เหมาะกับบริบทองค์กร
-            </p>
-            <div class="hero-meta" aria-label="หัวข้อหลักของเอกสาร">
-                <span class="meta-pill">Enterprise Readiness</span>
-                <span class="meta-pill">Developer Workflow</span>
-                <span class="meta-pill">Governance & Audit</span>
-                <span class="meta-pill">Microsoft Ecosystem</span>
+    <main class="deck">
+        <div class="topbar" aria-label="Gulf inspired brand header">
+            <div class="gulf-logo">
+                <svg class="leaf" viewBox="0 0 48 32" aria-hidden="true">
+                    <path d="M3 17C15 5 28 3 44 3C35 16 24 25 9 29C7 24 5 20 3 17Z" fill="#63bd74"/>
+                    <path d="M3 17C13 16 24 13 36 5C27 16 18 24 9 29C7 24 5 20 3 17Z" fill="#003f70"/>
+                </svg>
+                <span>GULF</span>
             </div>
+        </div>
+
+        <header class="hero">
+            <div>
+                <h1>Project Update</h1>
+                <p class="hero-subtitle">Enterprise AI Assistant Evaluation</p>
+                <p class="hero-date">SESSION 202 - V.2</p>
+            </div>
+
+            <aside class="recommendation" aria-label="Executive recommendation">
+                <span>Recommendation</span>
+                <h2>เลือกใช้แบบแบ่งบทบาท ไม่ควรเลือกตัวเดียวแทนทั้งหมด</h2>
+                <p>
+                    Cursor เหมาะกับงาน Agentic Development, GitHub Copilot เหมาะกับ Microsoft/Azure workflow,
+                    และ Claude เหมาะกับงาน Co-work + Governance ที่มีผู้ใช้หลายกลุ่ม
+                </p>
+            </aside>
         </header>
 
-        <section class="section" aria-labelledby="summary-title">
-            <div class="section-heading">
-                <h2 id="summary-title">ข้อสรุปที่ควรเห็นก่อนอ่านตาราง</h2>
-                <p>สรุปภาพรวมแบบเร็ว เพื่อช่วยให้ผู้บริหารและทีมเทคนิคจับประเด็นหลักได้ภายในไม่กี่นาที</p>
+        <section class="section" aria-labelledby="story-title">
+            <div class="section-head">
+                <div>
+                    <span class="section-kicker">01 / Executive view</span>
+                    <h2 id="story-title">อ่านแบบเร็ว: แต่ละเครื่องมือควรอยู่ตรงไหน</h2>
+                </div>
+                <p>ลด bullet ที่ซ้ำกัน เหลือเฉพาะเหตุผลที่ช่วยตัดสินใจได้จริง</p>
             </div>
 
-            <div class="summary-grid">
-                <article class="summary-card">
-                    <span class="tool-name tool-cursor">💻 Cursor</span>
-                    <strong>โดดเด่นด้าน Automation และ Agent Workflow</strong>
-                    <p>เหมาะกับทีม Developer / SE ที่ต้องการให้ AI ช่วยทำงานกับ Repository, Sub-agent และกระบวนการพัฒนาแบบเป็นขั้นตอน</p>
+            <div class="controls" aria-label="เลือกดูรายละเอียดเครื่องมือ">
+                <button class="tool-button is-active" type="button" data-tool="cursor">
+                    <span class="icon-shell">
+                        <img src="https://www.cursor.com/assets/images/logo.svg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+                        <span class="fallback-icon fallback-cursor">C</span>
+                    </span>
+                    Cursor
+                </button>
+                <button class="tool-button" type="button" data-tool="copilot">
+                    <span class="icon-shell">
+                        <img src="https://raw.githubusercontent.com/primer/octicons/main/icons/copilot-24.svg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+                        <span class="fallback-icon fallback-copilot">GH</span>
+                    </span>
+                    GitHub Copilot
+                </button>
+                <button class="tool-button" type="button" data-tool="claude">
+                    <span class="icon-shell">
+                        <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Claude_AI_symbol.svg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+                        <span class="fallback-icon fallback-claude">CL</span>
+                    </span>
+                    Claude
+                </button>
+            </div>
+
+            <div class="tool-card-grid" aria-label="สรุปภาพรวมเครื่องมือ">
+                <article class="tool-card is-highlighted" data-card="cursor">
+                    <div class="tool-title">
+                        <span class="icon-shell">
+                            <img src="https://www.cursor.com/assets/images/logo.svg" alt="Cursor logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+                            <span class="fallback-icon fallback-cursor">C</span>
+                        </span>
+                        <h3>Cursor</h3>
+                    </div>
+                    <span class="tag">Best for: Developer Automation</span>
+                    <p>ใช้เมื่อทีมต้องการให้ AI ลงมือทำงานกับ repository ได้เป็น workflow เช่น plan, edit, test และ review</p>
+                    <ul class="simple-list">
+                        <li>แข็งแรงด้าน Agent workflow และ Cloud sandbox</li>
+                        <li>เหมาะกับ Developer / SE มากกว่า Business user</li>
+                    </ul>
                 </article>
-                <article class="summary-card">
-                    <span class="tool-name tool-copilot">🐙 GitHub Copilot</span>
-                    <strong>เหมาะกับองค์กรที่อยู่ใน Microsoft Ecosystem</strong>
-                    <p>ได้เปรียบด้าน VS Code, GitHub และ Azure integration จาก Official Support แต่ยังไม่เด่นเท่า Cursor ในงาน Sub-agent Workflow</p>
+
+                <article class="tool-card" data-card="copilot">
+                    <div class="tool-title">
+                        <span class="icon-shell">
+                            <img src="https://raw.githubusercontent.com/primer/octicons/main/icons/copilot-24.svg" alt="GitHub Copilot icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+                            <span class="fallback-icon fallback-copilot">GH</span>
+                        </span>
+                        <h3>GitHub Copilot</h3>
+                    </div>
+                    <span class="tag">Best for: Microsoft Ecosystem</span>
+                    <p>ใช้เมื่อ workflow หลักอยู่บน VS Code, GitHub และ Azure และต้องการลดความเสี่ยงเรื่อง official support</p>
+                    <ul class="simple-list">
+                        <li>ได้เปรียบด้าน ecosystem integration</li>
+                        <li>Sub-agent workflow ยังไม่ใช่จุดเด่นหลัก</li>
+                    </ul>
                 </article>
-                <article class="summary-card">
-                    <span class="tool-name tool-claude">🧠 Claude Co-Work</span>
-                    <strong>เหมาะกับ Co-work และการกำกับดูแลระดับทีม</strong>
-                    <p>จุดแข็งอยู่ที่ Workspace ร่วมกัน, Usage Analytics, Spend Alert และ Audit Log ที่ช่วยบริหารการใช้งานระดับองค์กร</p>
+
+                <article class="tool-card" data-card="claude">
+                    <div class="tool-title">
+                        <span class="icon-shell">
+                            <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Claude_AI_symbol.svg" alt="Claude icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+                            <span class="fallback-icon fallback-claude">CL</span>
+                        </span>
+                        <h3>Claude</h3>
+                    </div>
+                    <span class="tag">Best for: Co-work & Governance</span>
+                    <p>ใช้เมื่อมีทั้งทีมเทคนิคและ business users ต้องแชร์ความรู้ ติดตาม usage และคุมงบประมาณ</p>
+                    <ul class="simple-list">
+                        <li>เหมาะกับ workspace และการทำงานร่วมกัน</li>
+                        <li>ควรทดสอบ stability กับงานหลายขั้นตอนเพิ่มเติม</li>
+                    </ul>
                 </article>
             </div>
+
+            <article class="panel is-active" data-panel="cursor">
+                <div class="panel-layout">
+                    <div>
+                        <h3>Cursor: ตัวเลือกหลักสำหรับ Agentic Development</h3>
+                        <p>
+                            จุดแข็งคือให้ AI ทำงานเป็นขั้นตอนใน repository ได้จริง เช่น วางแผน แก้โค้ด ตรวจ diff
+                            รันทดสอบ และวนแก้จนเสร็จ เหมาะกับทีมที่ต้องการเพิ่ม throughput ของงาน software delivery
+                        </p>
+                    </div>
+                    <div class="mini-metrics" aria-label="Cursor quick scores">
+                        <div class="metric"><strong>สูง</strong><span>Automation</span></div>
+                        <div class="metric"><strong>กลาง</strong><span>Co-work</span></div>
+                        <div class="metric"><strong>ต้องดู</strong><span>Azure DevOps</span></div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="panel" data-panel="copilot">
+                <div class="panel-layout">
+                    <div>
+                        <h3>GitHub Copilot: ตัวเลือกปลอดภัยสำหรับ Microsoft stack</h3>
+                        <p>
+                            จุดแข็งคือเข้ากับ VS Code, GitHub และ Azure ได้ตรงที่สุด เหมาะกับทีมที่ให้ความสำคัญกับ
+                            official support, extension compatibility และการใช้งานใน flow เดิมของนักพัฒนา
+                        </p>
+                    </div>
+                    <div class="mini-metrics" aria-label="GitHub Copilot quick scores">
+                        <div class="metric"><strong>สูง</strong><span>MS Integration</span></div>
+                        <div class="metric"><strong>กลาง</strong><span>Agent Flow</span></div>
+                        <div class="metric"><strong>ต้องดู</strong><span>Large Tasks</span></div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="panel" data-panel="claude">
+                <div class="panel-layout">
+                    <div>
+                        <h3>Claude: ตัวเลือกสำหรับ Co-work และ Governance</h3>
+                        <p>
+                            จุดแข็งคือเหมาะกับการแชร์ context ระหว่างทีม technical และ business รวมถึงการดู usage,
+                            budget control และ audit trail ในภาพรวมองค์กร
+                        </p>
+                    </div>
+                    <div class="mini-metrics" aria-label="Claude quick scores">
+                        <div class="metric"><strong>สูง</strong><span>Co-work</span></div>
+                        <div class="metric"><strong>สูง</strong><span>Governance</span></div>
+                        <div class="metric"><strong>ต้องดู</strong><span>Step Tasks</span></div>
+                    </div>
+                </div>
+            </article>
         </section>
 
         <section class="section" aria-labelledby="matrix-title">
-            <div class="section-heading">
-                <h2 id="matrix-title">ตารางเปรียบเทียบคุณสมบัติ</h2>
-                <p>จัดกลุ่ม Pros, Cons และ Notes ให้เห็นสถานะของแต่ละเครื่องมือชัดเจนขึ้น</p>
+            <div class="section-head">
+                <div>
+                    <span class="section-kicker">02 / Decision matrix</span>
+                    <h2 id="matrix-title">ตารางตัดสินใจแบบย่อ</h2>
+                </div>
+                <p>อ่านจากซ้ายไปขวา: ถ้าโจทย์เป็นแบบนี้ ควรเริ่ม pilot กับเครื่องมือใด</p>
             </div>
 
-            <div class="table-wrap">
-                <table aria-describedby="matrix-title">
-                    <caption>Feature comparison matrix: Cursor Enterprise / Teams, GitHub Copilot และ Claude Co-Work</caption>
+            <div class="matrix">
+                <table>
+                    <caption>สรุปโดยตัดข้อมูลซ้ำออก และคงเฉพาะประเด็นที่ส่งผลต่อการเลือกใช้งาน</caption>
                     <thead>
                         <tr>
-                            <th class="criterion">หัวข้อการพิจารณา</th>
-                            <th class="cursor">💻 Cursor (Enterprise / Teams)</th>
-                            <th class="copilot">🐙 GitHub Copilot</th>
-                            <th class="claude">🧠 Claude Co-Work</th>
+                            <th>โจทย์หลัก</th>
+                            <th>เครื่องมือที่เหมาะสุด</th>
+                            <th>เหตุผลสั้น ๆ</th>
+                            <th>สิ่งที่ต้องทดสอบต่อ</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
-                                <span class="criterion-title">Automation & Workflow</span>
-                                <span class="criterion-desc">ความสามารถในการทำงานอัตโนมัติและจัดการ Agent Workflow</span>
-                            </td>
-                            <td>
-                                <div class="content-stack">
-                                    <div>
-                                        <span class="badge badge-pro">Pros</span>
-                                        <ul>
-                                            <li>ทำ Pipeline Automation ได้ง่าย</li>
-                                            <li>Automate Development Task ได้อย่างมีประสิทธิภาพ</li>
-                                            <li>จัดการและดูสถานะของ Sub Agent ได้ดีระหว่างสั่งงาน</li>
-                                            <li><b>Plan Mode:</b> มี Workflow ที่เข้าใจและใช้งานได้ง่าย</li>
-                                            <li><b>Ask Mode:</b> ถามผู้ใช้เมื่อ Agent ไม่มั่นใจในสิ่งที่กำลังทำ</li>
-                                            <li>มี Built-in Doc ให้ Agent นำไปใช้อ้างอิงได้</li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <span class="badge badge-con">Cons</span>
-                                        <ul>
-                                            <li>ไม่มี Mode Co-work โดยตรง เพราะเน้นผูกกับ Repository และโค้ดเป็นหลัก</li>
-                                            <li>เหมาะกับ Developer และ SE มากกว่า End User ทั่วไป</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="badge badge-neutral">Note</span>
-                                <ul>
-                                    <li>เน้นการทำงานเป็นผู้ช่วยใน Inline Code และแชทในบริบทของ Repository แต่ยังไม่เด่นด้าน Sub-agent Workflow อิสระ</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <span class="badge badge-neutral">Note</span>
-                                <ul>
-                                    <li>เน้นแชร์ความรู้และ Workspace ร่วมกันแบบ Co-work เหมาะกับทั้ง Developer และ Business Users</li>
-                                </ul>
-                            </td>
+                            <td><strong>ให้ AI ทำงานกับโค้ดจนจบ task</strong><small>Plan, edit, test, review</small></td>
+                            <td><span class="badge green">Cursor</span></td>
+                            <td>มี Agent workflow, Plan Mode, Ask Mode และ Cloud sandbox ที่ชัดเจน</td>
+                            <td>ความเข้ากันได้กับ Azure DevOps และ Microsoft extensions</td>
                         </tr>
                         <tr>
-                            <td>
-                                <span class="criterion-title">Multi-model Capabilities</span>
-                                <span class="criterion-desc">การใช้หลายโมเดลเพื่อรีวิวและหาข้อสรุปที่น่าเชื่อถือขึ้น</span>
-                            </td>
-                            <td>
-                                <span class="badge badge-pro">Pros</span>
-                                <ul>
-                                    <li><b>Multi-Model Review:</b> สั่งให้หลาย Model ช่วยกันรีวิวโค้ดพร้อมกันได้</li>
-                                    <li>มีระบบ <b>Majority Vote</b> เพื่อหาข้อสรุปที่ดีที่สุดจากหลายโมเดล</li>
-                                </ul>
-                            </td>
-                            <td><span class="empty-state">ยังไม่มีข้อมูลเด่นในประเด็นนี้</span></td>
-                            <td><span class="empty-state">ยังไม่มีข้อมูลเด่นในประเด็นนี้</span></td>
+                            <td><strong>ทำงานใน Microsoft ecosystem</strong><small>VS Code, GitHub, Azure</small></td>
+                            <td><span class="badge green">GitHub Copilot</span></td>
+                            <td>เป็น path ที่ official support ชัดที่สุด และลด friction ของทีมที่ใช้ stack นี้อยู่แล้ว</td>
+                            <td>ความเสถียรเมื่อต้องทำงานขนาดใหญ่หรือหลายขั้นตอน</td>
                         </tr>
                         <tr>
-                            <td>
-                                <span class="criterion-title">Team & Enterprise Management</span>
-                                <span class="criterion-desc">การกำหนดมาตรฐานทีม การบริหารงบ และข้อมูลการใช้งาน</span>
-                            </td>
-                            <td>
-                                <span class="badge badge-pro">Pros</span>
-                                <ul>
-                                    <li>สร้าง Rule เพื่อ Apply Coding Standard ร่วมกันภายในทีมได้</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <span class="badge badge-pro">Pros</span>
-                                <ul>
-                                    <li>สร้าง Rule เพื่อ Apply Coding Standard ภายในทีมได้เช่นกัน</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <span class="badge badge-pro">Pros</span>
-                                <ul>
-                                    <li>บริหารจัดการงบประมาณง่าย เช่น Spend Alert และ Set Limit</li>
-                                    <li>มี Dashboard ให้ข้อมูล Analytics ค่อนข้างครบถ้วน</li>
-                                    <li>ดู Usage รายบุคคลได้อย่างละเอียด</li>
-                                    <li>มี Audit Log ตรวจสอบได้ง่ายว่าใครทำอะไรกับ Repository ไหน</li>
-                                </ul>
-                            </td>
+                            <td><strong>แชร์ความรู้กับหลายทีม</strong><small>Developer + Business users</small></td>
+                            <td><span class="badge green">Claude</span></td>
+                            <td>เหมาะกับ workspace, co-work, usage visibility และ spend control</td>
+                            <td>ความนิ่งเมื่อใช้งานแบบ step-by-step ยาว ๆ</td>
                         </tr>
                         <tr>
-                            <td>
-                                <span class="criterion-title">Audit & Traceability</span>
-                                <span class="criterion-desc">ความโปร่งใสในการติดตามกิจกรรมและผลกระทบของ Agent</span>
-                            </td>
-                            <td>
-                                <span class="badge badge-pro">Pros</span>
-                                <ul>
-                                    <li>ดูข้อมูลเชิงลึกในส่วนของ Metric Agent Line of Code ได้ง่าย</li>
-                                    <li>มี Audit Log ชัดเจนว่าใครในทีมทำอะไรไปบ้าง เช่น การเพิ่ม MCP</li>
-                                </ul>
-                            </td>
-                            <td><span class="empty-state">ยังไม่มีข้อมูลเด่นในประเด็นนี้</span></td>
-                            <td><span class="empty-state">ยังไม่มีข้อมูลเด่นในประเด็นนี้</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="criterion-title">Performance & Stability</span>
-                                <span class="criterion-desc">ความเสถียรเมื่อทำงานกับ Task ขนาดใหญ่หรือหลายขั้นตอน</span>
-                            </td>
-                            <td>
-                                <span class="badge badge-pro">Pros</span>
-                                <ul>
-                                    <li><b>Native Desktop Application:</b> รองรับตัวแอปพลิเคชันบนคอมพิวเตอร์โดยตรง</li>
-                                    <li>ฟีเจอร์ระดับ Native เช่น Notification ทำงานได้เสถียรและดีกว่า</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <span class="badge badge-con">Cons</span>
-                                <ul>
-                                    <li>พบปัญหา <b>Crash บ่อยครั้ง</b> เมื่อต้องประมวลผลหรือเจอ Task ขนาดใหญ่</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <span class="badge badge-watch">Watch</span>
-                                <ul>
-                                    <li>เกิดการ Crash ได้ในบางกรณี โดยเฉพาะขั้นตอนที่มีลักษณะไล่ลำดับ Step 1, 2, 3</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="criterion-title">Microsoft Integration & Ecosystem</span>
-                                <span class="criterion-desc">ความพร้อมด้าน VS Code, GitHub, Azure และ Extension ของ Microsoft</span>
-                            </td>
-                            <td>
-                                <span class="badge badge-con">Cons</span>
-                                <ul>
-                                    <li>Extension ไม่ครบถ้วนเท่า VS Code โดยเฉพาะ Microsoft Extension</li>
-                                    <li><b>Azure Functions:</b> มีข้อจำกัดในการ Deploy Function App หรือ List Resource</li>
-                                    <li><b>C# Dev Kit:</b> มีให้ใช้แต่ไม่ใช่ Official จาก Microsoft ทำให้บางครั้ง Conflict กับ Extension ตัวอื่น</li>
-                                    <li><b>Source Control:</b> Cloud Agent ยังไม่รองรับ Azure DevOps Repository แบบ Native</li>
-                                    <li>ต้องใช้เวลา Research และ Config เพิ่มเติมหากต้องการใช้ Cloud Agents</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <span class="badge badge-pro">Pros</span>
-                                <ul>
-                                    <li>ผสานการทำงานกับ VS Code, GitHub และ Azure Ecosystem ได้สมบูรณ์ที่สุดจาก Official Support</li>
-                                </ul>
-                            </td>
-                            <td><span class="empty-state">ยังไม่มีข้อมูลเด่นในประเด็นนี้</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="criterion-title">Cloud Sandbox</span>
-                                <span class="criterion-desc">พื้นที่ทดสอบและทดลองงาน Agent บน Cloud</span>
-                            </td>
-                            <td>
-                                <span class="badge badge-pro">Pros</span>
-                                <ul>
-                                    <li>มี Cloud Sandbox ในการทดสอบระบบ</li>
-                                    <li>ควบคุมและจัดการได้ง่ายผ่านหน้า UI ของ Cursor เอง</li>
-                                </ul>
-                            </td>
-                            <td><span class="empty-state">ยังไม่มีข้อมูลเด่นในประเด็นนี้</span></td>
-                            <td><span class="empty-state">ยังไม่มีข้อมูลเด่นในประเด็นนี้</span></td>
+                            <td><strong>กำกับมาตรฐานและตรวจสอบย้อนหลัง</strong><small>Rules, audit, usage</small></td>
+                            <td><span class="badge warn">Cursor + Claude</span></td>
+                            <td>Cursor ช่วยด้าน coding standard ใน repo ส่วน Claude เด่นด้าน dashboard และ governance</td>
+                            <td>นิยาม policy กลาง และสิทธิ์การเข้าถึงข้อมูลของแต่ละทีม</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <section class="section" aria-labelledby="decision-title">
-            <div class="section-heading">
-                <h2 id="decision-title">แนวทางเลือกใช้เบื้องต้น</h2>
-                <p>ใช้เป็นกรอบตัดสินใจเร็ว ก่อนลงรายละเอียดด้านราคา Security และข้อกำหนดภายในองค์กร</p>
+        <section class="section" aria-labelledby="next-title">
+            <div class="section-head">
+                <div>
+                    <span class="section-kicker">03 / Next action</span>
+                    <h2 id="next-title">ข้อเสนอแนะสำหรับ Pilot</h2>
+                </div>
+                <p>ไม่ต้องเริ่มจากทุก use case ให้เริ่มจากงานที่วัดผลได้ชัดก่อน</p>
             </div>
 
-            <div class="decision-grid">
-                <article class="decision-card">
-                    <h3>ถ้าเน้นงาน Developer Automation</h3>
-                    <p>ให้พิจารณา Cursor เป็นตัวเลือกหลัก เพราะ Workflow, Plan Mode, Ask Mode และ Cloud Sandbox รองรับการทำงานเชิง Agent ได้ชัดเจน</p>
+            <div class="tool-card-grid">
+                <article class="tool-card">
+                    <h3>1. Developer task pilot</h3>
+                    <p>เลือก 3-5 งานจริง เช่น bug fix, refactor, unit test generation แล้วเทียบเวลา คุณภาพ diff และจำนวนรอบแก้</p>
                 </article>
-                <article class="decision-card">
-                    <h3>ถ้าเน้น Microsoft / Azure Ecosystem</h3>
-                    <p>GitHub Copilot เหมาะกว่าในด้าน Official Integration กับ VS Code, GitHub และ Azure โดยลดความเสี่ยงจาก Extension Compatibility</p>
+                <article class="tool-card">
+                    <h3>2. Enterprise control pilot</h3>
+                    <p>ทดสอบ rule, audit log, usage report, budget alert และการแยกสิทธิ์ตามทีม เพื่อดูว่าเหมาะกับ governance ขององค์กรหรือไม่</p>
                 </article>
-                <article class="decision-card">
-                    <h3>ถ้าเน้น Co-work และ Governance</h3>
-                    <p>Claude Co-Work เหมาะกับบริบทที่มีทั้งทีมเทคนิคและ Business Users รวมถึงต้องการ Dashboard, Usage Tracking และ Spend Control</p>
+                <article class="tool-card">
+                    <h3>3. Ecosystem fit pilot</h3>
+                    <p>ทดสอบกับ VS Code, GitHub, Azure Functions, Azure DevOps และ C# Dev Kit เพื่อดู friction ก่อน rollout จริง</p>
                 </article>
             </div>
         </section>
 
+        <section class="section" aria-labelledby="research-title">
+            <div class="research-note">
+                <h3 id="research-title">Research notes for icons and unclear points</h3>
+                <ul>
+                    <li>Cursor: ใช้ชื่อแบรนด์ว่า <a href="https://cursor.com/brand" target="_blank" rel="noreferrer">Cursor</a> ตาม brand guideline ไม่ใช้ "Cursor AI"</li>
+                    <li>GitHub Copilot: GitHub ระบุว่าในปี 2025 ไม่ใช้ standalone Copilot logo แบบเดิมเป็น hero แล้ว และให้ใช้ <a href="https://primer.github.io/octicons/copilot-24/" target="_blank" rel="noreferrer">Copilot Octicon</a> สำหรับ icon</li>
+                    <li>Claude: อ้างอิง official media assets จาก <a href="https://www.anthropic.com/news" target="_blank" rel="noreferrer">Anthropic Newsroom</a> และใช้ Claude symbol เป็น icon</li>
+                </ul>
+            </div>
+        </section>
+
         <footer class="footer">
-            เอกสารสรุปผล Session 202 (v.1) • จัดทำเพื่อการพิจารณาในระดับ Enterprise
+            Project Update - Enterprise AI Assistant Evaluation • Session 202 v.2 • Gulf-inspired HTML report
         </footer>
     </main>
+
+    <script>
+        const buttons = document.querySelectorAll(".tool-button");
+        const panels = document.querySelectorAll("[data-panel]");
+        const cards = document.querySelectorAll("[data-card]");
+
+        function selectTool(tool) {
+            buttons.forEach((button) => {
+                button.classList.toggle("is-active", button.dataset.tool === tool);
+            });
+
+            panels.forEach((panel) => {
+                panel.classList.toggle("is-active", panel.dataset.panel === tool);
+            });
+
+            cards.forEach((card) => {
+                card.classList.toggle("is-highlighted", card.dataset.card === tool);
+            });
+        }
+
+        buttons.forEach((button) => {
+            button.addEventListener("click", () => selectTool(button.dataset.tool));
+        });
+    </script>
 </body>
 </html>
