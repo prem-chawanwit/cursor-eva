@@ -2,291 +2,665 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enterprise AI Code Assistants Comparison - Session 202</title>
     <style>
         @page {
             size: A4;
-            margin: 15mm 12mm;
+            margin: 14mm 12mm;
             background-color: #f8fafc;
         }
+
+        :root {
+            --bg: #f8fafc;
+            --panel: #ffffff;
+            --ink: #0f172a;
+            --muted: #64748b;
+            --line: #e2e8f0;
+            --brand: #2563eb;
+            --brand-dark: #1e3a8a;
+            --brand-soft: #dbeafe;
+            --good: #15803d;
+            --good-soft: #dcfce7;
+            --watch: #b45309;
+            --watch-soft: #fef3c7;
+            --risk: #b91c1c;
+            --risk-soft: #fee2e2;
+            --shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+        }
+
         * {
             box-sizing: border-box;
         }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #1e293b;
             margin: 0;
-            padding: 0;
+            color: var(--ink);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
             font-size: 10.5pt;
-            line-height: 1.5;
-            background-color: #f8fafc;
+            line-height: 1.65;
+            background:
+                radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 30rem),
+                linear-gradient(180deg, #f8fbff 0%, var(--bg) 44%);
         }
-        .header {
-            background: linear-gradient(135deg, #1e3a8a, #0f172a);
+
+        .page {
+            width: min(1120px, 100%);
+            margin: 0 auto;
+            padding: 28px 18px 34px;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
             color: #ffffff;
-            padding: 24px 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            background:
+                linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(30, 58, 138, 0.92)),
+                radial-gradient(circle at 85% 15%, rgba(96, 165, 250, 0.55), transparent 18rem);
+            border-radius: 22px;
+            padding: 30px;
+            box-shadow: var(--shadow);
         }
-        .header h1 {
-            margin: 0 0 8px 0;
-            font-size: 18pt;
+
+        .hero::after {
+            position: absolute;
+            right: -80px;
+            bottom: -120px;
+            width: 280px;
+            height: 280px;
+            content: "";
+            border-radius: 50%;
+            background: rgba(147, 197, 253, 0.12);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            padding: 5px 10px;
+            color: #bfdbfe;
+            font-size: 8.5pt;
             font-weight: 700;
-            letter-spacing: -0.5px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 999px;
         }
-        .header p {
+
+        .hero h1 {
+            position: relative;
+            z-index: 1;
+            max-width: 830px;
             margin: 0;
-            font-size: 11pt;
-            color: #93c5fd;
+            font-size: clamp(22px, 3.2vw, 38px);
+            line-height: 1.22;
+            letter-spacing: -0.04em;
         }
-        .section-title {
-            font-size: 13pt;
-            color: #1e3a8a;
-            border-left: 4px solid #3b82f6;
-            padding-left: 10px;
-            margin-top: 25px;
-            margin-bottom: 12px;
-            font-weight: 600;
+
+        .hero p {
+            position: relative;
+            z-index: 1;
+            max-width: 760px;
+            margin: 14px 0 0;
+            color: #dbeafe;
+            font-size: 11.5pt;
+        }
+
+        .hero-meta {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .meta-pill {
+            padding: 7px 11px;
+            color: #eff6ff;
+            font-size: 9pt;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 999px;
+        }
+
+        .section {
+            margin-top: 24px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 18px;
+            margin: 0 0 12px;
             page-break-after: avoid;
         }
+
+        .section-heading h2 {
+            margin: 0;
+            color: var(--brand-dark);
+            font-size: 15pt;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+        }
+
+        .section-heading p {
+            max-width: 520px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 9.5pt;
+            text-align: right;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .summary-card,
+        .decision-card {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+        }
+
+        .summary-card {
+            padding: 18px;
+        }
+
+        .summary-card strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--brand-dark);
+            font-size: 12pt;
+            line-height: 1.35;
+        }
+
+        .summary-card p {
+            margin: 0;
+            color: #334155;
+        }
+
+        .tool-name {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 10px;
+            padding: 5px 9px;
+            font-size: 8.5pt;
+            font-weight: 700;
+            border-radius: 999px;
+        }
+
+        .tool-cursor { color: #1d4ed8; background: #dbeafe; }
+        .tool-copilot { color: #4c1d95; background: #ede9fe; }
+        .tool-claude { color: #9a3412; background: #ffedd5; }
+
+        .table-wrap {
+            overflow: hidden;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
-            background: #ffffff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             page-break-inside: auto;
         }
+
+        caption {
+            padding: 14px 18px;
+            color: var(--muted);
+            font-size: 9pt;
+            text-align: left;
+            background: #f8fafc;
+            border-bottom: 1px solid var(--line);
+        }
+
         tr {
             page-break-inside: avoid;
             page-break-after: auto;
         }
-        th, td {
-            padding: 10px 14px;
+
+        th,
+        td {
+            padding: 15px 16px;
             text-align: left;
             vertical-align: top;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid var(--line);
         }
+
+        tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
         th {
-            background-color: #0f172a;
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 10pt;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: #e0f2fe;
+            font-size: 9pt;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            background: #0f172a;
         }
-        th.criterion { width: 22%; }
-        th.cursor { width: 30%; }
-        th.copilot { width: 24%; }
-        th.claude { width: 24%; }
-        
+
+        th.criterion { width: 20%; }
+        th.cursor { width: 31%; }
+        th.copilot,
+        th.claude { width: 24.5%; }
+
+        tbody tr:nth-child(even) td {
+            background: #fbfdff;
+        }
+
+        .criterion-title {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--ink);
+            font-size: 11pt;
+            font-weight: 800;
+            line-height: 1.35;
+        }
+
+        .criterion-desc {
+            display: block;
+            color: var(--muted);
+            font-size: 9pt;
+            line-height: 1.45;
+        }
+
+        .content-stack {
+            display: grid;
+            gap: 12px;
+        }
+
         .badge {
-            display: inline-block;
-            padding: 2px 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            width: fit-content;
+            margin-bottom: 7px;
+            padding: 4px 8px;
             font-size: 8pt;
-            font-weight: 600;
-            border-radius: 4px;
-            margin-bottom: 5px;
+            font-weight: 800;
+            line-height: 1;
+            border-radius: 999px;
         }
-        .badge-pro { background-color: #dcfce7; color: #166534; }
-        .badge-con { background-color: #fee2e2; color: #991b1b; }
-        .badge-neutral { background-color: #f1f5f9; color: #334155; }
-        
+
+        .badge-pro { color: var(--good); background: var(--good-soft); }
+        .badge-con { color: var(--risk); background: var(--risk-soft); }
+        .badge-neutral { color: #475569; background: #f1f5f9; }
+        .badge-watch { color: var(--watch); background: var(--watch-soft); }
+
         ul {
             margin: 0;
             padding-left: 18px;
         }
+
         li {
             margin-bottom: 6px;
         }
-        .highlight {
-            font-weight: 600;
+
+        li:last-child {
+            margin-bottom: 0;
+        }
+
+        b {
             color: #0f172a;
         }
+
+        .empty-state {
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .decision-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .decision-card {
+            padding: 16px;
+        }
+
+        .decision-card h3 {
+            margin: 0 0 8px;
+            color: var(--brand-dark);
+            font-size: 11.5pt;
+        }
+
+        .decision-card p {
+            margin: 0;
+            color: #334155;
+        }
+
         .footer {
-            margin-top: 30px;
+            margin-top: 28px;
+            padding-top: 16px;
+            color: var(--muted);
             font-size: 9pt;
-            color: #64748b;
             text-align: center;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 15px;
+            border-top: 1px solid var(--line);
+        }
+
+        @media (max-width: 900px) {
+            .summary-grid,
+            .decision-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading {
+                display: block;
+            }
+
+            .section-heading p {
+                margin-top: 6px;
+                text-align: left;
+            }
+
+            .table-wrap {
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 860px;
+            }
+        }
+
+        @media print {
+            body {
+                background: var(--bg);
+            }
+
+            .page {
+                width: 100%;
+                padding: 0;
+            }
+
+            .hero,
+            .summary-card,
+            .decision-card,
+            .table-wrap {
+                box-shadow: none;
+            }
+
+            .hero {
+                border-radius: 14px;
+                padding: 24px;
+            }
+
+            .section {
+                margin-top: 18px;
+            }
+
+            .summary-grid,
+            .decision-grid {
+                gap: 10px;
+            }
+
+            th,
+            td {
+                padding: 10px 11px;
+            }
         }
     </style>
 </head>
 <body>
+    <main class="page">
+        <header class="hero">
+            <div class="eyebrow">Session 202 - v.1</div>
+            <h1>สรุปผลการเปรียบเทียบเครื่องมือ AI สำหรับองค์กร</h1>
+            <p>
+                มุมมองเชิงลึกด้าน Automation, Workflow, Multi-models, Enterprise Governance,
+                Auditability และ Ecosystem Integration เพื่อช่วยคัดเลือกเครื่องมือให้เหมาะกับบริบทองค์กร
+            </p>
+            <div class="hero-meta" aria-label="หัวข้อหลักของเอกสาร">
+                <span class="meta-pill">Enterprise Readiness</span>
+                <span class="meta-pill">Developer Workflow</span>
+                <span class="meta-pill">Governance & Audit</span>
+                <span class="meta-pill">Microsoft Ecosystem</span>
+            </div>
+        </header>
 
-    <div class="header">
-        <h1>สรุปผลการเปรียบเทียบเครื่องมือ AI สำหรับองค์กร (Session 202 - v.1)</h1>
-        <p>มุมมองเชิงลึกด้าน Automation, Workflow, Multi-models, Enterprise Governance และ Ecosystem Integration</p>
-    </div>
+        <section class="section" aria-labelledby="summary-title">
+            <div class="section-heading">
+                <h2 id="summary-title">ข้อสรุปที่ควรเห็นก่อนอ่านตาราง</h2>
+                <p>สรุปภาพรวมแบบเร็ว เพื่อช่วยให้ผู้บริหารและทีมเทคนิคจับประเด็นหลักได้ภายในไม่กี่นาที</p>
+            </div>
 
-    <div class="section-title">ตารางเปรียบเทียบคุณสมบัติ (Feature Comparison Matrix)</div>
-    <table>
-        <thead>
-            <tr>
-                <th class="criterion">หัวข้อการพิจารณา</th>
-                <th class="cursor">💻 Cursor (Enterprise / Teams)</th>
-                <th class="copilot">🐙 GitHub Copilot</th>
-                <th class="claude">🧠 Claude Co-Work</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="highlight">Automation & Workflow</td>
-                <td>
-                    <span class="badge badge-pro">Pros</span>
-                    <ul>
-                        <li>ทำ Pipeline Automation ได้ง่าย</li>
-                        <li>Automate Development Task ได้อย่างมีประสิทธิภาพ</li>
-                        <li>จัดการและดูสถานะของ Sub Agent ได้ดีระหว่างสั่งงาน</li>
-                        <li><b>Plan Mode:</b> มี Workflow ที่เข้าใจและใช้งานได้ง่าย</li>
-                        <li><b>Ask Mode:</b> มีระบบถามผู้ใช้เมื่อ Agent ไม่มั่นใจในสิ่งที่กำลังทำ</li>
-                        <li>มี Built-in Doc ให้ Agent นำไปใช้อ้างอิง (Reference)</li>
-                    </ul>
-                    <span class="badge badge-con">Cons</span>
-                    <ul>
-                        <li>ไม่มี Mode Co-work (เน้นผูกกับ Repository และโค้ดเป็นหลัก)</li>
-                        <li>เหมาะกับ Developer & SE มากกว่า End User ทั่วไป</li>
-                    </ul>
-                </td>
-                <td>
-                    <span class="badge badge-neutral">Note</span>
-                    <ul>
-                        <li>เน้นการทำงานเป็นผู้ช่วยใน Inline Code และแชทในบริบทของ Repository แต่ยังไม่เด่นด้าน Sub-agent workflow อิสระ</li>
-                    </ul>
-                </td>
-                <td>
-                    <span class="badge badge-neutral">Note</span>
-                    <ul>
-                        <li>เน้นแชร์ความรู้และ Workspace ร่วมกัน (Co-work) เหมาะกับทั้ง Developer และ Business Users</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td class="highlight">Multi-models Capabilities</td>
-                <td>
-                    <span class="badge badge-pro">Pros</span>
-                    <ul>
-                        <li><b>Multi-Model Review:</b> สามารถสั่งให้ Model หลายตัวช่วยกันรีวิวโค้ดพร้อมกันได้</li>
-                        <li>มีระบบทำ <b>Majority Vote</b> เพื่อหาข้อสรุปที่ดีที่สุดจากหลายโมเดล</li>
-                    </ul>
-                </td>
-                <td>
-                    <span class="badge badge-neutral">-</span>
-                </td>
-                <td>
-                    <span class="badge badge-neutral">-</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="highlight">Team & Enterprise Management</td>
-                <td>
-                    <span class="badge badge-pro">Pros</span>
-                    <ul>
-                        <li>สามารถสร้าง Rule สำหรับ Apply Coding Standard ร่วมกันภายในทีมได้</li>
-                    </ul>
-                </td>
-                <td>
-                    <span class="badge badge-pro">Pros</span>
-                    <ul>
-                        <li>สามารถสร้าง Rule สำหรับ Apply Coding Standard ภายในทีมได้เช่นกัน</li>
-                    </ul>
-                </td>
-                <td>
-                    <span class="badge badge-pro">Pros</span>
-                    <ul>
-                        <li>บริหารจัดการงบประมาณง่าย (ตั้ง Spend Alert และ Set Limit ได้สะดวก)</li>
-                        <li>มี Dashboard ให้ข้อมูล Analytics ที่ค่อนข้างครบถ้วน</li>
-                        <li>ดู Usage รายบุคคลได้อย่างละเอียด</li>
-                        <li>มี Audit Log ตรวจสอบได้ง่ายว่าใครทำอะไรกับ Repository ไหน</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td class="highlight">Audit & Traceability</td>
-                <td>
-                    <span class="badge badge-pro">Pros</span>
-                    <ul>
-                        <li>ดูข้อมูลเชิงลึกได้ง่ายในส่วนของ Metric Agent Line of Code</li>
-                        <li>มี Audit Log ชัดเจนว่าใครในทีมทำอะไรไปบ้าง (เช่น การเพิ่ม MCP)</li>
-                    </ul>
-                </td>
-                <td>
-                    <span class="badge badge-neutral">-</span>
-                </td>
-                <td>
-                    <span class="badge badge-neutral">-</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="highlight">Performance & Stability</td>
-                <td>
-                    <span class="badge badge-pro">Pros</span>
-                    <ul>
-                        <li><b>Native Desktop Application:</b> รองรับตัวแอปพลิเคชันบนคอมพิวเตอร์โดยตรง</li>
-                        <li>ฟีเจอร์ระดับ Native เช่น การแจ้งเตือน (Notification) ทำงานได้เสถียรและดีกว่า</li>
-                    </ul>
-                </td>
-                <td>
-                    <span class="badge badge-con">Cons</span>
-                    <ul>
-                        <li>พบปัญหา <b>Crash บ่อยครั้ง</b> เมื่อต้องประมวลผลหรือเจอ Task ขนาดใหญ่</li>
-                    </ul>
-                </td>
-                <td>
-                    <span class="badge badge-con">Cons</span>
-                    <ul>
-                        <li>เกิดการ Crash ได้ในบางกรณี โดยเฉพาะขั้นตอนที่มีลักษณะไล่ลำดับ Step 1, 2, 3</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td class="highlight">Microsoft Integrations & Ecosystem</td>
-                <td>
-                    <span class="badge badge-con">Cons</span>
-                    <ul>
-                        <li>Extension ไม่ครบถ้วนเท่า VS Code (โดยเฉพาะ Microsoft Extension)</li>
-                        <li><b>Azure Functions:</b> มีข้อจำกัดในการใช้ Deploy Function App หรือ List Resource</li>
-                        <li><b>C# Dev Kit:</b> มีให้ใช้แต่ไม่ใช่ Official จาก Microsoft ทำให้บางครั้งเกิด Conflict กับ Extension ตัวอื่น</li>
-                        <li><b>Source Control:</b> Cloud Agent ยังไม่รองรับ Azure DevOps Repository แบบ Native (อยู่ในช่วง Explore เพิ่มเติม)</li>
-                        <li>ต้องใช้เวลาในการ Research และ Config เพิ่มเติมหากต้องการใช้ฟีเจอร์ Cloud Agents</li>
-                    </ul>
-                </td>
-                <td>
-                    <span class="badge badge-pro">Pros</span>
-                    <ul>
-                        <li>ผสานการทำงานกับ VS Code, GitHub และ Azure Ecosystem ได้สมบูรณ์แบบที่สุด (Official Support)</li>
-                    </ul>
-                </td>
-                <td>
-                    <span class="badge badge-neutral">-</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="highlight">Cloud Sandbox</td>
-                <td>
-                    <span class="badge badge-pro">Pros</span>
-                    <ul>
-                        <li>มี Cloud Sandbox ในการทดสอบระบบ</li>
-                        <li>สามารถควบคุมและจัดการได้ง่ายผ่านหน้า UI ของ Cursor เอง</li>
-                    </ul>
-                </td>
-                <td>
-                    <span class="badge badge-neutral">-</span>
-                </td>
-                <td>
-                    <span class="badge badge-neutral">-</span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+            <div class="summary-grid">
+                <article class="summary-card">
+                    <span class="tool-name tool-cursor">💻 Cursor</span>
+                    <strong>โดดเด่นด้าน Automation และ Agent Workflow</strong>
+                    <p>เหมาะกับทีม Developer / SE ที่ต้องการให้ AI ช่วยทำงานกับ Repository, Sub-agent และกระบวนการพัฒนาแบบเป็นขั้นตอน</p>
+                </article>
+                <article class="summary-card">
+                    <span class="tool-name tool-copilot">🐙 GitHub Copilot</span>
+                    <strong>เหมาะกับองค์กรที่อยู่ใน Microsoft Ecosystem</strong>
+                    <p>ได้เปรียบด้าน VS Code, GitHub และ Azure integration จาก Official Support แต่ยังไม่เด่นเท่า Cursor ในงาน Sub-agent Workflow</p>
+                </article>
+                <article class="summary-card">
+                    <span class="tool-name tool-claude">🧠 Claude Co-Work</span>
+                    <strong>เหมาะกับ Co-work และการกำกับดูแลระดับทีม</strong>
+                    <p>จุดแข็งอยู่ที่ Workspace ร่วมกัน, Usage Analytics, Spend Alert และ Audit Log ที่ช่วยบริหารการใช้งานระดับองค์กร</p>
+                </article>
+            </div>
+        </section>
 
-    <div class="footer">
-        เอกสารสรุปผล Session 202 (v.1) • จัดทำเพื่อการพิจารณาในระดับ Enterprise
-    </div>
+        <section class="section" aria-labelledby="matrix-title">
+            <div class="section-heading">
+                <h2 id="matrix-title">ตารางเปรียบเทียบคุณสมบัติ</h2>
+                <p>จัดกลุ่ม Pros, Cons และ Notes ให้เห็นสถานะของแต่ละเครื่องมือชัดเจนขึ้น</p>
+            </div>
 
+            <div class="table-wrap">
+                <table aria-describedby="matrix-title">
+                    <caption>Feature comparison matrix: Cursor Enterprise / Teams, GitHub Copilot และ Claude Co-Work</caption>
+                    <thead>
+                        <tr>
+                            <th class="criterion">หัวข้อการพิจารณา</th>
+                            <th class="cursor">💻 Cursor (Enterprise / Teams)</th>
+                            <th class="copilot">🐙 GitHub Copilot</th>
+                            <th class="claude">🧠 Claude Co-Work</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <span class="criterion-title">Automation & Workflow</span>
+                                <span class="criterion-desc">ความสามารถในการทำงานอัตโนมัติและจัดการ Agent Workflow</span>
+                            </td>
+                            <td>
+                                <div class="content-stack">
+                                    <div>
+                                        <span class="badge badge-pro">Pros</span>
+                                        <ul>
+                                            <li>ทำ Pipeline Automation ได้ง่าย</li>
+                                            <li>Automate Development Task ได้อย่างมีประสิทธิภาพ</li>
+                                            <li>จัดการและดูสถานะของ Sub Agent ได้ดีระหว่างสั่งงาน</li>
+                                            <li><b>Plan Mode:</b> มี Workflow ที่เข้าใจและใช้งานได้ง่าย</li>
+                                            <li><b>Ask Mode:</b> ถามผู้ใช้เมื่อ Agent ไม่มั่นใจในสิ่งที่กำลังทำ</li>
+                                            <li>มี Built-in Doc ให้ Agent นำไปใช้อ้างอิงได้</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <span class="badge badge-con">Cons</span>
+                                        <ul>
+                                            <li>ไม่มี Mode Co-work โดยตรง เพราะเน้นผูกกับ Repository และโค้ดเป็นหลัก</li>
+                                            <li>เหมาะกับ Developer และ SE มากกว่า End User ทั่วไป</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge badge-neutral">Note</span>
+                                <ul>
+                                    <li>เน้นการทำงานเป็นผู้ช่วยใน Inline Code และแชทในบริบทของ Repository แต่ยังไม่เด่นด้าน Sub-agent Workflow อิสระ</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <span class="badge badge-neutral">Note</span>
+                                <ul>
+                                    <li>เน้นแชร์ความรู้และ Workspace ร่วมกันแบบ Co-work เหมาะกับทั้ง Developer และ Business Users</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="criterion-title">Multi-model Capabilities</span>
+                                <span class="criterion-desc">การใช้หลายโมเดลเพื่อรีวิวและหาข้อสรุปที่น่าเชื่อถือขึ้น</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-pro">Pros</span>
+                                <ul>
+                                    <li><b>Multi-Model Review:</b> สั่งให้หลาย Model ช่วยกันรีวิวโค้ดพร้อมกันได้</li>
+                                    <li>มีระบบ <b>Majority Vote</b> เพื่อหาข้อสรุปที่ดีที่สุดจากหลายโมเดล</li>
+                                </ul>
+                            </td>
+                            <td><span class="empty-state">ยังไม่มีข้อมูลเด่นในประเด็นนี้</span></td>
+                            <td><span class="empty-state">ยังไม่มีข้อมูลเด่นในประเด็นนี้</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="criterion-title">Team & Enterprise Management</span>
+                                <span class="criterion-desc">การกำหนดมาตรฐานทีม การบริหารงบ และข้อมูลการใช้งาน</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-pro">Pros</span>
+                                <ul>
+                                    <li>สร้าง Rule เพื่อ Apply Coding Standard ร่วมกันภายในทีมได้</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <span class="badge badge-pro">Pros</span>
+                                <ul>
+                                    <li>สร้าง Rule เพื่อ Apply Coding Standard ภายในทีมได้เช่นกัน</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <span class="badge badge-pro">Pros</span>
+                                <ul>
+                                    <li>บริหารจัดการงบประมาณง่าย เช่น Spend Alert และ Set Limit</li>
+                                    <li>มี Dashboard ให้ข้อมูล Analytics ค่อนข้างครบถ้วน</li>
+                                    <li>ดู Usage รายบุคคลได้อย่างละเอียด</li>
+                                    <li>มี Audit Log ตรวจสอบได้ง่ายว่าใครทำอะไรกับ Repository ไหน</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="criterion-title">Audit & Traceability</span>
+                                <span class="criterion-desc">ความโปร่งใสในการติดตามกิจกรรมและผลกระทบของ Agent</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-pro">Pros</span>
+                                <ul>
+                                    <li>ดูข้อมูลเชิงลึกในส่วนของ Metric Agent Line of Code ได้ง่าย</li>
+                                    <li>มี Audit Log ชัดเจนว่าใครในทีมทำอะไรไปบ้าง เช่น การเพิ่ม MCP</li>
+                                </ul>
+                            </td>
+                            <td><span class="empty-state">ยังไม่มีข้อมูลเด่นในประเด็นนี้</span></td>
+                            <td><span class="empty-state">ยังไม่มีข้อมูลเด่นในประเด็นนี้</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="criterion-title">Performance & Stability</span>
+                                <span class="criterion-desc">ความเสถียรเมื่อทำงานกับ Task ขนาดใหญ่หรือหลายขั้นตอน</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-pro">Pros</span>
+                                <ul>
+                                    <li><b>Native Desktop Application:</b> รองรับตัวแอปพลิเคชันบนคอมพิวเตอร์โดยตรง</li>
+                                    <li>ฟีเจอร์ระดับ Native เช่น Notification ทำงานได้เสถียรและดีกว่า</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <span class="badge badge-con">Cons</span>
+                                <ul>
+                                    <li>พบปัญหา <b>Crash บ่อยครั้ง</b> เมื่อต้องประมวลผลหรือเจอ Task ขนาดใหญ่</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <span class="badge badge-watch">Watch</span>
+                                <ul>
+                                    <li>เกิดการ Crash ได้ในบางกรณี โดยเฉพาะขั้นตอนที่มีลักษณะไล่ลำดับ Step 1, 2, 3</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="criterion-title">Microsoft Integration & Ecosystem</span>
+                                <span class="criterion-desc">ความพร้อมด้าน VS Code, GitHub, Azure และ Extension ของ Microsoft</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-con">Cons</span>
+                                <ul>
+                                    <li>Extension ไม่ครบถ้วนเท่า VS Code โดยเฉพาะ Microsoft Extension</li>
+                                    <li><b>Azure Functions:</b> มีข้อจำกัดในการ Deploy Function App หรือ List Resource</li>
+                                    <li><b>C# Dev Kit:</b> มีให้ใช้แต่ไม่ใช่ Official จาก Microsoft ทำให้บางครั้ง Conflict กับ Extension ตัวอื่น</li>
+                                    <li><b>Source Control:</b> Cloud Agent ยังไม่รองรับ Azure DevOps Repository แบบ Native</li>
+                                    <li>ต้องใช้เวลา Research และ Config เพิ่มเติมหากต้องการใช้ Cloud Agents</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <span class="badge badge-pro">Pros</span>
+                                <ul>
+                                    <li>ผสานการทำงานกับ VS Code, GitHub และ Azure Ecosystem ได้สมบูรณ์ที่สุดจาก Official Support</li>
+                                </ul>
+                            </td>
+                            <td><span class="empty-state">ยังไม่มีข้อมูลเด่นในประเด็นนี้</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="criterion-title">Cloud Sandbox</span>
+                                <span class="criterion-desc">พื้นที่ทดสอบและทดลองงาน Agent บน Cloud</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-pro">Pros</span>
+                                <ul>
+                                    <li>มี Cloud Sandbox ในการทดสอบระบบ</li>
+                                    <li>ควบคุมและจัดการได้ง่ายผ่านหน้า UI ของ Cursor เอง</li>
+                                </ul>
+                            </td>
+                            <td><span class="empty-state">ยังไม่มีข้อมูลเด่นในประเด็นนี้</span></td>
+                            <td><span class="empty-state">ยังไม่มีข้อมูลเด่นในประเด็นนี้</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="decision-title">
+            <div class="section-heading">
+                <h2 id="decision-title">แนวทางเลือกใช้เบื้องต้น</h2>
+                <p>ใช้เป็นกรอบตัดสินใจเร็ว ก่อนลงรายละเอียดด้านราคา Security และข้อกำหนดภายในองค์กร</p>
+            </div>
+
+            <div class="decision-grid">
+                <article class="decision-card">
+                    <h3>ถ้าเน้นงาน Developer Automation</h3>
+                    <p>ให้พิจารณา Cursor เป็นตัวเลือกหลัก เพราะ Workflow, Plan Mode, Ask Mode และ Cloud Sandbox รองรับการทำงานเชิง Agent ได้ชัดเจน</p>
+                </article>
+                <article class="decision-card">
+                    <h3>ถ้าเน้น Microsoft / Azure Ecosystem</h3>
+                    <p>GitHub Copilot เหมาะกว่าในด้าน Official Integration กับ VS Code, GitHub และ Azure โดยลดความเสี่ยงจาก Extension Compatibility</p>
+                </article>
+                <article class="decision-card">
+                    <h3>ถ้าเน้น Co-work และ Governance</h3>
+                    <p>Claude Co-Work เหมาะกับบริบทที่มีทั้งทีมเทคนิคและ Business Users รวมถึงต้องการ Dashboard, Usage Tracking และ Spend Control</p>
+                </article>
+            </div>
+        </section>
+
+        <footer class="footer">
+            เอกสารสรุปผล Session 202 (v.1) • จัดทำเพื่อการพิจารณาในระดับ Enterprise
+        </footer>
+    </main>
 </body>
 </html>
