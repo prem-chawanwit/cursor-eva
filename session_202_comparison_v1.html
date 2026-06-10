@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Enterprise AI Code Assistants Comparison - Session 202</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm 12mm;
+            background-color: #f8fafc;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #1e293b;
+            margin: 0;
+            padding: 0;
+            font-size: 10.5pt;
+            line-height: 1.5;
+            background-color: #f8fafc;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3a8a, #0f172a);
+            color: #ffffff;
+            padding: 24px 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0 0 8px 0;
+            font-size: 18pt;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .header p {
+            margin: 0;
+            font-size: 11pt;
+            color: #93c5fd;
+        }
+        .section-title {
+            font-size: 13pt;
+            color: #1e3a8a;
+            border-left: 4px solid #3b82f6;
+            padding-left: 10px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            page-break-after: avoid;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            page-break-inside: auto;
+        }
+        tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+        th, td {
+            padding: 10px 14px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background-color: #0f172a;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 10pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        th.criterion { width: 22%; }
+        th.cursor { width: 30%; }
+        th.copilot { width: 24%; }
+        th.claude { width: 24%; }
+        
+        .badge {
+            display: inline-block;
+            padding: 2px 6px;
+            font-size: 8pt;
+            font-weight: 600;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+        .badge-pro { background-color: #dcfce7; color: #166534; }
+        .badge-con { background-color: #fee2e2; color: #991b1b; }
+        .badge-neutral { background-color: #f1f5f9; color: #334155; }
+        
+        ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+        .highlight {
+            font-weight: 600;
+            color: #0f172a;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 9pt;
+            color: #64748b;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>สรุปผลการเปรียบเทียบเครื่องมือ AI สำหรับองค์กร (Session 202 - v.1)</h1>
+        <p>มุมมองเชิงลึกด้าน Automation, Workflow, Multi-models, Enterprise Governance และ Ecosystem Integration</p>
+    </div>
+
+    <div class="section-title">ตารางเปรียบเทียบคุณสมบัติ (Feature Comparison Matrix)</div>
+    <table>
+        <thead>
+            <tr>
+                <th class="criterion">หัวข้อการพิจารณา</th>
+                <th class="cursor">💻 Cursor (Enterprise / Teams)</th>
+                <th class="copilot">🐙 GitHub Copilot</th>
+                <th class="claude">🧠 Claude Co-Work</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="highlight">Automation & Workflow</td>
+                <td>
+                    <span class="badge badge-pro">Pros</span>
+                    <ul>
+                        <li>ทำ Pipeline Automation ได้ง่าย</li>
+                        <li>Automate Development Task ได้อย่างมีประสิทธิภาพ</li>
+                        <li>จัดการและดูสถานะของ Sub Agent ได้ดีระหว่างสั่งงาน</li>
+                        <li><b>Plan Mode:</b> มี Workflow ที่เข้าใจและใช้งานได้ง่าย</li>
+                        <li><b>Ask Mode:</b> มีระบบถามผู้ใช้เมื่อ Agent ไม่มั่นใจในสิ่งที่กำลังทำ</li>
+                        <li>มี Built-in Doc ให้ Agent นำไปใช้อ้างอิง (Reference)</li>
+                    </ul>
+                    <span class="badge badge-con">Cons</span>
+                    <ul>
+                        <li>ไม่มี Mode Co-work (เน้นผูกกับ Repository และโค้ดเป็นหลัก)</li>
+                        <li>เหมาะกับ Developer & SE มากกว่า End User ทั่วไป</li>
+                    </ul>
+                </td>
+                <td>
+                    <span class="badge badge-neutral">Note</span>
+                    <ul>
+                        <li>เน้นการทำงานเป็นผู้ช่วยใน Inline Code และแชทในบริบทของ Repository แต่ยังไม่เด่นด้าน Sub-agent workflow อิสระ</li>
+                    </ul>
+                </td>
+                <td>
+                    <span class="badge badge-neutral">Note</span>
+                    <ul>
+                        <li>เน้นแชร์ความรู้และ Workspace ร่วมกัน (Co-work) เหมาะกับทั้ง Developer และ Business Users</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="highlight">Multi-models Capabilities</td>
+                <td>
+                    <span class="badge badge-pro">Pros</span>
+                    <ul>
+                        <li><b>Multi-Model Review:</b> สามารถสั่งให้ Model หลายตัวช่วยกันรีวิวโค้ดพร้อมกันได้</li>
+                        <li>มีระบบทำ <b>Majority Vote</b> เพื่อหาข้อสรุปที่ดีที่สุดจากหลายโมเดล</li>
+                    </ul>
+                </td>
+                <td>
+                    <span class="badge badge-neutral">-</span>
+                </td>
+                <td>
+                    <span class="badge badge-neutral">-</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="highlight">Team & Enterprise Management</td>
+                <td>
+                    <span class="badge badge-pro">Pros</span>
+                    <ul>
+                        <li>สามารถสร้าง Rule สำหรับ Apply Coding Standard ร่วมกันภายในทีมได้</li>
+                    </ul>
+                </td>
+                <td>
+                    <span class="badge badge-pro">Pros</span>
+                    <ul>
+                        <li>สามารถสร้าง Rule สำหรับ Apply Coding Standard ภายในทีมได้เช่นกัน</li>
+                    </ul>
+                </td>
+                <td>
+                    <span class="badge badge-pro">Pros</span>
+                    <ul>
+                        <li>บริหารจัดการงบประมาณง่าย (ตั้ง Spend Alert และ Set Limit ได้สะดวก)</li>
+                        <li>มี Dashboard ให้ข้อมูล Analytics ที่ค่อนข้างครบถ้วน</li>
+                        <li>ดู Usage รายบุคคลได้อย่างละเอียด</li>
+                        <li>มี Audit Log ตรวจสอบได้ง่ายว่าใครทำอะไรกับ Repository ไหน</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="highlight">Audit & Traceability</td>
+                <td>
+                    <span class="badge badge-pro">Pros</span>
+                    <ul>
+                        <li>ดูข้อมูลเชิงลึกได้ง่ายในส่วนของ Metric Agent Line of Code</li>
+                        <li>มี Audit Log ชัดเจนว่าใครในทีมทำอะไรไปบ้าง (เช่น การเพิ่ม MCP)</li>
+                    </ul>
+                </td>
+                <td>
+                    <span class="badge badge-neutral">-</span>
+                </td>
+                <td>
+                    <span class="badge badge-neutral">-</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="highlight">Performance & Stability</td>
+                <td>
+                    <span class="badge badge-pro">Pros</span>
+                    <ul>
+                        <li><b>Native Desktop Application:</b> รองรับตัวแอปพลิเคชันบนคอมพิวเตอร์โดยตรง</li>
+                        <li>ฟีเจอร์ระดับ Native เช่น การแจ้งเตือน (Notification) ทำงานได้เสถียรและดีกว่า</li>
+                    </ul>
+                </td>
+                <td>
+                    <span class="badge badge-con">Cons</span>
+                    <ul>
+                        <li>พบปัญหา <b>Crash บ่อยครั้ง</b> เมื่อต้องประมวลผลหรือเจอ Task ขนาดใหญ่</li>
+                    </ul>
+                </td>
+                <td>
+                    <span class="badge badge-con">Cons</span>
+                    <ul>
+                        <li>เกิดการ Crash ได้ในบางกรณี โดยเฉพาะขั้นตอนที่มีลักษณะไล่ลำดับ Step 1, 2, 3</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="highlight">Microsoft Integrations & Ecosystem</td>
+                <td>
+                    <span class="badge badge-con">Cons</span>
+                    <ul>
+                        <li>Extension ไม่ครบถ้วนเท่า VS Code (โดยเฉพาะ Microsoft Extension)</li>
+                        <li><b>Azure Functions:</b> มีข้อจำกัดในการใช้ Deploy Function App หรือ List Resource</li>
+                        <li><b>C# Dev Kit:</b> มีให้ใช้แต่ไม่ใช่ Official จาก Microsoft ทำให้บางครั้งเกิด Conflict กับ Extension ตัวอื่น</li>
+                        <li><b>Source Control:</b> Cloud Agent ยังไม่รองรับ Azure DevOps Repository แบบ Native (อยู่ในช่วง Explore เพิ่มเติม)</li>
+                        <li>ต้องใช้เวลาในการ Research และ Config เพิ่มเติมหากต้องการใช้ฟีเจอร์ Cloud Agents</li>
+                    </ul>
+                </td>
+                <td>
+                    <span class="badge badge-pro">Pros</span>
+                    <ul>
+                        <li>ผสานการทำงานกับ VS Code, GitHub และ Azure Ecosystem ได้สมบูรณ์แบบที่สุด (Official Support)</li>
+                    </ul>
+                </td>
+                <td>
+                    <span class="badge badge-neutral">-</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="highlight">Cloud Sandbox</td>
+                <td>
+                    <span class="badge badge-pro">Pros</span>
+                    <ul>
+                        <li>มี Cloud Sandbox ในการทดสอบระบบ</li>
+                        <li>สามารถควบคุมและจัดการได้ง่ายผ่านหน้า UI ของ Cursor เอง</li>
+                    </ul>
+                </td>
+                <td>
+                    <span class="badge badge-neutral">-</span>
+                </td>
+                <td>
+                    <span class="badge badge-neutral">-</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="footer">
+        เอกสารสรุปผล Session 202 (v.1) • จัดทำเพื่อการพิจารณาในระดับ Enterprise
+    </div>
+
+</body>
+</html>
