@@ -116,20 +116,29 @@
         }
 
         .gulf-logo {
-            display: inline-grid;
-            place-items: center;
-            width: 156px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             height: 48px;
-            padding: 7px 12px;
+            padding: 0 20px 0 15px;
             background: var(--gulf-blue);
-            border-radius: 18px;
+            border-radius: 999px;
             box-shadow: 0 16px 36px rgba(0, 63, 112, 0.18);
         }
 
         .gulf-logo svg {
             display: block;
-            width: 132px;
-            height: auto;
+            flex: 0 0 auto;
+            width: 30px;
+            height: 30px;
+        }
+
+        .gulf-logo-text {
+            color: #ffffff;
+            font-size: 21px;
+            font-weight: 900;
+            letter-spacing: 0.06em;
+            line-height: 1;
         }
 
         .hero {
@@ -575,6 +584,188 @@
             font-size: 13px;
         }
 
+        .metrics-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-bottom: 14px;
+        }
+
+        .legend-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 12px;
+            color: var(--gulf-blue);
+            font-size: 12.5px;
+            font-weight: 850;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+        }
+
+        .metrics-wrap {
+            overflow-x: auto;
+            background: var(--panel);
+            border: 1px solid rgba(219, 232, 239, 0.92);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+        }
+
+        .metrics-table {
+            width: 100%;
+            min-width: 880px;
+            border-collapse: collapse;
+        }
+
+        .metrics-table caption {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+        }
+
+        .metrics-table th,
+        .metrics-table td {
+            padding: 14px 16px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .metrics-table thead th {
+            color: var(--gulf-blue);
+            font-size: 15px;
+            font-weight: 900;
+            white-space: nowrap;
+            background: #f2f8fb;
+            border-bottom: 2px solid rgba(0, 63, 112, 0.18);
+        }
+
+        .metrics-table thead th small {
+            display: block;
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 11.5px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .metrics-table tbody tr:nth-child(even) td,
+        .metrics-table tbody tr:nth-child(even) th {
+            background: #f9fcfe;
+        }
+
+        .metrics-table tbody tr:last-child th,
+        .metrics-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .metrics-table tbody th {
+            width: 24%;
+            min-width: 200px;
+            color: var(--gulf-blue);
+            font-size: 14.5px;
+            font-weight: 850;
+            line-height: 1.4;
+        }
+
+        .metrics-table tbody th small {
+            display: block;
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 650;
+        }
+
+        .metrics-table td {
+            width: 25.33%;
+            color: #385a70;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .metrics-table .col-baseline {
+            background: #eaf6ee !important;
+            border-left: 1px solid rgba(99, 189, 116, 0.5);
+            border-right: 1px solid rgba(99, 189, 116, 0.5);
+        }
+
+        .metrics-table thead th.col-baseline {
+            border-top: 3px solid var(--gulf-green-2);
+        }
+
+        .baseline-flag {
+            display: inline-flex;
+            margin-left: 7px;
+            padding: 2px 8px;
+            color: #176a3c;
+            font-size: 10.5px;
+            font-weight: 950;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            background: #d9f2e2;
+            border-radius: 999px;
+            vertical-align: middle;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 6px;
+            padding: 4px 11px;
+            font-size: 12px;
+            font-weight: 900;
+            border-radius: 999px;
+        }
+
+        .status::before {
+            font-size: 11px;
+        }
+
+        .status.full {
+            color: #176a3c;
+            background: #e0f5e8;
+        }
+
+        .status.full::before {
+            content: "\2713";
+        }
+
+        .status.partial {
+            color: #8a5a14;
+            background: #fdf2dc;
+        }
+
+        .status.partial::before {
+            content: "\25D1";
+        }
+
+        .status.none {
+            color: #5d6f7e;
+            background: #edf1f4;
+        }
+
+        .status.none::before {
+            content: "\2014";
+        }
+
+        .status.base {
+            color: #ffffff;
+            background: var(--gulf-green-2);
+        }
+
+        .status.base::before {
+            content: "\2605";
+        }
+
+        .metrics-table .note {
+            display: block;
+        }
+
         .matrix-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -760,8 +951,17 @@
             .tool-card,
             .detail-panel,
             .matrix-card,
+            .metrics-wrap,
             .source-note {
                 box-shadow: none;
+            }
+
+            .metrics-table {
+                min-width: 0;
+            }
+
+            .metrics-table tr {
+                page-break-inside: avoid;
             }
 
             .controls {
@@ -783,13 +983,12 @@
     <main class="page">
         <nav class="topbar" aria-label="Report header">
             <span class="doc-label">Project Update / Session 202 v.3</span>
-            <div class="gulf-logo" aria-label="GULF logo">
-                <svg viewBox="0 0 190 52" role="img" aria-labelledby="gulf-logo-title">
-                    <title id="gulf-logo-title">GULF</title>
-                    <path d="M5 30C16 15 31 8 52 8C42 24 30 37 12 44C10 39 7 34 5 30Z" fill="#ffffff"/>
-                    <path d="M8 30C19 29 32 23 46 10C37 26 27 37 12 44C11 39 9 34 8 30Z" fill="#63bd74"/>
-                    <text x="58" y="38" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="900" letter-spacing="-1.4">GULF</text>
+            <div class="gulf-logo">
+                <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                    <path d="M6 40C8 21 22 8 42 6C29 14 14 27 6 40Z" fill="#63bd74"/>
+                    <path d="M13 43C16 29 27 17 44 13C32 19 20 30 13 43Z" fill="#ffffff"/>
                 </svg>
+                <span class="gulf-logo-text">GULF</span>
             </div>
         </nav>
 
@@ -957,10 +1156,91 @@
             </article>
         </section>
 
+        <section class="section" aria-labelledby="metrics-title">
+            <div class="section-head">
+                <div>
+                    <span class="kicker">02 / Key metrics</span>
+                    <h2 id="metrics-title">Key Metrics: เทียบฟีเจอร์หลักจากมุม Cursor</h2>
+                </div>
+                <p>ใช้ฟีเจอร์ของ Cursor เป็น baseline แล้วดูว่าแต่ละเจ้าครอบคลุมแค่ไหน อ่านสถานะได้ในแถวเดียว</p>
+            </div>
+
+            <div class="metrics-legend" aria-label="Status legend">
+                <span class="legend-chip"><span class="status base">Baseline</span> ฟีเจอร์ตั้งต้นของ Cursor</span>
+                <span class="legend-chip"><span class="status full">เทียบเท่า</span> มีครบใกล้เคียงกัน</span>
+                <span class="legend-chip"><span class="status partial">บางส่วน</span> มีแต่ขอบเขตแคบกว่า</span>
+                <span class="legend-chip"><span class="status none">ไม่มี</span> ไม่อยู่ในขอบเขตหลัก</span>
+            </div>
+
+            <div class="metrics-wrap">
+                <table class="metrics-table">
+                    <caption>เปรียบเทียบฟีเจอร์หลักของ Cursor กับ GitHub Copilot และ Claude</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Key Feature</th>
+                            <th scope="col" class="col-baseline">Cursor<span class="baseline-flag">Baseline</span><small>Agentic development</small></th>
+                            <th scope="col">GitHub Copilot<small>Microsoft ecosystem</small></th>
+                            <th scope="col">Claude<small>Co-work &amp; governance</small></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Agent Mode<small>AI ลงมือแก้โค้ดหลายขั้นจนจบ task</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">หัวใจของ workflow: แก้ไฟล์ รัน command วนจนจบ task ใน repo</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">มี agent mode ใน VS Code แต่ orchestration ยังไม่ลึกเท่า</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">Claude Code ทำได้ใน terminal ส่วน Claude.ai เน้น chat</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tab Autocomplete<small>เติมโค้ด inline ขณะพิมพ์</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">Tab model เร็ว คาดเดาการแก้แบบ multi-line ได้</span></td>
+                            <td><span class="status full">เทียบเท่า</span><span class="note">จุดแข็งดั้งเดิมของ Copilot adoption สูงใน VS Code</span></td>
+                            <td><span class="status none">ไม่มี</span><span class="note">ไม่มี inline completion แบบ IDE ต้องใช้ chat/CLI แทน</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Plan Mode<small>วางแผนก่อนลงมือแก้โค้ด</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">แยกขั้นวางแผนกับลงมือชัดเจน ลด rework</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">วางแผนใน chat ได้ แต่ไม่มี dedicated mode ใน editor</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">มี extended thinking / plan ใน Claude Code</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Background / Cloud Agents<small>สั่งงาน AI ทำเบื้องหลังใน cloud</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">รันหลาย task พร้อมกันใน cloud sandbox พร้อมเปิด PR ให้</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">GitHub coding agent มีทิศทางคล้ายกัน แต่ยังไม่ครบเท่า</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">รัน background ได้ผ่าน Claude Code แต่ไม่มี UI เทียบเท่า</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Codebase Context<small>เข้าใจทั้ง repo + semantic search</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">Index ทั้ง repo ค้นหาเชิงความหมายได้ทันที</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">@workspace ใช้ได้ดี แต่ความลึกของ indexing ต่างกัน</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">Projects / Claude Code เข้าถึง repo ได้ แต่ไม่ native ใน editor</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Multi-Model Support<small>เลือก model ได้ตาม task</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">สลับ GPT / Claude / Gemini ได้ในที่เดียว</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">มีตัวเลือก model มากขึ้น แต่ผูกกับ GitHub stack</span></td>
+                            <td><span class="status none">ไม่มี</span><span class="note">ใช้ Anthropic models เท่านั้น</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Code Review (BugBot)<small>Review PR / change set อัตโนมัติ</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">BugBot review PR ใน Git workflow อัตโนมัติ</span></td>
+                            <td><span class="status full">เทียบเท่า</span><span class="note">PR review ใน GitHub เป็นจุดแข็งของ ecosystem</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">Review ผ่าน chat/CLI ได้ แต่ไม่มี native PR bot</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Enterprise Security &amp; SSO<small>Privacy mode, SSO, admin control</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">Enterprise plan มี Privacy Mode, SSO, admin control ครบ</span></td>
+                            <td><span class="status full">เทียบเท่า</span><span class="note">GitHub Enterprise + Microsoft governance เข้ากับ GULF ตรง</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">Claude for Work มี SSO แต่ integrate กับ dev toolchain น้อยกว่า</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <section class="section" aria-labelledby="matrix-title">
             <div class="section-head">
                 <div>
-                    <span class="kicker">02 / Decision cards</span>
+                    <span class="kicker">03 / Decision cards</span>
                     <h2 id="matrix-title">สรุปการตัดสินใจแบบไม่วน</h2>
                 </div>
                 <p>เปลี่ยนจากตารางยาวเป็นการ์ด เพื่อให้อ่านทีละโจทย์แล้วตัดสินใจต่อได้ทันที</p>
@@ -997,7 +1277,7 @@
         <section class="section" aria-labelledby="pilot-title">
             <div class="section-head">
                 <div>
-                    <span class="kicker">03 / Pilot plan</span>
+                    <span class="kicker">04 / Pilot plan</span>
                     <h2 id="pilot-title">ข้อเสนอสำหรับรอบทดลอง</h2>
                 </div>
                 <p>เน้นวัดผลจากงานจริง แทนการดู feature list อย่างเดียว</p>
