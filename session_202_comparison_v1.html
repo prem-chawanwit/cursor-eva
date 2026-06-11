@@ -825,6 +825,64 @@
             text-decoration: underline;
         }
 
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .risk-grid .matrix-card {
+            min-height: 0;
+        }
+
+        .risk-grid .matrix-card span.tag-warn {
+            color: #8a5a14;
+            background: #fdf2dc;
+        }
+
+        .privacy-panel .insight strong small {
+            display: block;
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .privacy-panel .insight ul {
+            display: grid;
+            gap: 5px;
+            margin: 8px 0 0;
+            padding: 0;
+            list-style: none;
+            color: #385a70;
+            font-size: 12.5px;
+            line-height: 1.55;
+        }
+
+        .privacy-panel .insight li {
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .privacy-panel .insight li::before {
+            position: absolute;
+            top: 7px;
+            left: 0;
+            width: 7px;
+            height: 7px;
+            content: "";
+            background: var(--gulf-blue-2);
+            border-radius: 50%;
+        }
+
+        .metrics-footnote {
+            margin: 12px 2px 0;
+            color: var(--muted);
+            font-size: 12.5px;
+            line-height: 1.6;
+        }
+
         .vendor-pros {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1036,6 +1094,7 @@
             .matrix-grid,
             .insight-grid,
             .vendor-pros,
+            .risk-grid,
             .quick-score {
                 grid-template-columns: 1fr;
             }
@@ -1317,6 +1376,12 @@
                             <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">มี Claude Code extension ใน VS Code/JetBrains แต่ขอบเขตแคบกว่า IDE-native<a class="ref" href="#ref-8">[8]</a></span></td>
                         </tr>
                         <tr>
+                            <th scope="row">Open-source IDE Base<small>License เสียบกับ editor ฟรีได้ ไม่ผูกกับ IDE เฉพาะ</small></th>
+                            <td class="col-baseline"><span class="status full">มี</span><span class="strength-flag">จุดแข็ง</span><span class="note">VS Code เป็น open source ใช้ฟรี — Copilot เป็น extension เสียบเข้า editor เดิม ถ้าหยุดจ่าย license ยังใช้ VS Code เขียนโค้ดต่อได้<a class="ref" href="#ref-10">[10]</a></span></td>
+                            <td><span class="status none">ไม่มี</span><span class="note">เป็น proprietary fork ของ VS Code ต้องใช้ IDE ของ Cursor เอง — มี Hobby plan ฟรีแบบจำกัด แต่ใช้งานจริงต้องซื้อ subscription และถ้าเลิกใช้ต้องย้าย editor<a class="ref" href="#ref-11">[11]</a></span></td>
+                            <td class="col-cowork"><span class="status full">มี</span><span class="note">ไม่มี IDE ของตัวเอง — ใช้ license ผ่าน Claude Code extension/CLI บน VS Code, JetBrains หรือ terminal ได้<a class="ref" href="#ref-8">[8]</a></span></td>
+                        </tr>
+                        <tr>
                             <th scope="row">Coding Agent (Issue &#8594; PR)<small>มอบหมายงานจาก GitHub ให้ AI สร้าง PR</small></th>
                             <td class="col-baseline"><span class="status full">มี</span><span class="note">Assign GitHub Issue ให้ cloud agent สร้าง branch/PR ใน GitHub Actions<a class="ref" href="#ref-4">[4]</a></span></td>
                             <td><span class="status full">มี</span><span class="note">สั่ง Cloud Agent ได้จาก @cursor ใน GitHub issue/PR, Slack, Linear และ web<a class="ref" href="#ref-2">[2]</a></span></td>
@@ -1347,9 +1412,15 @@
                             <td class="col-cowork"><span class="status none">ไม่มี</span><span class="note">ใช้ Anthropic models เท่านั้น ไม่ multi-vendor</span></td>
                         </tr>
                         <tr>
+                            <th scope="row">Codebase Vector Index &amp; Semantic Search<small>ทำ index โค้ดเป็น vector แล้วค้นหาเชิงความหมายได้</small></th>
+                            <td class="col-baseline"><span class="status full">มี</span><span class="note">Remote semantic index สร้างโดย GitHub อัตโนมัติสำหรับ repo บน GitHub/Azure DevOps ส่วน local index จำกัด ~2,500 ไฟล์<a class="ref" href="#ref-12">[12]</a></span></td>
+                            <td><span class="status full">มี</span><span class="strength-flag">จุดแข็ง</span><span class="note">Index ลึกสุด: tree-sitter chunking + custom embedding + vector DB, sync อัตโนมัติทุก 5 นาที, encrypt path และไม่เก็บ source code บน server<a class="ref" href="#ref-13">[13]</a></span></td>
+                            <td class="col-cowork"><span class="status none">ไม่มี</span><span class="note">Claude Code เลือกไม่ทำ index โดยตั้งใจ ใช้ agentic search (grep/glob) — Anthropic ให้เหตุผลเรื่องความสดของข้อมูลและ security<a class="ref" href="#ref-14">[14]</a></span></td>
+                        </tr>
+                        <tr>
                             <th scope="row">Org Knowledge &amp; Context Sharing<small>Knowledge base และการแชร์ context ระดับองค์กร</small></th>
                             <td class="col-baseline"><span class="status full">มี</span><span class="note">Copilot Spaces + extensions ใน GitHub ecosystem<a class="ref" href="#ref-6">[6]</a></span></td>
-                            <td><span class="status partial">บางส่วน</span><span class="note">Rules/Memories ระดับ repo แต่ไม่มี org-wide Spaces แบบ GitHub</span></td>
+                            <td><span class="status full">มี</span><span class="note">Team Rules ตั้ง rule/มาตรฐานระดับองค์กรจาก dashboard ใช้กับทุกคนทุก repo และ enforce ไม่ให้ปิดได้ — รูปแบบเป็น rules ต่างจาก Spaces ที่เป็นพื้นที่แชร์ไฟล์/โค้ด<a class="ref" href="#ref-15">[15]</a></span></td>
                             <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="strength-flag">จุดแข็ง</span><span class="note">Projects แชร์ context ข้ามทีม business + dev ได้ดีที่สุดในมุม Co-work แต่ไม่ใช่ dev extension model</span></td>
                         </tr>
                         <tr>
@@ -1361,6 +1432,8 @@
                     </tbody>
                 </table>
             </div>
+
+            <p class="metrics-footnote">หมายเหตุแถว Vector Index: จาก research ของ Cursor เอง semantic search เพิ่มความแม่นยำราว 12.5% เทียบกับใช้ grep อย่างเดียว และเห็นผลชัดใน repo ขนาด 1,000+ ไฟล์<a class="ref" href="#ref-13">[13]</a> — ยังไม่พบหลักฐานอิสระว่าความต่างในงานจริง significant มาก ฝั่ง Anthropic เองยืนยันว่า agentic search ทำงานได้ดีโดยไม่ต้องมี index<a class="ref" href="#ref-14">[14]</a> จึงควรพิสูจน์ด้วย pilot กับ repo จริงของ GULF</p>
 
             <div class="vendor-pros" aria-label="Vendor strengths and gaps">
                 <div class="insight">
@@ -1374,7 +1447,8 @@
                     <strong>Cursor — เด่นและขาด</strong>
                     <ul>
                         <li class="pro"><b>เด่น</b><span>Sandbox ระดับ OS ที่คุมเองได้ (path/network/allowlist) + takeover remote desktop ของ cloud agent ได้ทุกเมื่อ<a class="ref" href="#ref-1">[1]</a><a class="ref" href="#ref-2">[2]</a></span></li>
-                        <li class="con"><b>ขาด</b><span>ไม่มี org-wide knowledge space แบบ Copilot Spaces และ Azure DevOps ยังต้องพิสูจน์ใน pilot</span></li>
+                        <li class="pro"><b>เด่น</b><span>Team Rules ตั้งมาตรฐานระดับองค์กรและ enforce ทั้งทีมได้จาก dashboard<a class="ref" href="#ref-15">[15]</a></span></li>
+                        <li class="con"><b>ขาด</b><span>IDE เป็น proprietary ต้องซื้อ license ถึงใช้เต็มที่ และ Azure DevOps ยังต้องพิสูจน์ใน pilot<a class="ref" href="#ref-11">[11]</a></span></li>
                     </ul>
                 </div>
                 <div class="insight">
@@ -1398,14 +1472,86 @@
                     <li id="ref-7">Anthropic — <a href="https://code.claude.com/docs/en/sandboxing" target="_blank" rel="noreferrer">Claude Code sandboxed Bash tool</a> และ <a href="https://www.anthropic.com/engineering/claude-code-sandboxing" target="_blank" rel="noreferrer">engineering blog</a> (opt-in /sandbox, Seatbelt/bubblewrap)</li>
                     <li id="ref-8">Anthropic — <a href="https://code.claude.com/docs/en/github-actions" target="_blank" rel="noreferrer">Claude Code GitHub Actions</a> (@claude mention, default push branch ไม่เปิด PR อัตโนมัติ)</li>
                     <li id="ref-9">Claude Docs — <a href="https://platform.claude.com/docs/en/manage-claude/compliance-api" target="_blank" rel="noreferrer">Compliance API</a> และ <a href="https://claude.com/resources/tutorials/claude-enterprise-administrator-guide" target="_blank" rel="noreferrer">Enterprise Administrator Guide</a> (SAML/OIDC SSO, SCIM, audit logs)</li>
+                    <li id="ref-10">Microsoft — <a href="https://github.com/microsoft/vscode" target="_blank" rel="noreferrer">VS Code repository (MIT license)</a> — editor เป็น open source ใช้ฟรีแม้ไม่มี AI license</li>
+                    <li id="ref-11">Cursor — <a href="https://cursor.com/pricing" target="_blank" rel="noreferrer">Pricing</a> — Hobby plan ฟรีแบบจำกัด การใช้งานจริง/องค์กรต้องซื้อ Pro/Business ต่อ seat</li>
+                    <li id="ref-12">VS Code Docs — <a href="https://code.visualstudio.com/docs/agents/reference/workspace-context" target="_blank" rel="noreferrer">How Copilot understands your workspace</a> และ GitHub Docs — <a href="https://docs.github.com/copilot/concepts/indexing-repositories-for-copilot-chat" target="_blank" rel="noreferrer">Indexing repositories for Copilot</a> (remote/local semantic index)</li>
+                    <li id="ref-13">Cursor Docs — <a href="https://cursor.com/docs/agent/tools/search" target="_blank" rel="noreferrer">Semantic &amp; Agentic Search</a> (custom embeddings, sync ทุก 5 นาที, ตัวเลข +12.5% accuracy เทียบ grep)</li>
+                    <li id="ref-14">Community — <a href="https://vadim.blog/claude-code-no-indexing" target="_blank" rel="noreferrer">Claude Code Doesn't Index Your Codebase</a> (อ้างคำอธิบายจากทีม Anthropic บน Hacker News เรื่องเลิกใช้ RAG/vector index)</li>
+                    <li id="ref-15">Cursor Docs — <a href="https://cursor.com/docs/rules" target="_blank" rel="noreferrer">Rules (Team Rules)</a> — ตั้ง rule ระดับทีม/องค์กรจาก dashboard ใช้กับสมาชิกทุกคนทุก repo และ enforce ไม่ให้ปิดได้ (Team/Enterprise plan)</li>
+                    <li id="ref-16">Cursor — <a href="https://cursor.com/docs/enterprise/privacy-and-data-governance" target="_blank" rel="noreferrer">Privacy and Data Governance</a> และ <a href="https://cursor.com/security" target="_blank" rel="noreferrer">Security</a> (Privacy Mode, ZDR agreements, SOC 2 Type II, CMEK)</li>
+                    <li id="ref-17">Microsoft — <a href="https://blogs.microsoft.com/on-the-issues/2023/09/07/copilot-copyright-commitment-ai-legal-concerns/" target="_blank" rel="noreferrer">Copilot Copyright Commitment</a> และ <a href="https://techcommunity.microsoft.com/blog/azuredevcommunityblog/demystifying-github-copilot-security-controls-easing-concerns-for-organizational/4468193" target="_blank" rel="noreferrer">GitHub Copilot Security Controls</a> (no-training, prompt retention, SOC 2/ISO 27001, เงื่อนไข indemnification)</li>
+                    <li id="ref-18">Community/legal — <a href="https://thebrightbyte.com/playbook/expertise/ai-generated-code-ownership-banking" target="_blank" rel="noreferrer">Who Owns AI-Generated Code</a> (เทียบ ownership + indemnification caps ของ Copilot/Cursor/Claude ใน enterprise terms)</li>
                 </ol>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="risk-title">
+            <div class="section-head">
+                <div>
+                    <span class="kicker">03 / Risk &amp; blind spots</span>
+                    <h2 id="risk-title">มุมจับผิด: ช่องโหว่ที่ต้องปิดก่อนใช้จริง</h2>
+                </div>
+                <p>ผลรีวิวแบบ Devil's Advocate — ประเด็นที่การเทียบฟีเจอร์อย่างเดียวมองไม่เห็น โดยเฉพาะงานชั้นความลับสูง</p>
+            </div>
+
+            <article class="glass-panel privacy-panel">
+                <h3>1. Data Privacy &amp; IP Indemnification — จุดชี้เป็นชี้ตาย</h3>
+                <p>สำหรับ use case อ่อนไหวสูง เช่น agent ที่วิเคราะห์เอกสารประชุมระดับ BOD ทุกเครื่องมือในตารางนี้เป็น cloud-based — โค้ดและข้อมูลวิ่งออกไปประมวลผลบน server ภายนอกเสมอ จึงต้องดูนโยบายรายเจ้าก่อนเริ่ม pilot:</p>
+                <div class="insight-grid" style="margin-top: 16px;">
+                    <div class="insight">
+                        <strong>GitHub Copilot<small>Business / Enterprise</small></strong>
+                        <ul>
+                            <li>ไม่ใช้ code/prompt เทรนโมเดล (รวม third-party models) — prompt ใน IDE ไม่ถูกเก็บ<a class="ref" href="#ref-17">[17]</a></li>
+                            <li>IP indemnification ผ่าน Microsoft Copilot Copyright Commitment — มีเงื่อนไขต้องเปิด duplicate-detection filter และผูกกับ tier<a class="ref" href="#ref-17">[17]</a></li>
+                            <li>GitHub มี SOC 2 Type II + ISO 27001 และ EU data residency ใน Enterprise tier<a class="ref" href="#ref-17">[17]</a></li>
+                        </ul>
+                    </div>
+                    <div class="insight">
+                        <strong>Cursor<small>Teams / Enterprise</small></strong>
+                        <ul>
+                            <li>Privacy Mode (default + enforce ทั้ง org ได้): ไม่เทรนจากโค้ด, มี ZDR agreement กับ model providers — ยกเว้นบาง model ที่ต้องให้ admin อนุมัติ<a class="ref" href="#ref-16">[16]</a></li>
+                            <li>SOC 2 Type II + CMEK (เข้ารหัส embeddings/cloud agent ด้วย key ขององค์กรเอง) แต่ request วิ่งผ่าน infra ของ Cursor เสมอ<a class="ref" href="#ref-16">[16]</a></li>
+                            <li>IP indemnification ไม่ได้ประกาศชัดแบบ Microsoft — ต้องตรวจและต่อรองในสัญญา Enterprise<a class="ref" href="#ref-18">[18]</a></li>
+                        </ul>
+                    </div>
+                    <div class="insight">
+                        <strong>Claude<small>Enterprise / API</small></strong>
+                        <ul>
+                            <li>ไม่เทรนจากข้อมูลองค์กรโดย default, ขอ ZDR สำหรับ API ได้<a class="ref" href="#ref-9">[9]</a></li>
+                            <li>SOC 2 Type II, audit log + Compliance API (activity 6 ปี) รองรับ eDiscovery/DLP<a class="ref" href="#ref-9">[9]</a></li>
+                            <li>มี indemnification ใน commercial terms แบบมี cap เช่นเดียวกับเจ้าอื่น<a class="ref" href="#ref-18">[18]</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="metrics-footnote">จุดบอดร่วมที่ต้องระวัง: (1) indemnification ทุกเจ้ามี cap ค่อนข้างต่ำเมื่อเทียบกับความเสียหายระดับ regulator — อย่าใช้แทน control ภายใน<a class="ref" href="#ref-18">[18]</a> (2) งานชั้นความลับสูงสุดควรกำหนด data boundary ชัด เช่น ห้ามใช้ cloud agent กับเอกสาร BOD, บังคับ Privacy Mode/ZDR และระบุ liability + breach notification ในสัญญาจัดซื้อทุกเจ้า</p>
+            </article>
+
+            <div class="risk-grid">
+                <article class="matrix-card">
+                    <span class="tag-warn">Hidden cost</span>
+                    <h3>2. ต้นทุนแฝงของ Hybrid Approach</h3>
+                    <p>ใช้ 3 เจ้าพร้อมกัน = สัญญาจัดซื้อ 3 ฉบับ, security review 3 รอบ, ทีม support ต้องดูแลเครื่องมือต่างกัน และ license/budget กระจัดกระจายจนคุม cost ยาก</p>
+                    <small>Mitigation: เริ่ม pilot ด้วย 2 เจ้าก่อน + ตั้ง central AI policy และเจ้าภาพ governance เดียว</small>
+                </article>
+                <article class="matrix-card">
+                    <span class="tag-warn">Untested</span>
+                    <h3>3. Tech Stack Compatibility ยังไม่ถูกพิสูจน์</h3>
+                    <p>Community/use case ของ Cursor เอนไปทาง web dev (TypeScript, React, Python) — agent flow กับโปรเจกต์ C#/.NET หรือ Vector Search บน Azure Cosmos DB อาจไม่ลื่นเท่า ต้องทดสอบกับ stack จริงของ GULF</p>
+                    <small>Action: เพิ่ม benchmark กับ repo .NET/Cosmos DB จริงเป็นเกณฑ์ผ่าน pilot</small>
+                </article>
+                <article class="matrix-card">
+                    <span class="tag-warn">Not reviewed</span>
+                    <h3>4. Pricing Model ยังไม่ได้รีวิว</h3>
+                    <p>เอกสารฉบับนี้ยังไม่ได้เปรียบเทียบโครงสร้างราคา (per-seat vs pay-as-you-go vs API overage) ระหว่างเจ้า</p>
+                    <small>Note: ต้องทำ TCO review แยกอีกฉบับก่อนตัดสินใจงบประมาณระยะยาว</small>
+                </article>
             </div>
         </section>
 
         <section class="section" aria-labelledby="matrix-title">
             <div class="section-head">
                 <div>
-                    <span class="kicker">03 / Decision cards</span>
+                    <span class="kicker">04 / Decision cards</span>
                     <h2 id="matrix-title">สรุปการตัดสินใจแบบไม่วน</h2>
                 </div>
                 <p>เปลี่ยนจากตารางยาวเป็นการ์ด เพื่อให้อ่านทีละโจทย์แล้วตัดสินใจต่อได้ทันที</p>
@@ -1442,7 +1588,7 @@
         <section class="section" aria-labelledby="pilot-title">
             <div class="section-head">
                 <div>
-                    <span class="kicker">04 / Pilot plan</span>
+                    <span class="kicker">05 / Pilot plan</span>
                     <h2 id="pilot-title">ข้อเสนอสำหรับรอบทดลอง</h2>
                 </div>
                 <p>เน้นวัดผลจากงานจริง แทนการดู feature list อย่างเดียว</p>
@@ -1450,11 +1596,12 @@
 
             <div class="pilot-grid">
                 <article class="glass-panel">
-                    <h3>ทดลอง 3 use cases ที่วัดผลได้</h3>
+                    <h3>ทดลอง 4 use cases ที่วัดผลได้</h3>
                     <ol class="steps">
-                        <li><b>1</b><span>Developer task: bug fix, refactor, unit test generation</span></li>
-                        <li><b>2</b><span>Ecosystem task: VS Code, GitHub, Azure Functions, Azure DevOps</span></li>
-                        <li><b>3</b><span>Governance task: audit log, usage report, budget alert, access control</span></li>
+                        <li><b>1</b><span>Privacy &amp; IP task (priority แรก): เปิด Privacy Mode/ZDR จริง, trace data flow ของ cloud agent กับเอกสารอ่อนไหว, ยืนยัน opt-out training และ indemnification ในสัญญา</span></li>
+                        <li><b>2</b><span>Developer task: bug fix, refactor, unit test generation — รวม repo C#/.NET และ Azure Cosmos DB จริง</span></li>
+                        <li><b>3</b><span>Ecosystem task: VS Code, GitHub, Azure Functions, Azure DevOps</span></li>
+                        <li><b>4</b><span>Governance task: audit log, usage report, budget alert, access control</span></li>
                     </ol>
                 </article>
                 <article class="glass-panel">
@@ -1481,7 +1628,8 @@
         </section>
 
         <footer class="footer">
-            GULF Project Update - Enterprise AI Assistant Evaluation • Session 202 v.3
+            GULF Project Update - Enterprise AI Assistant Evaluation • Session 202 v.3<br>
+            Made by Fable 5 • Review Bug by Gemini 3.5 Pro • Steering by Dev
         </footer>
     </main>
 
