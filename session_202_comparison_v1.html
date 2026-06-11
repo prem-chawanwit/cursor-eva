@@ -1317,6 +1317,12 @@
                             <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">มี Claude Code extension ใน VS Code/JetBrains แต่ขอบเขตแคบกว่า IDE-native<a class="ref" href="#ref-8">[8]</a></span></td>
                         </tr>
                         <tr>
+                            <th scope="row">Open-source IDE Base<small>License เสียบกับ editor ฟรีได้ ไม่ผูกกับ IDE เฉพาะ</small></th>
+                            <td class="col-baseline"><span class="status full">มี</span><span class="strength-flag">จุดแข็ง</span><span class="note">VS Code เป็น open source ใช้ฟรี — Copilot เป็น extension เสียบเข้า editor เดิม ถ้าหยุดจ่าย license ยังใช้ VS Code เขียนโค้ดต่อได้<a class="ref" href="#ref-10">[10]</a></span></td>
+                            <td><span class="status none">ไม่มี</span><span class="note">เป็น proprietary fork ของ VS Code ต้องใช้ IDE ของ Cursor เอง — มี Hobby plan ฟรีแบบจำกัด แต่ใช้งานจริงต้องซื้อ subscription และถ้าเลิกใช้ต้องย้าย editor<a class="ref" href="#ref-11">[11]</a></span></td>
+                            <td class="col-cowork"><span class="status full">มี</span><span class="note">ไม่มี IDE ของตัวเอง — ใช้ license ผ่าน Claude Code extension/CLI บน VS Code, JetBrains หรือ terminal ได้<a class="ref" href="#ref-8">[8]</a></span></td>
+                        </tr>
+                        <tr>
                             <th scope="row">Coding Agent (Issue &#8594; PR)<small>มอบหมายงานจาก GitHub ให้ AI สร้าง PR</small></th>
                             <td class="col-baseline"><span class="status full">มี</span><span class="note">Assign GitHub Issue ให้ cloud agent สร้าง branch/PR ใน GitHub Actions<a class="ref" href="#ref-4">[4]</a></span></td>
                             <td><span class="status full">มี</span><span class="note">สั่ง Cloud Agent ได้จาก @cursor ใน GitHub issue/PR, Slack, Linear และ web<a class="ref" href="#ref-2">[2]</a></span></td>
@@ -1374,7 +1380,7 @@
                     <strong>Cursor — เด่นและขาด</strong>
                     <ul>
                         <li class="pro"><b>เด่น</b><span>Sandbox ระดับ OS ที่คุมเองได้ (path/network/allowlist) + takeover remote desktop ของ cloud agent ได้ทุกเมื่อ<a class="ref" href="#ref-1">[1]</a><a class="ref" href="#ref-2">[2]</a></span></li>
-                        <li class="con"><b>ขาด</b><span>ไม่มี org-wide knowledge space แบบ Copilot Spaces และ Azure DevOps ยังต้องพิสูจน์ใน pilot</span></li>
+                        <li class="con"><b>ขาด</b><span>IDE เป็น proprietary ต้องซื้อ license ถึงใช้เต็มที่ ไม่มี org-wide knowledge space แบบ Copilot Spaces และ Azure DevOps ยังต้องพิสูจน์ใน pilot<a class="ref" href="#ref-11">[11]</a></span></li>
                     </ul>
                 </div>
                 <div class="insight">
@@ -1398,6 +1404,8 @@
                     <li id="ref-7">Anthropic — <a href="https://code.claude.com/docs/en/sandboxing" target="_blank" rel="noreferrer">Claude Code sandboxed Bash tool</a> และ <a href="https://www.anthropic.com/engineering/claude-code-sandboxing" target="_blank" rel="noreferrer">engineering blog</a> (opt-in /sandbox, Seatbelt/bubblewrap)</li>
                     <li id="ref-8">Anthropic — <a href="https://code.claude.com/docs/en/github-actions" target="_blank" rel="noreferrer">Claude Code GitHub Actions</a> (@claude mention, default push branch ไม่เปิด PR อัตโนมัติ)</li>
                     <li id="ref-9">Claude Docs — <a href="https://platform.claude.com/docs/en/manage-claude/compliance-api" target="_blank" rel="noreferrer">Compliance API</a> และ <a href="https://claude.com/resources/tutorials/claude-enterprise-administrator-guide" target="_blank" rel="noreferrer">Enterprise Administrator Guide</a> (SAML/OIDC SSO, SCIM, audit logs)</li>
+                    <li id="ref-10">Microsoft — <a href="https://github.com/microsoft/vscode" target="_blank" rel="noreferrer">VS Code repository (MIT license)</a> — editor เป็น open source ใช้ฟรีแม้ไม่มี AI license</li>
+                    <li id="ref-11">Cursor — <a href="https://cursor.com/pricing" target="_blank" rel="noreferrer">Pricing</a> — Hobby plan ฟรีแบบจำกัด การใช้งานจริง/องค์กรต้องซื้อ Pro/Business ต่อ seat</li>
                 </ol>
             </div>
         </section>
