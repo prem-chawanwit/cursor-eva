@@ -116,19 +116,19 @@
         }
 
         .gulf-logo {
-            display: inline-grid;
-            place-items: center;
-            width: 156px;
+            display: inline-flex;
+            align-items: center;
             height: 48px;
-            padding: 7px 12px;
+            padding: 0 20px;
             background: var(--gulf-blue);
-            border-radius: 18px;
+            border-radius: 999px;
             box-shadow: 0 16px 36px rgba(0, 63, 112, 0.18);
         }
 
         .gulf-logo svg {
             display: block;
-            width: 132px;
+            flex: 0 0 auto;
+            width: 104px;
             height: auto;
         }
 
@@ -575,6 +575,224 @@
             font-size: 13px;
         }
 
+        .metrics-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-bottom: 14px;
+        }
+
+        .legend-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 12px;
+            color: var(--gulf-blue);
+            font-size: 12.5px;
+            font-weight: 850;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+        }
+
+        .metrics-wrap {
+            overflow-x: auto;
+            background: var(--panel);
+            border: 1px solid rgba(219, 232, 239, 0.92);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+        }
+
+        .metrics-table {
+            width: 100%;
+            min-width: 880px;
+            border-collapse: collapse;
+        }
+
+        .metrics-table caption {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+        }
+
+        .metrics-table th,
+        .metrics-table td {
+            padding: 14px 16px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .metrics-table thead th {
+            color: var(--gulf-blue);
+            font-size: 15px;
+            font-weight: 900;
+            white-space: nowrap;
+            background: #f2f8fb;
+            border-bottom: 2px solid rgba(0, 63, 112, 0.18);
+        }
+
+        .metrics-table thead th small {
+            display: block;
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 11.5px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .metrics-table tbody tr:nth-child(even) td,
+        .metrics-table tbody tr:nth-child(even) th {
+            background: #f9fcfe;
+        }
+
+        .metrics-table tbody tr:last-child th,
+        .metrics-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .metrics-table tbody th {
+            width: 24%;
+            min-width: 200px;
+            color: var(--gulf-blue);
+            font-size: 14.5px;
+            font-weight: 850;
+            line-height: 1.4;
+        }
+
+        .metrics-table tbody th small {
+            display: block;
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 650;
+        }
+
+        .metrics-table td {
+            width: 25.33%;
+            color: #385a70;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .metrics-table .col-baseline {
+            background: #eaf6ee !important;
+            border-left: 1px solid rgba(99, 189, 116, 0.5);
+            border-right: 1px solid rgba(99, 189, 116, 0.5);
+        }
+
+        .metrics-table thead th.col-baseline {
+            border-top: 3px solid var(--gulf-green-2);
+        }
+
+        .metrics-table .col-cowork {
+            background: #f4f7f9 !important;
+            border-left: 2px dashed rgba(0, 63, 112, 0.28);
+        }
+
+        .metrics-table thead th.col-cowork {
+            background: #f0f4f7 !important;
+            border-top: 2px solid rgba(100, 119, 136, 0.35);
+        }
+
+        .metrics-table td.col-cowork {
+            color: #4a6275;
+        }
+
+        .group-flag {
+            display: inline-flex;
+            margin-left: 7px;
+            padding: 2px 8px;
+            color: var(--muted);
+            font-size: 10.5px;
+            font-weight: 950;
+            letter-spacing: 0.04em;
+            background: #edf1f4;
+            border: 1px solid rgba(100, 119, 136, 0.25);
+            border-radius: 999px;
+            vertical-align: middle;
+        }
+
+        .legend-dash {
+            display: inline-block;
+            flex: 0 0 auto;
+            width: 12px;
+            height: 14px;
+            border-left: 2px dashed rgba(0, 63, 112, 0.45);
+        }
+
+        .baseline-flag {
+            display: inline-flex;
+            margin-left: 7px;
+            padding: 2px 8px;
+            color: #176a3c;
+            font-size: 10.5px;
+            font-weight: 950;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            background: #d9f2e2;
+            border-radius: 999px;
+            vertical-align: middle;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 6px;
+            padding: 4px 11px;
+            font-size: 12px;
+            font-weight: 900;
+            border-radius: 999px;
+        }
+
+        .status::before {
+            font-size: 11px;
+        }
+
+        .status.full {
+            color: #176a3c;
+            background: #e0f5e8;
+        }
+
+        .status.full::before {
+            content: "\2713";
+        }
+
+        .status.partial {
+            color: #8a5a14;
+            background: #fdf2dc;
+        }
+
+        .status.partial::before {
+            content: "\25D1";
+        }
+
+        .status.none {
+            color: #5d6f7e;
+            background: #edf1f4;
+        }
+
+        .status.none::before {
+            content: "\2014";
+        }
+
+        .status.base {
+            color: #ffffff;
+            background: var(--gulf-green-2);
+        }
+
+        .status.base::before {
+            content: "\2605";
+        }
+
+        .metrics-table .note {
+            display: block;
+        }
+
         .matrix-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -760,8 +978,17 @@
             .tool-card,
             .detail-panel,
             .matrix-card,
+            .metrics-wrap,
             .source-note {
                 box-shadow: none;
+            }
+
+            .metrics-table {
+                min-width: 0;
+            }
+
+            .metrics-table tr {
+                page-break-inside: avoid;
             }
 
             .controls {
@@ -783,12 +1010,11 @@
     <main class="page">
         <nav class="topbar" aria-label="Report header">
             <span class="doc-label">Project Update / Session 202 v.3</span>
-            <div class="gulf-logo" aria-label="GULF logo">
-                <svg viewBox="0 0 190 52" role="img" aria-labelledby="gulf-logo-title">
-                    <title id="gulf-logo-title">GULF</title>
-                    <path d="M5 30C16 15 31 8 52 8C42 24 30 37 12 44C10 39 7 34 5 30Z" fill="#ffffff"/>
-                    <path d="M8 30C19 29 32 23 46 10C37 26 27 37 12 44C11 39 9 34 8 30Z" fill="#63bd74"/>
-                    <text x="58" y="38" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="900" letter-spacing="-1.4">GULF</text>
+            <div class="gulf-logo">
+                <svg viewBox="0 0 135 30" role="img" aria-label="GULF" focusable="false">
+                    <path d="M47.4781 13.6014V18.9304H56.0071C55.5261 20.7114 53.6391 23.4844 49.1451 23.4844C43.4701 23.4844 40.9301 18.9934 40.9301 14.5414C40.9301 8.41737 45.0361 5.67537 49.1061 5.67537C50.7277 5.58334 52.3298 6.06631 53.6303 7.03925C54.9309 8.0122 55.8465 9.41275 56.2161 10.9944L61.9741 8.94437C60.9021 5.30937 57.2271 0.00236855 49.1061 0.00236855C47.1995 -0.0326781 45.3059 0.321531 43.5409 1.04334C41.776 1.76515 40.1768 2.83938 38.8412 4.20035C37.5056 5.56132 36.4617 7.18042 35.7732 8.95864C35.0847 10.7369 34.7662 12.6368 34.8371 14.5424C34.7495 16.4514 35.0574 18.358 35.7414 20.1425C36.4254 21.927 37.4707 23.5509 38.8119 24.9124C40.1531 26.2738 41.7611 27.3434 43.5351 28.0541C45.3091 28.7648 47.2109 29.1013 49.1211 29.0424C53.2581 29.0424 56.5061 27.7894 58.7751 25.3184C62.8361 20.8964 62.2641 13.6014 62.2641 13.6014H47.4781ZM83.3701 17.1684C83.3701 21.1624 81.7421 23.3114 78.0301 23.3114C74.2961 23.3114 72.6901 21.1624 72.6901 17.1684V0.410369H66.3511L66.4811 17.2554C66.5251 24.8554 69.8461 29.0424 78.0291 29.0424C86.1911 29.0424 89.5121 24.8524 89.5771 17.2554L89.7071 0.410369H83.3681L83.3701 17.1684ZM134.887 5.83837V0.410369H116.218V28.6304H122.557V16.9734H133.194V12.0034H122.557V5.83837H134.887ZM100.827 0.410369H94.4881V28.6304H112.267V23.1364H100.827V0.410369Z" fill="#ffffff"/>
+                    <path d="M19.5923 9.78895C16.6113 13.853 14.7246 18.615 14.1133 23.618C14.5953 25.3822 14.8077 27.2092 14.7433 29.037C19.8513 29.118 23.9183 25.527 26.5023 20.453C29.6253 14.322 30.4743 4.56495 33.5903 0.00195312C28.1713 1.13795 23.2843 4.60495 19.5923 9.78895Z" fill="#ffffff"/>
+                    <path d="M0 13.8828C2.308 19.3308 3.749 28.7478 14.744 29.0388C14.975 20.3678 9.975 14.1458 0 13.8828Z" fill="#ffffff"/>
                 </svg>
             </div>
         </nav>
@@ -904,7 +1130,7 @@
                         <h3>Claude</h3>
                     </div>
                     <span class="role">Best fit: Co-work & Governance</span>
-                    <p>เหมาะกับงานที่ต้องแชร์ context ระหว่างทีมเทคนิคกับ business และต้องการมุมมองด้าน usage/governance</p>
+                    <p>เหมาะกับงาน Co-work ที่ต้องแชร์ context ระหว่างทีมเทคนิคกับ business — เป็นกลุ่มผลิตภัณฑ์ต่างจาก IDE assistant แต่ยังเทียบในมุม governance ได้</p>
                     <ul class="point-list">
                         <li>เด่นด้าน workspace, knowledge sharing, spend visibility</li>
                         <li>ควรทดสอบ step-by-step task ที่ยาวและซับซ้อน</li>
@@ -957,10 +1183,92 @@
             </article>
         </section>
 
+        <section class="section" aria-labelledby="metrics-title">
+            <div class="section-head">
+                <div>
+                    <span class="kicker">02 / Key metrics</span>
+                    <h2 id="metrics-title">Key Metrics: เทียบฟีเจอร์หลักจากมุม GitHub Copilot</h2>
+                </div>
+                <p>ใช้ฟีเจอร์ของ GitHub Copilot เป็น baseline แล้วดูว่า Cursor และ Claude ครอบคลุมแค่ไหน — Claude อยู่กลุ่ม Co-work แต่ยังเทียบในตารางเดียวกัน</p>
+            </div>
+
+            <div class="metrics-legend" aria-label="Status legend">
+                <span class="legend-chip"><span class="status base">Baseline</span> ฟีเจอร์ตั้งต้นของ GitHub Copilot</span>
+                <span class="legend-chip"><span class="status full">เทียบเท่า</span> มีครบใกล้เคียงกัน</span>
+                <span class="legend-chip"><span class="status partial">บางส่วน</span> มีแต่ขอบเขตแคบกว่า</span>
+                <span class="legend-chip"><span class="status none">ไม่มี</span> ไม่อยู่ในขอบเขตหลัก</span>
+                <span class="legend-chip"><span class="legend-dash" aria-hidden="true"></span> เส้นประ = Claude อยู่อีกกลุ่ม (Co-work) แต่เทียบร่วมในตาราง</span>
+            </div>
+
+            <div class="metrics-wrap">
+                <table class="metrics-table">
+                    <caption>เปรียบเทียบฟีเจอร์หลักของ GitHub Copilot กับ Cursor และ Claude (Co-work)</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Key Feature</th>
+                            <th scope="col" class="col-baseline">GitHub Copilot<span class="baseline-flag">Baseline</span><small>Microsoft ecosystem</small></th>
+                            <th scope="col">Cursor<small>Agentic development</small></th>
+                            <th scope="col" class="col-cowork">Claude<span class="group-flag">อีกกลุ่ม · Co-work</span><small>Co-work &amp; governance</small></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Inline Code Completion<small>เติมโค้ด inline ขณะพิมพ์ใน IDE</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">จุดแข็งดั้งเดิม adoption สูงใน VS Code และ Visual Studio</span></td>
+                            <td><span class="status full">เทียบเท่า</span><span class="note">Tab model เร็ว คาดเดา multi-line ได้ดี บาง task เร็วกว่า</span></td>
+                            <td class="col-cowork"><span class="status none">ไม่มี</span><span class="note">ไม่มี inline completion ใน IDE ต้องใช้ chat/Claude Code แทน</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Chat in IDE<small>ถาม-ตอบใน editor ผูกกับไฟล์และ workspace</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">Copilot Chat ใน VS Code/Visual Studio ผูกกับไฟล์ที่เปิดและ @workspace</span></td>
+                            <td><span class="status full">เทียบเท่า</span><span class="note">Chat/Agent/Ask ใน editor ลึกกว่า โดยเฉพาะงาน multi-file</span></td>
+                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">Co-work chat ดี แต่ไม่ native ใน IDE เดียวกับ dev stack</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Coding Agent (Issue &#8594; PR)<small>มอบหมาย issue ให้ AI สร้าง PR อัตโนมัติ</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">Assign GitHub Issue ให้ coding agent สร้าง branch/PR ใน repo</span></td>
+                            <td><span class="status full">เทียบเท่า</span><span class="note">Cloud Agents ทำ end-to-end task ได้แรง แต่ไม่เริ่มจาก GitHub Issue โดยตรง</span></td>
+                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">Claude Code ทำได้ใน terminal แต่อยู่นอก flow หลักของกลุ่ม Co-work</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Code Review on PRs<small>Review PR อัตโนมัติใน Git workflow</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">Review ฝังใน GitHub PR flow ตรงจุด ไม่ต้องออกจาก toolchain</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">BugBot review PR ได้ แต่ไม่ embed ใน GitHub PR UI เท่า Copilot</span></td>
+                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">Review ผ่าน chat/CLI ได้ แต่ไม่มี native bot บน GitHub PR</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">GitHub / Azure Integration<small>ผูก VS Code, GitHub.com, Azure DevOps และ Entra</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">ครบวงจร Microsoft stack ตรงกับ GULF ที่ใช้ GitHub + Azure</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">Fork ของ VS Code ใช้ extension ได้ แต่ไม่ native กับ GitHub/Azure governance</span></td>
+                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">เน้น collaboration ข้ามทีม integrate กับ dev toolchain น้อยกว่า</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Model Choice<small>เลือก model ได้ตาม task</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">เลือก GPT / Claude / Gemini ได้ตาม policy ของ org</span></td>
+                            <td><span class="status full">เทียบเท่า</span><span class="note">สลับหลาย model ใน IDE เดียว ไม่ผูกกับ GitHub billing/policy</span></td>
+                            <td class="col-cowork"><span class="status none">ไม่มี</span><span class="note">ใช้ Anthropic models เท่านั้น ไม่ multi-vendor</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Org Knowledge &amp; Extensions<small>Knowledge base, Spaces และ extensions ระดับองค์กร</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">Copilot Spaces + knowledge base + extensions ใน GitHub ecosystem</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">Codebase indexing ดี แต่ไม่มี org-wide Spaces/knowledge แบบ GitHub</span></td>
+                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">Projects แชร์ context ข้ามทีมได้ดีมาก แต่เป็นมุม Co-work ไม่ใช่ dev extension</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Enterprise Governance<small>SSO, policy, audit ระดับองค์กร</small></th>
+                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">GitHub Enterprise + Microsoft Entra SSO + policy/audit ตรง stack เดิม</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">Enterprise plan มี SSO/Privacy Mode แต่ไม่ align GitHub Enterprise เต็มรูป</span></td>
+                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">Claude for Work มี SSO/governance ดี แต่ audit ใน dev toolchain น้อยกว่า</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <section class="section" aria-labelledby="matrix-title">
             <div class="section-head">
                 <div>
-                    <span class="kicker">02 / Decision cards</span>
+                    <span class="kicker">03 / Decision cards</span>
                     <h2 id="matrix-title">สรุปการตัดสินใจแบบไม่วน</h2>
                 </div>
                 <p>เปลี่ยนจากตารางยาวเป็นการ์ด เพื่อให้อ่านทีละโจทย์แล้วตัดสินใจต่อได้ทันที</p>
@@ -997,7 +1305,7 @@
         <section class="section" aria-labelledby="pilot-title">
             <div class="section-head">
                 <div>
-                    <span class="kicker">03 / Pilot plan</span>
+                    <span class="kicker">04 / Pilot plan</span>
                     <h2 id="pilot-title">ข้อเสนอสำหรับรอบทดลอง</h2>
                 </div>
                 <p>เน้นวัดผลจากงานจริง แทนการดู feature list อย่างเดียว</p>
