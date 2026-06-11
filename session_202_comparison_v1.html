@@ -679,13 +679,13 @@
         }
 
         .metrics-table .col-baseline {
-            background: #eaf6ee !important;
-            border-left: 1px solid rgba(99, 189, 116, 0.5);
-            border-right: 1px solid rgba(99, 189, 116, 0.5);
+            background: #eef5fb !important;
+            border-left: 1px solid rgba(0, 63, 112, 0.2);
+            border-right: 1px solid rgba(0, 63, 112, 0.2);
         }
 
         .metrics-table thead th.col-baseline {
-            border-top: 3px solid var(--gulf-green-2);
+            border-top: 3px solid var(--gulf-blue-2);
         }
 
         .metrics-table .col-cowork {
@@ -726,16 +726,42 @@
 
         .baseline-flag {
             display: inline-flex;
+            align-items: center;
+            gap: 4px;
             margin-left: 7px;
             padding: 2px 8px;
-            color: #176a3c;
+            color: var(--gulf-blue);
             font-size: 10.5px;
             font-weight: 950;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            background: #dcecf7;
+            border: 1px solid rgba(0, 63, 112, 0.18);
+            border-radius: 999px;
+            vertical-align: middle;
+        }
+
+        .baseline-flag::before {
+            content: "\25CE";
+            font-size: 10px;
+        }
+
+        .strength-flag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 6px;
+            padding: 4px 9px;
+            color: #176a3c;
+            font-size: 11px;
+            font-weight: 950;
             background: #d9f2e2;
             border-radius: 999px;
             vertical-align: middle;
+        }
+
+        .strength-flag::before {
+            content: "\2191";
+            font-size: 10px;
         }
 
         .status {
@@ -780,17 +806,81 @@
             content: "\2014";
         }
 
-        .status.base {
-            color: #ffffff;
-            background: var(--gulf-green-2);
-        }
-
-        .status.base::before {
-            content: "\2605";
-        }
-
         .metrics-table .note {
             display: block;
+        }
+
+        .metrics-table .note a.ref,
+        .vendor-pros a.ref {
+            margin-left: 1px;
+            color: var(--gulf-blue-2);
+            font-size: 10.5px;
+            font-weight: 850;
+            text-decoration: none;
+            vertical-align: super;
+        }
+
+        .metrics-table .note a.ref:hover,
+        .vendor-pros a.ref:hover {
+            text-decoration: underline;
+        }
+
+        .vendor-pros {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .vendor-pros .insight ul {
+            display: grid;
+            gap: 5px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .vendor-pros .insight li {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 7px;
+        }
+
+        .vendor-pros .insight li b {
+            font-size: 12px;
+        }
+
+        .vendor-pros .insight li.pro b {
+            color: var(--gulf-green-2);
+        }
+
+        .vendor-pros .insight li.con b {
+            color: #8a5a14;
+        }
+
+        .ref-note {
+            margin-top: 16px;
+        }
+
+        .ref-note ol {
+            display: grid;
+            gap: 4px;
+            margin: 0;
+            padding-left: 19px;
+            color: #385a70;
+            font-size: 12.5px;
+        }
+
+        .ref-note a {
+            color: var(--gulf-blue);
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .ref-note a:hover {
+            text-decoration: underline;
         }
 
         .matrix-grid {
@@ -945,6 +1035,7 @@
             .tool-grid,
             .matrix-grid,
             .insight-grid,
+            .vendor-pros,
             .quick-score {
                 grid-template-columns: 1fr;
             }
@@ -1189,14 +1280,15 @@
                     <span class="kicker">02 / Key metrics</span>
                     <h2 id="metrics-title">Key Metrics: เทียบฟีเจอร์หลักจากมุม GitHub Copilot</h2>
                 </div>
-                <p>ใช้ฟีเจอร์ของ GitHub Copilot เป็น baseline แล้วดูว่า Cursor และ Claude ครอบคลุมแค่ไหน — Claude อยู่กลุ่ม Co-work แต่ยังเทียบในตารางเดียวกัน</p>
+                <p>ใช้ฟีเจอร์ของ GitHub Copilot เป็นจุดอ้างอิง — ทุกช่องแสดงสถานะจริงของแต่ละเจ้า อ้างอิงจาก official docs ตามเลข [n]</p>
             </div>
 
             <div class="metrics-legend" aria-label="Status legend">
-                <span class="legend-chip"><span class="status base">Baseline</span> ฟีเจอร์ตั้งต้นของ GitHub Copilot</span>
-                <span class="legend-chip"><span class="status full">เทียบเท่า</span> มีครบใกล้เคียงกัน</span>
-                <span class="legend-chip"><span class="status partial">บางส่วน</span> มีแต่ขอบเขตแคบกว่า</span>
-                <span class="legend-chip"><span class="status none">ไม่มี</span> ไม่อยู่ในขอบเขตหลัก</span>
+                <span class="legend-chip"><span class="baseline-flag">Baseline</span> จุดอ้างอิงในการเทียบ — ไม่ได้แปลว่าดีกว่า</span>
+                <span class="legend-chip"><span class="status full">มี</span> รองรับเต็มรูปแบบ</span>
+                <span class="legend-chip"><span class="status partial">บางส่วน</span> มีแต่ขอบเขตจำกัด</span>
+                <span class="legend-chip"><span class="status none">ไม่มี</span> ไม่อยู่ในขอบเขตผลิตภัณฑ์</span>
+                <span class="legend-chip"><span class="strength-flag">จุดแข็ง</span> เจ้าที่เด่นที่สุดในแถวนั้น</span>
                 <span class="legend-chip"><span class="legend-dash" aria-hidden="true"></span> เส้นประ = Claude อยู่อีกกลุ่ม (Co-work) แต่เทียบร่วมในตาราง</span>
             </div>
 
@@ -1214,54 +1306,99 @@
                     <tbody>
                         <tr>
                             <th scope="row">Inline Code Completion<small>เติมโค้ด inline ขณะพิมพ์ใน IDE</small></th>
-                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">จุดแข็งดั้งเดิม adoption สูงใน VS Code และ Visual Studio</span></td>
-                            <td><span class="status full">เทียบเท่า</span><span class="note">Tab model เร็ว คาดเดา multi-line ได้ดี บาง task เร็วกว่า</span></td>
-                            <td class="col-cowork"><span class="status none">ไม่มี</span><span class="note">ไม่มี inline completion ใน IDE ต้องใช้ chat/Claude Code แทน</span></td>
+                            <td class="col-baseline"><span class="status full">มี</span><span class="note">จุดแข็งดั้งเดิม adoption สูงใน VS Code และ Visual Studio</span></td>
+                            <td><span class="status full">มี</span><span class="note">Tab model เร็ว คาดเดาการแก้แบบ multi-line ได้ดี</span></td>
+                            <td class="col-cowork"><span class="status none">ไม่มี</span><span class="note">ไม่มี inline completion ใน IDE ต้องใช้ Claude Code/chat แทน</span></td>
                         </tr>
                         <tr>
                             <th scope="row">Chat in IDE<small>ถาม-ตอบใน editor ผูกกับไฟล์และ workspace</small></th>
-                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">Copilot Chat ใน VS Code/Visual Studio ผูกกับไฟล์ที่เปิดและ @workspace</span></td>
-                            <td><span class="status full">เทียบเท่า</span><span class="note">Chat/Agent/Ask ใน editor ลึกกว่า โดยเฉพาะงาน multi-file</span></td>
-                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">Co-work chat ดี แต่ไม่ native ใน IDE เดียวกับ dev stack</span></td>
+                            <td class="col-baseline"><span class="status full">มี</span><span class="note">Copilot Chat ผูกกับไฟล์ที่เปิดและ @workspace เลือก model ได้<a class="ref" href="#ref-5">[5]</a></span></td>
+                            <td><span class="status full">มี</span><span class="note">Agent/Plan/Ask mode ใน editor ทำงาน multi-file ได้ลึก</span></td>
+                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">มี Claude Code extension ใน VS Code/JetBrains แต่ขอบเขตแคบกว่า IDE-native<a class="ref" href="#ref-8">[8]</a></span></td>
                         </tr>
                         <tr>
-                            <th scope="row">Coding Agent (Issue &#8594; PR)<small>มอบหมาย issue ให้ AI สร้าง PR อัตโนมัติ</small></th>
-                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">Assign GitHub Issue ให้ coding agent สร้าง branch/PR ใน repo</span></td>
-                            <td><span class="status full">เทียบเท่า</span><span class="note">Cloud Agents ทำ end-to-end task ได้แรง แต่ไม่เริ่มจาก GitHub Issue โดยตรง</span></td>
-                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">Claude Code ทำได้ใน terminal แต่อยู่นอก flow หลักของกลุ่ม Co-work</span></td>
+                            <th scope="row">Coding Agent (Issue &#8594; PR)<small>มอบหมายงานจาก GitHub ให้ AI สร้าง PR</small></th>
+                            <td class="col-baseline"><span class="status full">มี</span><span class="note">Assign GitHub Issue ให้ cloud agent สร้าง branch/PR ใน GitHub Actions<a class="ref" href="#ref-4">[4]</a></span></td>
+                            <td><span class="status full">มี</span><span class="note">สั่ง Cloud Agent ได้จาก @cursor ใน GitHub issue/PR, Slack, Linear และ web<a class="ref" href="#ref-2">[2]</a></span></td>
+                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">@claude ผ่าน GitHub Actions ได้ แต่ค่า default push branch แล้วให้คนเปิด PR เอง<a class="ref" href="#ref-8">[8]</a></span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Sandboxed Execution<small>รันคำสั่งใน sandbox ที่ผู้ใช้กำหนดขอบเขตและเข้าควบคุมได้</small></th>
+                            <td class="col-baseline"><span class="status partial">บางส่วน</span><span class="note">Cloud agent รันใน GitHub Actions แบบ ephemeral + firewall ปรับผ่าน setup file ได้ แต่เข้าไปควบคุมเครื่องระหว่างรันไม่ได้<a class="ref" href="#ref-4">[4]</a></span></td>
+                            <td><span class="status full">มี</span><span class="strength-flag">จุดแข็ง</span><span class="note">Sandbox ระดับ OS ในเครื่อง คุม filesystem/network เองได้ผ่าน sandbox.json + allowlist และ takeover remote desktop ของ cloud agent ได้<a class="ref" href="#ref-1">[1]</a><a class="ref" href="#ref-2">[2]</a></span></td>
+                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">/sandbox ใน Claude Code แยก filesystem/network ได้ดี แต่เป็น opt-in และครอบเฉพาะ Bash tool<a class="ref" href="#ref-7">[7]</a></span></td>
                         </tr>
                         <tr>
                             <th scope="row">Code Review on PRs<small>Review PR อัตโนมัติใน Git workflow</small></th>
-                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">Review ฝังใน GitHub PR flow ตรงจุด ไม่ต้องออกจาก toolchain</span></td>
-                            <td><span class="status partial">บางส่วน</span><span class="note">BugBot review PR ได้ แต่ไม่ embed ใน GitHub PR UI เท่า Copilot</span></td>
-                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">Review ผ่าน chat/CLI ได้ แต่ไม่มี native bot บน GitHub PR</span></td>
+                            <td class="col-baseline"><span class="status full">มี</span><span class="note">Copilot code review ฝังใน GitHub PR flow ไม่ต้องออกจาก toolchain</span></td>
+                            <td><span class="status full">มี</span><span class="note">BugBot comment inline ใน GitHub PR + check + Autofix<a class="ref" href="#ref-3">[3]</a></span></td>
+                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">ทำ auto review ผ่าน claude-code-action ได้ แต่ต้อง setup Actions เอง<a class="ref" href="#ref-8">[8]</a></span></td>
                         </tr>
                         <tr>
                             <th scope="row">GitHub / Azure Integration<small>ผูก VS Code, GitHub.com, Azure DevOps และ Entra</small></th>
-                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">ครบวงจร Microsoft stack ตรงกับ GULF ที่ใช้ GitHub + Azure</span></td>
-                            <td><span class="status partial">บางส่วน</span><span class="note">Fork ของ VS Code ใช้ extension ได้ แต่ไม่ native กับ GitHub/Azure governance</span></td>
-                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">เน้น collaboration ข้ามทีม integrate กับ dev toolchain น้อยกว่า</span></td>
+                            <td class="col-baseline"><span class="status full">มี</span><span class="strength-flag">จุดแข็ง</span><span class="note">Native ทั้ง Microsoft stack ตรงกับ GULF ที่ใช้ GitHub + Azure<a class="ref" href="#ref-4">[4]</a></span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">มี GitHub integration (BugBot, @cursor) แต่ Azure DevOps ยังต้อง pilot จริง</span></td>
+                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">เชื่อมผ่าน Actions/MCP ได้ แต่ไม่ native กับ Microsoft governance</span></td>
                         </tr>
                         <tr>
                             <th scope="row">Model Choice<small>เลือก model ได้ตาม task</small></th>
-                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">เลือก GPT / Claude / Gemini ได้ตาม policy ของ org</span></td>
-                            <td><span class="status full">เทียบเท่า</span><span class="note">สลับหลาย model ใน IDE เดียว ไม่ผูกกับ GitHub billing/policy</span></td>
+                            <td class="col-baseline"><span class="status full">มี</span><span class="note">เลือก GPT / Claude / Gemini ใน model picker ขึ้นกับ plan (Pro+/Business/Enterprise)<a class="ref" href="#ref-5">[5]</a></span></td>
+                            <td><span class="status full">มี</span><span class="note">สลับหลาย model ใน IDE เดียว ไม่ผูกกับ vendor ใดรายเดียว</span></td>
                             <td class="col-cowork"><span class="status none">ไม่มี</span><span class="note">ใช้ Anthropic models เท่านั้น ไม่ multi-vendor</span></td>
                         </tr>
                         <tr>
-                            <th scope="row">Org Knowledge &amp; Extensions<small>Knowledge base, Spaces และ extensions ระดับองค์กร</small></th>
-                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">Copilot Spaces + knowledge base + extensions ใน GitHub ecosystem</span></td>
-                            <td><span class="status partial">บางส่วน</span><span class="note">Codebase indexing ดี แต่ไม่มี org-wide Spaces/knowledge แบบ GitHub</span></td>
-                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">Projects แชร์ context ข้ามทีมได้ดีมาก แต่เป็นมุม Co-work ไม่ใช่ dev extension</span></td>
+                            <th scope="row">Org Knowledge &amp; Context Sharing<small>Knowledge base และการแชร์ context ระดับองค์กร</small></th>
+                            <td class="col-baseline"><span class="status full">มี</span><span class="note">Copilot Spaces + extensions ใน GitHub ecosystem<a class="ref" href="#ref-6">[6]</a></span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">Rules/Memories ระดับ repo แต่ไม่มี org-wide Spaces แบบ GitHub</span></td>
+                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="strength-flag">จุดแข็ง</span><span class="note">Projects แชร์ context ข้ามทีม business + dev ได้ดีที่สุดในมุม Co-work แต่ไม่ใช่ dev extension model</span></td>
                         </tr>
                         <tr>
                             <th scope="row">Enterprise Governance<small>SSO, policy, audit ระดับองค์กร</small></th>
-                            <td class="col-baseline"><span class="status base">Baseline</span><span class="note">GitHub Enterprise + Microsoft Entra SSO + policy/audit ตรง stack เดิม</span></td>
-                            <td><span class="status partial">บางส่วน</span><span class="note">Enterprise plan มี SSO/Privacy Mode แต่ไม่ align GitHub Enterprise เต็มรูป</span></td>
-                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">Claude for Work มี SSO/governance ดี แต่ audit ใน dev toolchain น้อยกว่า</span></td>
+                            <td class="col-baseline"><span class="status full">มี</span><span class="note">GitHub Enterprise + Microsoft Entra SSO + policy/audit ตรง stack เดิมของ GULF</span></td>
+                            <td><span class="status partial">บางส่วน</span><span class="note">มี SSO/SCIM, Privacy Mode และคุม sandbox/allowlist ผ่าน MDM ได้ แต่ไม่ align GitHub Enterprise governance เต็มรูป<a class="ref" href="#ref-1">[1]</a></span></td>
+                            <td class="col-cowork"><span class="status full">มี</span><span class="note">Claude Enterprise มี SAML/OIDC SSO, SCIM, audit log + Compliance API (เก็บ activity 6 ปี) แต่อยู่นอก Microsoft stack<a class="ref" href="#ref-9">[9]</a></span></td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <div class="vendor-pros" aria-label="Vendor strengths and gaps">
+                <div class="insight">
+                    <strong>GitHub Copilot — เด่นและขาด</strong>
+                    <ul>
+                        <li class="pro"><b>เด่น</b><span>Ecosystem ครบวงจร: assign Issue &#8594; PR, review ใน PR flow, governance ผ่าน GitHub Enterprise/Entra<a class="ref" href="#ref-4">[4]</a></span></li>
+                        <li class="con"><b>ขาด</b><span>เข้าไปควบคุม environment ของ cloud agent ระหว่างรันไม่ได้ และจำกัด session ละ 59 นาที<a class="ref" href="#ref-4">[4]</a></span></li>
+                    </ul>
+                </div>
+                <div class="insight">
+                    <strong>Cursor — เด่นและขาด</strong>
+                    <ul>
+                        <li class="pro"><b>เด่น</b><span>Sandbox ระดับ OS ที่คุมเองได้ (path/network/allowlist) + takeover remote desktop ของ cloud agent ได้ทุกเมื่อ<a class="ref" href="#ref-1">[1]</a><a class="ref" href="#ref-2">[2]</a></span></li>
+                        <li class="con"><b>ขาด</b><span>ไม่มี org-wide knowledge space แบบ Copilot Spaces และ Azure DevOps ยังต้องพิสูจน์ใน pilot</span></li>
+                    </ul>
+                </div>
+                <div class="insight">
+                    <strong>Claude — เด่นและขาด</strong>
+                    <ul>
+                        <li class="pro"><b>เด่น</b><span>Co-work ข้ามทีมผ่าน Projects + governance แน่น: SSO, SCIM, audit log, Compliance API เก็บ activity 6 ปี<a class="ref" href="#ref-9">[9]</a></span></li>
+                        <li class="con"><b>ขาด</b><span>ไม่มี inline completion ใน IDE และผูกกับ Anthropic models เท่านั้น</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="source-note ref-note">
+                <h3 id="metrics-refs">References — Official docs ที่ใช้ตรวจสอบข้อมูลในตาราง</h3>
+                <ol>
+                    <li id="ref-1">Cursor Docs — <a href="https://cursor.com/docs/agent/tools/terminal" target="_blank" rel="noreferrer">Terminal &amp; Sandbox execution</a> และ <a href="https://cursor.com/docs/reference/sandbox" target="_blank" rel="noreferrer">sandbox.json reference</a> (filesystem/network policy, allowlist, Run Modes)</li>
+                    <li id="ref-2">Cursor Docs — <a href="https://cursor.com/docs/cloud-agent/capabilities" target="_blank" rel="noreferrer">Cloud Agent capabilities</a> (isolated VM, remote desktop takeover, สั่งจาก @cursor บน GitHub/Slack/Linear)</li>
+                    <li id="ref-3">Cursor Docs — <a href="https://cursor.com/docs/bugbot" target="_blank" rel="noreferrer">Bugbot</a> (inline PR comments, GitHub check, Autofix)</li>
+                    <li id="ref-4">GitHub Docs — <a href="https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent" target="_blank" rel="noreferrer">About Copilot cloud agent</a> และ <a href="https://docs.github.com/copilot/how-tos/use-copilot-agents/coding-agent/customize-the-agent-environment" target="_blank" rel="noreferrer">Configure the development environment</a> (ephemeral GitHub Actions, firewall, 59-minute limit)</li>
+                    <li id="ref-5">GitHub Docs — <a href="https://docs.github.com/en/copilot/how-tos/use-ai-models/change-the-chat-model" target="_blank" rel="noreferrer">Changing the AI model for Copilot Chat</a> (model picker: OpenAI / Anthropic / Google ตาม plan)</li>
+                    <li id="ref-6">GitHub Changelog — <a href="https://github.blog/changelog/2025-05-29-introducing-copilot-spaces-a-new-way-to-work-with-code-and-context/" target="_blank" rel="noreferrer">Introducing Copilot Spaces</a></li>
+                    <li id="ref-7">Anthropic — <a href="https://code.claude.com/docs/en/sandboxing" target="_blank" rel="noreferrer">Claude Code sandboxed Bash tool</a> และ <a href="https://www.anthropic.com/engineering/claude-code-sandboxing" target="_blank" rel="noreferrer">engineering blog</a> (opt-in /sandbox, Seatbelt/bubblewrap)</li>
+                    <li id="ref-8">Anthropic — <a href="https://code.claude.com/docs/en/github-actions" target="_blank" rel="noreferrer">Claude Code GitHub Actions</a> (@claude mention, default push branch ไม่เปิด PR อัตโนมัติ)</li>
+                    <li id="ref-9">Claude Docs — <a href="https://platform.claude.com/docs/en/manage-claude/compliance-api" target="_blank" rel="noreferrer">Compliance API</a> และ <a href="https://claude.com/resources/tutorials/claude-enterprise-administrator-guide" target="_blank" rel="noreferrer">Enterprise Administrator Guide</a> (SAML/OIDC SSO, SCIM, audit logs)</li>
+                </ol>
             </div>
         </section>
 
