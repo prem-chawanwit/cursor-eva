@@ -1491,18 +1491,71 @@
                             <td><span class="status full">มี</span><span class="note">Team Rules ตั้ง rule/มาตรฐานระดับองค์กรจาก dashboard ใช้กับทุกคนทุก repo และ enforce ไม่ให้ปิดได้ — รูปแบบเป็น rules ต่างจาก Spaces ที่เป็นพื้นที่แชร์ไฟล์/โค้ด<a class="ref" href="#ref-15">[15]</a></span></td>
                             <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="strength-flag">จุดแข็ง</span><span class="note">Projects แชร์ context ข้ามทีม business + dev ได้ดีที่สุดในมุม Co-work แต่ไม่ใช่ dev extension model</span></td>
                         </tr>
-                        <tr>
-                            <th scope="row">Enterprise Governance<small>SSO, policy, audit ระดับองค์กร</small></th>
-                            <td class="col-baseline"><span class="status full">มี</span><span class="note">GitHub Enterprise + Microsoft Entra SSO + policy/audit ตรง stack เดิมของ GULF</span></td>
-                            <td><span class="status partial">บางส่วน</span><span class="note">มี SSO/SCIM, Privacy Mode และคุม sandbox/allowlist ผ่าน MDM ได้ แต่ไม่ align GitHub Enterprise governance เต็มรูป<a class="ref" href="#ref-1">[1]</a></span></td>
-                            <td class="col-cowork"><span class="status full">มี</span><span class="note">Claude Enterprise มี SAML/OIDC SSO, SCIM, audit log + Compliance API (เก็บ activity 6 ปี) แต่อยู่นอก Microsoft stack<a class="ref" href="#ref-9">[9]</a></span></td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
 
             <p class="metrics-footnote">หมายเหตุแถว Vector Index: จาก research ของ Cursor เอง semantic search เพิ่มความแม่นยำราว 12.5% เทียบกับใช้ grep อย่างเดียว และเห็นผลชัดใน repo ขนาด 1,000+ ไฟล์<a class="ref" href="#ref-13">[13]</a> — ยังไม่พบหลักฐานอิสระว่าความต่างในงานจริง significant มาก ฝั่ง Anthropic เองยืนยันว่า agentic search ทำงานได้ดีโดยไม่ต้องมี index<a class="ref" href="#ref-14">[14]</a> จึงควรพิสูจน์ด้วย pilot กับ repo จริงของ GULF</p>
 
+        </section>
+
+        <section class="section" aria-labelledby="takeaway-title">
+            <div class="section-head">
+                <div>
+                    <span class="kicker">03 / Take away</span>
+                    <h2 id="takeaway-title">คะแนนจากตาราง และสิ่งที่ต้องทำต่อ</h2>
+                </div>
+                <p>นับจากตาราง 02 แบบเข้าใจง่าย: มี = 1 คะแนน, บางส่วน = 0.5, ไม่มี = 0 (เต็ม 11 ข้อ)</p>
+            </div>
+
+            <div class="score-grid">
+                <article class="score-card baseline-score">
+                    <h3>GitHub Copilot</h3>
+                    <div class="score-num">10<small>/11</small></div>
+                    <div class="score-bar"><i style="width: 91%;"></i></div>
+                    <div class="score-counts">
+                        <span class="status full">มี 9</span>
+                        <span class="status partial">บางส่วน 2</span>
+                        <span class="status none">ไม่มี 0</span>
+                    </div>
+                    <p>ครบที่สุดในมุม Microsoft stack — เสียคะแนนแค่ sandbox ที่เข้าควบคุมไม่ได้ และไม่มี scheduler ในตัว</p>
+                </article>
+                <article class="score-card">
+                    <h3>Cursor</h3>
+                    <div class="score-num">9.5<small>/11</small></div>
+                    <div class="score-bar"><i style="width: 86%;"></i></div>
+                    <div class="score-counts">
+                        <span class="status full">มี 9</span>
+                        <span class="status partial">บางส่วน 1</span>
+                        <span class="status none">ไม่มี 1</span>
+                    </div>
+                    <p>ตามหลัง 0.5 คะแนน — เด่นกว่าเรื่อง sandbox, scheduled automation และการคุม agent แต่เสียคะแนนจาก proprietary IDE</p>
+                </article>
+                <article class="score-card cowork-score">
+                    <h3>Claude</h3>
+                    <div class="score-num">4.5<small>/11</small></div>
+                    <div class="score-bar"><i style="width: 41%;"></i></div>
+                    <div class="score-counts">
+                        <span class="status full">มี 1</span>
+                        <span class="status partial">บางส่วน 7</span>
+                        <span class="status none">ไม่มี 3</span>
+                    </div>
+                    <p>คะแนนต่ำเพราะตารางวัดมุม dev tool — Claude อยู่กลุ่ม Co-work จึงควรอ่านเป็นเครื่องมือเสริม ไม่ใช่คู่แข่งตรง</p>
+                </article>
+            </div>
+
+            <article class="glass-panel">
+                <h3>Take aways</h3>
+                <ol class="steps">
+                    <li><b>1</b><span>Copilot กับ Cursor คะแนนใกล้กันมาก — Copilot ชนะด้วย ecosystem/Microsoft fit ส่วน Cursor ชนะจากการใช้จริงเรื่อง automation, sandbox และการคุม agent</span></li>
+                    <li><b>2</b><span>Claude เป็นอีกกลุ่ม (Co-work) — ใช้เสริมงานข้ามทีม ไม่ใช่ตัวแทน IDE assistant</span></li>
+                    <li><b>3</b><span>Privacy &amp; IP ต้องปิดก่อน rollout: ทุกเจ้าทำ no-training/ZDR ได้ แต่ indemnification ต่างกัน — Copilot ผูกเงื่อนไข filter/tier, Cursor ต้องต่อรองในสัญญา, Claude มีแบบจำกัด cap<a class="ref" href="#ref-16">[16]</a><a class="ref" href="#ref-17">[17]</a><a class="ref" href="#ref-18">[18]</a></span></li>
+                    <li><b>4</b><span>Hybrid 3 เจ้ามีต้นทุนแฝง (สัญญา + security review หลายรอบ) — เริ่ม 2 เจ้าพร้อม central policy และโครงสร้างราคายังไม่ได้รีวิว ต้องทำ TCO แยกอีกฉบับ</span></li>
+                </ol>
+            </article>
+        </section>
+
+        <section class="section" aria-labelledby="metrics-refs">
             <div class="source-note ref-note">
                 <h3 id="metrics-refs">References — Official docs ที่ใช้ตรวจสอบข้อมูลในตาราง</h3>
                 <ol>
@@ -1527,73 +1580,6 @@
                     <li id="ref-19">Cursor Docs — <a href="https://cursor.com/docs/cloud-agent/automations" target="_blank" rel="noreferrer">Automations</a> (scheduled cron + event triggers จาก GitHub/Slack/Linear/webhook ตั้งผ่าน UI)</li>
                     <li id="ref-20">GitHub Docs — <a href="https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule" target="_blank" rel="noreferrer">GitHub Actions schedule trigger</a> (cron-based workflow สำหรับเรียก agent ตามเวลา)</li>
                 </ol>
-            </div>
-        </section>
-
-        <section class="section" aria-labelledby="takeaway-title">
-            <div class="section-head">
-                <div>
-                    <span class="kicker">03 / Take away</span>
-                    <h2 id="takeaway-title">คะแนนจากตาราง และสิ่งที่ต้องทำต่อ</h2>
-                </div>
-                <p>นับจากตาราง 02 แบบเข้าใจง่าย: มี = 1 คะแนน, บางส่วน = 0.5, ไม่มี = 0 (เต็ม 12 ข้อ)</p>
-            </div>
-
-            <div class="score-grid">
-                <article class="score-card baseline-score">
-                    <h3>GitHub Copilot</h3>
-                    <div class="score-num">11<small>/12</small></div>
-                    <div class="score-bar"><i style="width: 92%;"></i></div>
-                    <div class="score-counts">
-                        <span class="status full">มี 10</span>
-                        <span class="status partial">บางส่วน 2</span>
-                        <span class="status none">ไม่มี 0</span>
-                    </div>
-                    <p>ครบที่สุดในมุม Microsoft stack — เสียคะแนนแค่ sandbox ที่เข้าควบคุมไม่ได้ และไม่มี scheduler ในตัว</p>
-                </article>
-                <article class="score-card">
-                    <h3>Cursor</h3>
-                    <div class="score-num">10<small>/12</small></div>
-                    <div class="score-bar"><i style="width: 83%;"></i></div>
-                    <div class="score-counts">
-                        <span class="status full">มี 9</span>
-                        <span class="status partial">บางส่วน 2</span>
-                        <span class="status none">ไม่มี 1</span>
-                    </div>
-                    <p>ตามหลัง 1 คะแนน — เด่นกว่าเรื่อง sandbox, scheduled automation และการคุม agent แต่เสียคะแนนจาก proprietary IDE</p>
-                </article>
-                <article class="score-card cowork-score">
-                    <h3>Claude</h3>
-                    <div class="score-num">5.5<small>/12</small></div>
-                    <div class="score-bar"><i style="width: 46%;"></i></div>
-                    <div class="score-counts">
-                        <span class="status full">มี 2</span>
-                        <span class="status partial">บางส่วน 7</span>
-                        <span class="status none">ไม่มี 3</span>
-                    </div>
-                    <p>คะแนนต่ำเพราะตารางวัดมุม dev tool — Claude อยู่กลุ่ม Co-work จึงควรอ่านเป็นเครื่องมือเสริม ไม่ใช่คู่แข่งตรง</p>
-                </article>
-            </div>
-
-            <div class="pilot-grid takeaway-grid">
-                <article class="glass-panel">
-                    <h3>Take aways</h3>
-                    <ol class="steps">
-                        <li><b>1</b><span>Copilot กับ Cursor คะแนนใกล้กันมาก — Copilot ชนะด้วย ecosystem/Microsoft fit ส่วน Cursor ชนะจากการใช้จริงเรื่อง automation, sandbox และการคุม agent</span></li>
-                        <li><b>2</b><span>Claude เป็นอีกกลุ่ม (Co-work) — ใช้เสริมงานข้ามทีม ไม่ใช่ตัวแทน IDE assistant</span></li>
-                        <li><b>3</b><span>Privacy &amp; IP ต้องปิดก่อน rollout: ทุกเจ้าทำ no-training/ZDR ได้ แต่ indemnification ต่างกัน — Copilot ผูกเงื่อนไข filter/tier, Cursor ต้องต่อรองในสัญญา, Claude มีแบบจำกัด cap<a class="ref" href="#ref-16">[16]</a><a class="ref" href="#ref-17">[17]</a><a class="ref" href="#ref-18">[18]</a></span></li>
-                        <li><b>4</b><span>Hybrid 3 เจ้ามีต้นทุนแฝง (สัญญา + security review หลายรอบ) — เริ่ม 2 เจ้าพร้อม central policy และโครงสร้างราคายังไม่ได้รีวิว ต้องทำ TCO แยกอีกฉบับ</span></li>
-                    </ol>
-                </article>
-                <article class="glass-panel">
-                    <h3>Lab รอบถัดไป</h3>
-                    <ul class="point-list">
-                        <li>Privacy &amp; IP (priority แรก): เปิด Privacy Mode/ZDR จริง + trace data flow ของ cloud agent</li>
-                        <li>Benchmark กับ repo C#/.NET และ Azure Cosmos DB จริงของ GULF</li>
-                        <li>ทดสอบ Azure DevOps integration ที่ยังเป็นคอขวดของ Cursor</li>
-                        <li>ลอง Scheduled Automation จริง: Cursor Automations เทียบ GitHub Actions cron</li>
-                    </ul>
-                </article>
             </div>
         </section>
 
