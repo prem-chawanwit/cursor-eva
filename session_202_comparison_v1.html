@@ -825,6 +825,115 @@
             text-decoration: underline;
         }
 
+        .lab-cols {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+            margin-top: 14px;
+        }
+
+        .lab-tag {
+            display: inline-flex;
+            margin-bottom: 12px;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: 950;
+            border-radius: 999px;
+        }
+
+        .lab-tag.pro-tag {
+            color: #176a3c;
+            background: #e0f5e8;
+        }
+
+        .lab-tag.con-tag {
+            color: #8a5a14;
+            background: #fdf2dc;
+        }
+
+        .lab-obs {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .score-card {
+            padding: 24px;
+            background: var(--panel);
+            border: 1px solid rgba(219, 232, 239, 0.92);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+        }
+
+        .score-card.baseline-score {
+            border-top: 4px solid var(--gulf-blue-2);
+        }
+
+        .score-card.cowork-score {
+            border-top: 4px dashed rgba(0, 63, 112, 0.35);
+        }
+
+        .score-card h3 {
+            margin: 0;
+            color: var(--gulf-blue);
+            font-size: 19px;
+        }
+
+        .score-num {
+            margin: 8px 0 2px;
+            color: var(--gulf-blue);
+            font-size: 46px;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.04em;
+        }
+
+        .score-num small {
+            color: var(--muted);
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .score-bar {
+            height: 10px;
+            margin: 12px 0;
+            overflow: hidden;
+            background: #e8eff4;
+            border-radius: 999px;
+        }
+
+        .score-bar i {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, var(--gulf-blue-2), var(--gulf-green-2));
+            border-radius: 999px;
+        }
+
+        .score-counts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .score-counts .status {
+            margin-bottom: 0;
+        }
+
+        .score-card p {
+            margin: 12px 0 0;
+            color: #385a70;
+            font-size: 13.5px;
+        }
+
         .risk-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1095,6 +1204,9 @@
             .insight-grid,
             .vendor-pros,
             .risk-grid,
+            .lab-cols,
+            .lab-obs,
+            .score-grid,
             .quick-score {
                 grid-template-columns: 1fr;
             }
@@ -1204,133 +1316,57 @@
             </aside>
         </header>
 
-        <section class="section" aria-labelledby="tools-title">
+        <section class="section" aria-labelledby="lab-title">
             <div class="section-head">
                 <div>
-                    <span class="kicker">01 / Tool fit</span>
-                    <h2 id="tools-title">เลือกดูแต่ละเครื่องมือ</h2>
+                    <span class="kicker">01 / Lab findings</span>
+                    <h2 id="lab-title">เทียบ 3 เจ้า จากการใช้งานจริงของทีม</h2>
                 </div>
-                <p>คลิกปุ่มเพื่อเปลี่ยนรายละเอียดด้านล่าง เนื้อหาถูกย่อให้เหลือเฉพาะจุดตัดสินใจ</p>
+                <p>สรุปจากการลองใช้จริงใน lab ไม่ใช่จาก spec sheet — รอบนี้ใช้ Cursor เป็นตัวหลัก</p>
             </div>
 
-            <div class="controls" aria-label="Tool selector">
-                <button class="tool-button is-active" type="button" data-tool="cursor">
-                    <span class="brand-icon cursor" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" role="img">
-                            <path fill="currentColor" fill-rule="evenodd" d="M22.106 5.68L12.5.135a.998.998 0 00-.998 0L1.893 5.68a.84.84 0 00-.419.726v11.186c0 .3.16.577.42.727l9.607 5.547a.999.999 0 00.998 0l9.608-5.547a.84.84 0 00.42-.727V6.407a.84.84 0 00-.42-.726zm-.603 1.176L12.228 22.92c-.063.108-.228.064-.228-.061V12.34a.59.59 0 00-.295-.51l-9.11-5.26c-.107-.062-.063-.228.062-.228h18.55c.264 0 .428.286.296.514z"/>
-                        </svg>
-                    </span>
-                    <span>Cursor<small>Agentic development</small></span>
-                </button>
-                <button class="tool-button" type="button" data-tool="copilot">
-                    <span class="brand-icon copilot" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" role="img">
-                            <path fill="currentColor" d="M23.922 16.992c-.861 1.495-5.859 5.023-11.922 5.023-6.063 0-11.061-3.528-11.922-5.023A.641.641 0 0 1 0 16.736v-2.869a.841.841 0 0 1 .053-.22c.372-.935 1.347-2.292 2.605-2.656.167-.429.414-1.055.644-1.517a10.195 10.195 0 0 1-.052-1.086c0-1.331.282-2.499 1.132-3.368.397-.406.89-.717 1.474-.952 1.399-1.136 3.392-2.093 6.122-2.093 2.731 0 4.767.957 6.166 2.093.584.235 1.077.546 1.474.952.85.869 1.132 2.037 1.132 3.368 0 .368-.014.733-.052 1.086.23.462.477 1.088.644 1.517 1.258.364 2.233 1.721 2.605 2.656a.832.832 0 0 1 .053.22v2.869a.641.641 0 0 1-.078.256ZM12.172 11h-.344a4.323 4.323 0 0 1-.355.508C10.703 12.455 9.555 13 7.965 13c-1.725 0-2.989-.359-3.782-1.259a2.005 2.005 0 0 1-.085-.104L4 11.741v6.585c1.435.779 4.514 2.179 8 2.179 3.486 0 6.565-1.4 8-2.179v-6.585l-.098-.104s-.033.045-.085.104c-.793.9-2.057 1.259-3.782 1.259-1.59 0-2.738-.545-3.508-1.492a4.323 4.323 0 0 1-.355-.508h-.016.016Zm.641-2.935c.136 1.057.403 1.913.878 2.497.442.544 1.134.938 2.344.938 1.573 0 2.292-.337 2.657-.751.384-.435.558-1.15.558-2.361 0-1.14-.243-1.847-.705-2.319-.477-.488-1.319-.862-2.824-1.025-1.487-.161-2.192.138-2.533.529-.269.307-.437.808-.438 1.578v.021c0 .265.021.562.063.893Zm-1.626 0c.042-.331.063-.628.063-.894v-.02c-.001-.77-.169-1.271-.438-1.578-.341-.391-1.046-.69-2.533-.529-1.505.163-2.347.537-2.824 1.025-.462.472-.705 1.179-.705 2.319 0 1.211.175 1.926.558 2.361.365.414 1.084.751 2.657.751 1.21 0 1.902-.394 2.344-.938.475-.584.742-1.44.878-2.497Z"/>
-                            <path fill="currentColor" d="M14.5 14.25a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Zm-5 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Z"/>
-                        </svg>
-                    </span>
-                    <span>GitHub Copilot<small>Microsoft ecosystem</small></span>
-                </button>
-                <button class="tool-button" type="button" data-tool="claude">
-                    <span class="brand-icon claude" aria-hidden="true">
-                        <svg viewBox="0 0 100 100" role="img">
-                            <path fill="currentColor" d="m19.6 66.5 19.7-11 .3-1-.3-.5h-1l-3.3-.2-11.2-.3L14 53l-9.5-.5-2.4-.5L0 49l.2-1.5 2-1.3 2.9.2 6.3.5 9.5.6 6.9.4L38 49.1h1.6l.2-.7-.5-.4-.4-.4L29 41l-10.6-7-5.6-4.1-3-2-1.5-2-.6-4.2 2.7-3 3.7.3.9.2 3.7 2.9 8 6.1L37 36l1.5 1.2.6-.4.1-.3-.7-1.1L33 25l-6-10.4-2.7-4.3-.7-2.6c-.3-1-.4-2-.4-3l3-4.2L28 0l4.2.6L33.8 2l2.6 6 4.1 9.3L47 29.9l2 3.8 1 3.4.3 1h.7v-.5l.5-7.2 1-8.7 1-11.2.3-3.2 1.6-3.8 3-2L61 2.6l2 2.9-.3 1.8-1.1 7.7L59 27.1l-1.5 8.2h.9l1-1.1 4.1-5.4 6.9-8.6 3-3.5L77 13l2.3-1.8h4.3l3.1 4.7-1.4 4.9-4.4 5.6-3.7 4.7-5.3 7.1-3.2 5.7.3.4h.7l12-2.6 6.4-1.1 7.6-1.3 3.5 1.6.4 1.6-1.4 3.4-8.2 2-9.6 2-14.3 3.3-.2.1.2.3 6.4.6 2.8.2h6.8l12.6 1 3.3 2 1.9 2.7-.3 2-5.1 2.6-6.8-1.6-16-3.8-5.4-1.3h-.8v.4l4.6 4.5 8.3 7.5L89 80.1l.5 2.4-1.3 2-1.4-.2-9.2-7-3.6-3-8-6.8h-.5v.7l1.8 2.7 9.8 14.7.5 4.5-.7 1.4-2.6 1-2.7-.6-5.8-8-6-9-4.7-8.2-.5.4-2.9 30.2-1.3 1.5-3 1.2-2.5-2-1.4-3 1.4-6.2 1.6-8 1.3-6.4 1.2-7.9.7-2.6v-.2H49L43 72l-9 12.3-7.2 7.6-1.7.7-3-1.5.3-2.8L24 86l10-12.8 6-7.9 4-4.6-.1-.5h-.3L17.2 77.4l-4.7.6-2-2 .2-3 1-1 8-5.5Z"/>
-                        </svg>
-                    </span>
-                    <span>Claude<small>Co-work & governance</small></span>
-                </button>
-            </div>
-
-            <div class="tool-grid" aria-label="Tool summary cards">
-                <article class="tool-card is-highlighted" data-card="cursor">
-                    <div class="tool-card-head">
-                        <span class="brand-icon cursor" aria-hidden="true">
-                            <svg viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M22.106 5.68L12.5.135a.998.998 0 00-.998 0L1.893 5.68a.84.84 0 00-.419.726v11.186c0 .3.16.577.42.727l9.607 5.547a.999.999 0 00.998 0l9.608-5.547a.84.84 0 00.42-.727V6.407a.84.84 0 00-.42-.726zm-.603 1.176L12.228 22.92c-.063.108-.228.064-.228-.061V12.34a.59.59 0 00-.295-.51l-9.11-5.26c-.107-.062-.063-.228.062-.228h18.55c.264 0 .428.286.296.514z"/></svg>
-                        </span>
-                        <h3>Cursor</h3>
-                    </div>
-                    <span class="role">Best fit: Developer Automation</span>
-                    <p>เหมาะกับงานที่ต้องการให้ AI ลงมือแก้โค้ดจริงใน repository และทำงานวนเป็นขั้นตอนจนจบ task</p>
-                    <ul class="point-list">
-                        <li>เด่นด้าน Agent workflow, Plan Mode, Ask Mode</li>
-                        <li>ต้องทดสอบ integration กับ Azure DevOps / Microsoft extension เพิ่ม</li>
-                    </ul>
-                </article>
-
-                <article class="tool-card" data-card="copilot">
-                    <div class="tool-card-head">
-                        <span class="brand-icon copilot" aria-hidden="true">
-                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M23.922 16.992c-.861 1.495-5.859 5.023-11.922 5.023-6.063 0-11.061-3.528-11.922-5.023A.641.641 0 0 1 0 16.736v-2.869a.841.841 0 0 1 .053-.22c.372-.935 1.347-2.292 2.605-2.656.167-.429.414-1.055.644-1.517a10.195 10.195 0 0 1-.052-1.086c0-1.331.282-2.499 1.132-3.368.397-.406.89-.717 1.474-.952 1.399-1.136 3.392-2.093 6.122-2.093 2.731 0 4.767.957 6.166 2.093.584.235 1.077.546 1.474.952.85.869 1.132 2.037 1.132 3.368 0 .368-.014.733-.052 1.086.23.462.477 1.088.644 1.517 1.258.364 2.233 1.721 2.605 2.656a.832.832 0 0 1 .053.22v2.869a.641.641 0 0 1-.078.256ZM12.172 11h-.344a4.323 4.323 0 0 1-.355.508C10.703 12.455 9.555 13 7.965 13c-1.725 0-2.989-.359-3.782-1.259a2.005 2.005 0 0 1-.085-.104L4 11.741v6.585c1.435.779 4.514 2.179 8 2.179 3.486 0 6.565-1.4 8-2.179v-6.585l-.098-.104s-.033.045-.085.104c-.793.9-2.057 1.259-3.782 1.259-1.59 0-2.738-.545-3.508-1.492a4.323 4.323 0 0 1-.355-.508h-.016.016Zm.641-2.935c.136 1.057.403 1.913.878 2.497.442.544 1.134.938 2.344.938 1.573 0 2.292-.337 2.657-.751.384-.435.558-1.15.558-2.361 0-1.14-.243-1.847-.705-2.319-.477-.488-1.319-.862-2.824-1.025-1.487-.161-2.192.138-2.533.529-.269.307-.437.808-.438 1.578v.021c0 .265.021.562.063.893Zm-1.626 0c.042-.331.063-.628.063-.894v-.02c-.001-.77-.169-1.271-.438-1.578-.341-.391-1.046-.69-2.533-.529-1.505.163-2.347.537-2.824 1.025-.462.472-.705 1.179-.705 2.319 0 1.211.175 1.926.558 2.361.365.414 1.084.751 2.657.751 1.21 0 1.902-.394 2.344-.938.475-.584.742-1.44.878-2.497Z"/><path fill="currentColor" d="M14.5 14.25a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Zm-5 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Z"/></svg>
-                        </span>
-                        <h3>GitHub Copilot</h3>
-                    </div>
-                    <span class="role">Best fit: Microsoft stack</span>
-                    <p>เหมาะกับทีมที่ใช้ VS Code, GitHub และ Azure เป็น workflow หลัก และต้องการ official support ชัดเจน</p>
-                    <ul class="point-list">
-                        <li>เด่นด้าน ecosystem fit และ developer adoption</li>
-                        <li>ควรทดสอบงานขนาดใหญ่และ agent flow เพิ่ม</li>
-                    </ul>
-                </article>
-
-                <article class="tool-card" data-card="claude">
-                    <div class="tool-card-head">
-                        <span class="brand-icon claude" aria-hidden="true">
-                            <svg viewBox="0 0 100 100"><path fill="currentColor" d="m19.6 66.5 19.7-11 .3-1-.3-.5h-1l-3.3-.2-11.2-.3L14 53l-9.5-.5-2.4-.5L0 49l.2-1.5 2-1.3 2.9.2 6.3.5 9.5.6 6.9.4L38 49.1h1.6l.2-.7-.5-.4-.4-.4L29 41l-10.6-7-5.6-4.1-3-2-1.5-2-.6-4.2 2.7-3 3.7.3.9.2 3.7 2.9 8 6.1L37 36l1.5 1.2.6-.4.1-.3-.7-1.1L33 25l-6-10.4-2.7-4.3-.7-2.6c-.3-1-.4-2-.4-3l3-4.2L28 0l4.2.6L33.8 2l2.6 6 4.1 9.3L47 29.9l2 3.8 1 3.4.3 1h.7v-.5l.5-7.2 1-8.7 1-11.2.3-3.2 1.6-3.8 3-2L61 2.6l2 2.9-.3 1.8-1.1 7.7L59 27.1l-1.5 8.2h.9l1-1.1 4.1-5.4 6.9-8.6 3-3.5L77 13l2.3-1.8h4.3l3.1 4.7-1.4 4.9-4.4 5.6-3.7 4.7-5.3 7.1-3.2 5.7.3.4h.7l12-2.6 6.4-1.1 7.6-1.3 3.5 1.6.4 1.6-1.4 3.4-8.2 2-9.6 2-14.3 3.3-.2.1.2.3 6.4.6 2.8.2h6.8l12.6 1 3.3 2 1.9 2.7-.3 2-5.1 2.6-6.8-1.6-16-3.8-5.4-1.3h-.8v.4l4.6 4.5 8.3 7.5L89 80.1l.5 2.4-1.3 2-1.4-.2-9.2-7-3.6-3-8-6.8h-.5v.7l1.8 2.7 9.8 14.7.5 4.5-.7 1.4-2.6 1-2.7-.6-5.8-8-6-9-4.7-8.2-.5.4-2.9 30.2-1.3 1.5-3 1.2-2.5-2-1.4-3 1.4-6.2 1.6-8 1.3-6.4 1.2-7.9.7-2.6v-.2H49L43 72l-9 12.3-7.2 7.6-1.7.7-3-1.5.3-2.8L24 86l10-12.8 6-7.9 4-4.6-.1-.5h-.3L17.2 77.4l-4.7.6-2-2 .2-3 1-1 8-5.5Z"/></svg>
-                        </span>
-                        <h3>Claude</h3>
-                    </div>
-                    <span class="role">Best fit: Co-work & Governance</span>
-                    <p>เหมาะกับงาน Co-work ที่ต้องแชร์ context ระหว่างทีมเทคนิคกับ business — เป็นกลุ่มผลิตภัณฑ์ต่างจาก IDE assistant แต่ยังเทียบในมุม governance ได้</p>
-                    <ul class="point-list">
-                        <li>เด่นด้าน workspace, knowledge sharing, spend visibility</li>
-                        <li>ควรทดสอบ step-by-step task ที่ยาวและซับซ้อน</li>
-                    </ul>
-                </article>
-            </div>
-        </section>
-
-        <section class="section" aria-label="Selected tool details">
-            <article class="detail-panel is-active" data-panel="cursor">
-                <div class="detail-layout">
+            <article class="glass-panel">
+                <h3>Cursor — เครื่องมือหลักที่ทดลอง</h3>
+                <div class="lab-cols">
                     <div>
-                        <h3>Cursor เหมาะกับทีมที่อยากให้ AI ลงมือทำงานจริง</h3>
-                        <p>ใช้กับ task ที่มี outcome ชัด เช่น refactor, bug fix, test generation หรือ review change set เพราะ flow ของ Cursor ถูกออกแบบให้ทำงานกับ repository โดยตรง</p>
+                        <span class="lab-tag pro-tag">ทำได้ดี</span>
+                        <ul class="point-list">
+                            <li>Automation &amp; Workflow: ทำ pipeline automation ของ development task ได้ง่าย ดูสถานะและจัดการ sub-agent ระหว่างสั่งงานได้ดี</li>
+                            <li>Plan Mode ให้ workflow ที่เข้าใจง่าย, Ask Mode ถามกลับเมื่อ agent ไม่แน่ใจ และมี built-in doc ให้ agent อ้างอิง</li>
+                            <li>Multi-model review: สั่งหลาย model รีวิวโค้ดพร้อมกันแล้วทำ majority vote ได้</li>
+                            <li>Team &amp; Enterprise: Team Rules บังคับ coding standard ทั้งทีม, ตั้ง spend alert/limit ง่าย, dashboard analytics ครบ, เห็น usage รายคนละเอียด</li>
+                            <li>Audit &amp; Traceability: ดู Agent Line of Code ได้ใน metric และ audit log บอกว่าใครทำอะไร เช่น เพิ่ม MCP</li>
+                            <li>เสถียร: native desktop app และการแจ้งเตือนแบบ native ใช้ได้ดี พร้อม Cloud Sandbox ที่ควบคุมผ่าน UI ได้</li>
+                        </ul>
                     </div>
-                    <div class="insight-grid">
-                        <div class="insight"><strong>เหมาะที่สุด</strong><span>Developer task ที่วัดผลจาก diff, test และ PR ได้</span></div>
-                        <div class="insight"><strong>จุดแข็ง</strong><span>Plan Mode, Ask Mode, Sub-agent และ Cloud sandbox</span></div>
-                        <div class="insight"><strong>ต้องระวัง</strong><span>Azure DevOps native flow และ Microsoft extension compatibility</span></div>
+                    <div>
+                        <span class="lab-tag con-tag">ข้อจำกัดที่เจอ</span>
+                        <ul class="point-list">
+                            <li>ไม่มี mode Co-work — ผูกกับ repository เน้น code เป็นหลัก เหมาะกับ Developer &amp; SE มากกว่า end user</li>
+                            <li>Microsoft extension ไม่ครบเท่า VS Code: ขาด Azure Functions (deploy Function App / list resource) ส่วน C# Dev Kit มีแต่ไม่ใช่ official และบางครั้ง conflict กับ extension อื่น</li>
+                            <li>Cloud Agent ยังไม่ native support Azure DevOps repository (กำลัง explore เพิ่มเติม)</li>
+                            <li>ต้องใช้เวลา research + config เพิ่ม ถ้าจะใช้ Cloud Agents เต็มรูปแบบ</li>
+                        </ul>
                     </div>
                 </div>
             </article>
 
-            <article class="detail-panel" data-panel="copilot">
-                <div class="detail-layout">
-                    <div>
-                        <h3>GitHub Copilot เหมาะกับทีมที่อยู่ใน Microsoft ecosystem</h3>
-                        <p>เหมาะกับ adoption ที่ต้องการให้ developer ใช้งานได้ทันทีใน VS Code / GitHub และเชื่อมกับ Azure workflow โดยมี official support เป็นจุดแข็ง</p>
-                    </div>
-                    <div class="insight-grid">
-                        <div class="insight"><strong>เหมาะที่สุด</strong><span>ทีมที่ใช้ VS Code, GitHub, Azure เป็นมาตรฐานอยู่แล้ว</span></div>
-                        <div class="insight"><strong>จุดแข็ง</strong><span>Developer adoption ง่าย และลด friction ด้าน ecosystem</span></div>
-                        <div class="insight"><strong>ต้องระวัง</strong><span>งานหลายขั้นตอนหรือขนาดใหญ่ที่ต้องการ agent orchestration</span></div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="detail-panel" data-panel="claude">
-                <div class="detail-layout">
-                    <div>
-                        <h3>Claude เหมาะกับ Co-work และภาพรวม governance</h3>
-                        <p>เหมาะกับ use case ที่มีหลายกลุ่มผู้ใช้ร่วมกัน เช่น business users, analyst และ developer ที่ต้องแชร์ context และควบคุม usage/budget ระดับทีม</p>
-                    </div>
-                    <div class="insight-grid">
-                        <div class="insight"><strong>เหมาะที่สุด</strong><span>Knowledge sharing, writing, analysis และ workspace ร่วมกัน</span></div>
-                        <div class="insight"><strong>จุดแข็ง</strong><span>Usage visibility, spend control และ governance dashboard</span></div>
-                        <div class="insight"><strong>ต้องระวัง</strong><span>Stability ของงาน step-by-step ที่ยาวและต้อง execute ต่อเนื่อง</span></div>
-                    </div>
-                </div>
-            </article>
+            <div class="lab-obs">
+                <article class="glass-panel">
+                    <h3>GitHub Copilot — ข้อสังเกตจากการใช้</h3>
+                    <ul class="point-list">
+                        <li>Crash บ่อยเมื่อเจอ task ขนาดใหญ่</li>
+                        <li>จุดแข็งคือความเข้ากับ VS Code / GitHub / Azure ดูรายละเอียดในตาราง 02</li>
+                    </ul>
+                </article>
+                <article class="glass-panel">
+                    <h3>Claude — ข้อสังเกตจากการใช้</h3>
+                    <ul class="point-list">
+                        <li>Co-work เกิด crash ในบางกรณี เช่น งานที่ไล่ step 1, 2, 3 ต่อเนื่อง</li>
+                        <li>เด่นเรื่องแชร์ context ระหว่างทีม technical กับ business — เป็นคนละกลุ่มกับ IDE assistant</li>
+                    </ul>
+                </article>
+            </div>
         </section>
 
         <section class="section" aria-labelledby="metrics-title">
@@ -1388,6 +1424,12 @@
                             <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">@claude ผ่าน GitHub Actions ได้ แต่ค่า default push branch แล้วให้คนเปิด PR เอง<a class="ref" href="#ref-8">[8]</a></span></td>
                         </tr>
                         <tr>
+                            <th scope="row">Scheduled Automation<small>ตั้งเวลา/ตั้ง trigger ให้ agent ทำงานเองอัตโนมัติ</small></th>
+                            <td class="col-baseline"><span class="status partial">บางส่วน</span><span class="note">ไม่มี scheduler ในตัว Copilot — ตั้งเวลาได้ผ่าน GitHub Actions cron แล้วเขียน workflow เรียก agent เอง<a class="ref" href="#ref-20">[20]</a></span></td>
+                            <td><span class="status full">มี</span><span class="strength-flag">จุดแข็ง</span><span class="note">Automations: ตั้ง cron หรือ trigger จาก GitHub/Slack/Linear/PagerDuty/webhook ผ่าน UI ได้เลย ไม่ต้องเขียน workflow<a class="ref" href="#ref-19">[19]</a></span></td>
+                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">ตั้ง schedule ผ่าน claude-code-action + Actions cron ได้ แต่ต้องเขียน workflow เอง<a class="ref" href="#ref-8">[8]</a></span></td>
+                        </tr>
+                        <tr>
                             <th scope="row">Sandboxed Execution<small>รันคำสั่งใน sandbox ที่ผู้ใช้กำหนดขอบเขตและเข้าควบคุมได้</small></th>
                             <td class="col-baseline"><span class="status partial">บางส่วน</span><span class="note">Cloud agent รันใน GitHub Actions แบบ ephemeral + firewall ปรับผ่าน setup file ได้ แต่เข้าไปควบคุมเครื่องระหว่างรันไม่ได้<a class="ref" href="#ref-4">[4]</a></span></td>
                             <td><span class="status full">มี</span><span class="strength-flag">จุดแข็ง</span><span class="note">Sandbox ระดับ OS ในเครื่อง คุม filesystem/network เองได้ผ่าน sandbox.json + allowlist และ takeover remote desktop ของ cloud agent ได้<a class="ref" href="#ref-1">[1]</a><a class="ref" href="#ref-2">[2]</a></span></td>
@@ -1435,31 +1477,6 @@
 
             <p class="metrics-footnote">หมายเหตุแถว Vector Index: จาก research ของ Cursor เอง semantic search เพิ่มความแม่นยำราว 12.5% เทียบกับใช้ grep อย่างเดียว และเห็นผลชัดใน repo ขนาด 1,000+ ไฟล์<a class="ref" href="#ref-13">[13]</a> — ยังไม่พบหลักฐานอิสระว่าความต่างในงานจริง significant มาก ฝั่ง Anthropic เองยืนยันว่า agentic search ทำงานได้ดีโดยไม่ต้องมี index<a class="ref" href="#ref-14">[14]</a> จึงควรพิสูจน์ด้วย pilot กับ repo จริงของ GULF</p>
 
-            <div class="vendor-pros" aria-label="Vendor strengths and gaps">
-                <div class="insight">
-                    <strong>GitHub Copilot — เด่นและขาด</strong>
-                    <ul>
-                        <li class="pro"><b>เด่น</b><span>Ecosystem ครบวงจร: assign Issue &#8594; PR, review ใน PR flow, governance ผ่าน GitHub Enterprise/Entra<a class="ref" href="#ref-4">[4]</a></span></li>
-                        <li class="con"><b>ขาด</b><span>เข้าไปควบคุม environment ของ cloud agent ระหว่างรันไม่ได้ และจำกัด session ละ 59 นาที<a class="ref" href="#ref-4">[4]</a></span></li>
-                    </ul>
-                </div>
-                <div class="insight">
-                    <strong>Cursor — เด่นและขาด</strong>
-                    <ul>
-                        <li class="pro"><b>เด่น</b><span>Sandbox ระดับ OS ที่คุมเองได้ (path/network/allowlist) + takeover remote desktop ของ cloud agent ได้ทุกเมื่อ<a class="ref" href="#ref-1">[1]</a><a class="ref" href="#ref-2">[2]</a></span></li>
-                        <li class="pro"><b>เด่น</b><span>Team Rules ตั้งมาตรฐานระดับองค์กรและ enforce ทั้งทีมได้จาก dashboard<a class="ref" href="#ref-15">[15]</a></span></li>
-                        <li class="con"><b>ขาด</b><span>IDE เป็น proprietary ต้องซื้อ license ถึงใช้เต็มที่ และ Azure DevOps ยังต้องพิสูจน์ใน pilot<a class="ref" href="#ref-11">[11]</a></span></li>
-                    </ul>
-                </div>
-                <div class="insight">
-                    <strong>Claude — เด่นและขาด</strong>
-                    <ul>
-                        <li class="pro"><b>เด่น</b><span>Co-work ข้ามทีมผ่าน Projects + governance แน่น: SSO, SCIM, audit log, Compliance API เก็บ activity 6 ปี<a class="ref" href="#ref-9">[9]</a></span></li>
-                        <li class="con"><b>ขาด</b><span>ไม่มี inline completion ใน IDE และผูกกับ Anthropic models เท่านั้น</span></li>
-                    </ul>
-                </div>
-            </div>
-
             <div class="source-note ref-note">
                 <h3 id="metrics-refs">References — Official docs ที่ใช้ตรวจสอบข้อมูลในตาราง</h3>
                 <ol>
@@ -1481,149 +1498,76 @@
                     <li id="ref-16">Cursor — <a href="https://cursor.com/docs/enterprise/privacy-and-data-governance" target="_blank" rel="noreferrer">Privacy and Data Governance</a> และ <a href="https://cursor.com/security" target="_blank" rel="noreferrer">Security</a> (Privacy Mode, ZDR agreements, SOC 2 Type II, CMEK)</li>
                     <li id="ref-17">Microsoft — <a href="https://blogs.microsoft.com/on-the-issues/2023/09/07/copilot-copyright-commitment-ai-legal-concerns/" target="_blank" rel="noreferrer">Copilot Copyright Commitment</a> และ <a href="https://techcommunity.microsoft.com/blog/azuredevcommunityblog/demystifying-github-copilot-security-controls-easing-concerns-for-organizational/4468193" target="_blank" rel="noreferrer">GitHub Copilot Security Controls</a> (no-training, prompt retention, SOC 2/ISO 27001, เงื่อนไข indemnification)</li>
                     <li id="ref-18">Community/legal — <a href="https://thebrightbyte.com/playbook/expertise/ai-generated-code-ownership-banking" target="_blank" rel="noreferrer">Who Owns AI-Generated Code</a> (เทียบ ownership + indemnification caps ของ Copilot/Cursor/Claude ใน enterprise terms)</li>
+                    <li id="ref-19">Cursor Docs — <a href="https://cursor.com/docs/cloud-agent/automations" target="_blank" rel="noreferrer">Automations</a> (scheduled cron + event triggers จาก GitHub/Slack/Linear/webhook ตั้งผ่าน UI)</li>
+                    <li id="ref-20">GitHub Docs — <a href="https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule" target="_blank" rel="noreferrer">GitHub Actions schedule trigger</a> (cron-based workflow สำหรับเรียก agent ตามเวลา)</li>
                 </ol>
             </div>
         </section>
 
-        <section class="section" aria-labelledby="risk-title">
+        <section class="section" aria-labelledby="takeaway-title">
             <div class="section-head">
                 <div>
-                    <span class="kicker">03 / Risk &amp; blind spots</span>
-                    <h2 id="risk-title">มุมจับผิด: ช่องโหว่ที่ต้องปิดก่อนใช้จริง</h2>
+                    <span class="kicker">03 / Take away</span>
+                    <h2 id="takeaway-title">คะแนนจากตาราง และสิ่งที่ต้องทำต่อ</h2>
                 </div>
-                <p>ผลรีวิวแบบ Devil's Advocate — ประเด็นที่การเทียบฟีเจอร์อย่างเดียวมองไม่เห็น โดยเฉพาะงานชั้นความลับสูง</p>
+                <p>นับจากตาราง 02 แบบเข้าใจง่าย: มี = 1 คะแนน, บางส่วน = 0.5, ไม่มี = 0 (เต็ม 12 ข้อ)</p>
             </div>
 
-            <article class="glass-panel privacy-panel">
-                <h3>1. Data Privacy &amp; IP Indemnification — จุดชี้เป็นชี้ตาย</h3>
-                <p>สำหรับ use case อ่อนไหวสูง เช่น agent ที่วิเคราะห์เอกสารประชุมระดับ BOD ทุกเครื่องมือในตารางนี้เป็น cloud-based — โค้ดและข้อมูลวิ่งออกไปประมวลผลบน server ภายนอกเสมอ จึงต้องดูนโยบายรายเจ้าก่อนเริ่ม pilot:</p>
-                <div class="insight-grid" style="margin-top: 16px;">
-                    <div class="insight">
-                        <strong>GitHub Copilot<small>Business / Enterprise</small></strong>
-                        <ul>
-                            <li>ไม่ใช้ code/prompt เทรนโมเดล (รวม third-party models) — prompt ใน IDE ไม่ถูกเก็บ<a class="ref" href="#ref-17">[17]</a></li>
-                            <li>IP indemnification ผ่าน Microsoft Copilot Copyright Commitment — มีเงื่อนไขต้องเปิด duplicate-detection filter และผูกกับ tier<a class="ref" href="#ref-17">[17]</a></li>
-                            <li>GitHub มี SOC 2 Type II + ISO 27001 และ EU data residency ใน Enterprise tier<a class="ref" href="#ref-17">[17]</a></li>
-                        </ul>
+            <div class="score-grid">
+                <article class="score-card baseline-score">
+                    <h3>GitHub Copilot</h3>
+                    <div class="score-num">11<small>/12</small></div>
+                    <div class="score-bar"><i style="width: 92%;"></i></div>
+                    <div class="score-counts">
+                        <span class="status full">มี 10</span>
+                        <span class="status partial">บางส่วน 2</span>
+                        <span class="status none">ไม่มี 0</span>
                     </div>
-                    <div class="insight">
-                        <strong>Cursor<small>Teams / Enterprise</small></strong>
-                        <ul>
-                            <li>Privacy Mode (default + enforce ทั้ง org ได้): ไม่เทรนจากโค้ด, มี ZDR agreement กับ model providers — ยกเว้นบาง model ที่ต้องให้ admin อนุมัติ<a class="ref" href="#ref-16">[16]</a></li>
-                            <li>SOC 2 Type II + CMEK (เข้ารหัส embeddings/cloud agent ด้วย key ขององค์กรเอง) แต่ request วิ่งผ่าน infra ของ Cursor เสมอ<a class="ref" href="#ref-16">[16]</a></li>
-                            <li>IP indemnification ไม่ได้ประกาศชัดแบบ Microsoft — ต้องตรวจและต่อรองในสัญญา Enterprise<a class="ref" href="#ref-18">[18]</a></li>
-                        </ul>
+                    <p>ครบที่สุดในมุม Microsoft stack — เสียคะแนนแค่ sandbox ที่เข้าควบคุมไม่ได้ และไม่มี scheduler ในตัว</p>
+                </article>
+                <article class="score-card">
+                    <h3>Cursor</h3>
+                    <div class="score-num">10<small>/12</small></div>
+                    <div class="score-bar"><i style="width: 83%;"></i></div>
+                    <div class="score-counts">
+                        <span class="status full">มี 9</span>
+                        <span class="status partial">บางส่วน 2</span>
+                        <span class="status none">ไม่มี 1</span>
                     </div>
-                    <div class="insight">
-                        <strong>Claude<small>Enterprise / API</small></strong>
-                        <ul>
-                            <li>ไม่เทรนจากข้อมูลองค์กรโดย default, ขอ ZDR สำหรับ API ได้<a class="ref" href="#ref-9">[9]</a></li>
-                            <li>SOC 2 Type II, audit log + Compliance API (activity 6 ปี) รองรับ eDiscovery/DLP<a class="ref" href="#ref-9">[9]</a></li>
-                            <li>มี indemnification ใน commercial terms แบบมี cap เช่นเดียวกับเจ้าอื่น<a class="ref" href="#ref-18">[18]</a></li>
-                        </ul>
+                    <p>ตามหลัง 1 คะแนน — เด่นกว่าเรื่อง sandbox, scheduled automation และการคุม agent แต่เสียคะแนนจาก proprietary IDE</p>
+                </article>
+                <article class="score-card cowork-score">
+                    <h3>Claude</h3>
+                    <div class="score-num">5.5<small>/12</small></div>
+                    <div class="score-bar"><i style="width: 46%;"></i></div>
+                    <div class="score-counts">
+                        <span class="status full">มี 2</span>
+                        <span class="status partial">บางส่วน 7</span>
+                        <span class="status none">ไม่มี 3</span>
                     </div>
-                </div>
-                <p class="metrics-footnote">จุดบอดร่วมที่ต้องระวัง: (1) indemnification ทุกเจ้ามี cap ค่อนข้างต่ำเมื่อเทียบกับความเสียหายระดับ regulator — อย่าใช้แทน control ภายใน<a class="ref" href="#ref-18">[18]</a> (2) งานชั้นความลับสูงสุดควรกำหนด data boundary ชัด เช่น ห้ามใช้ cloud agent กับเอกสาร BOD, บังคับ Privacy Mode/ZDR และระบุ liability + breach notification ในสัญญาจัดซื้อทุกเจ้า</p>
-            </article>
-
-            <div class="risk-grid">
-                <article class="matrix-card">
-                    <span class="tag-warn">Hidden cost</span>
-                    <h3>2. ต้นทุนแฝงของ Hybrid Approach</h3>
-                    <p>ใช้ 3 เจ้าพร้อมกัน = สัญญาจัดซื้อ 3 ฉบับ, security review 3 รอบ, ทีม support ต้องดูแลเครื่องมือต่างกัน และ license/budget กระจัดกระจายจนคุม cost ยาก</p>
-                    <small>Mitigation: เริ่ม pilot ด้วย 2 เจ้าก่อน + ตั้ง central AI policy และเจ้าภาพ governance เดียว</small>
-                </article>
-                <article class="matrix-card">
-                    <span class="tag-warn">Untested</span>
-                    <h3>3. Tech Stack Compatibility ยังไม่ถูกพิสูจน์</h3>
-                    <p>Community/use case ของ Cursor เอนไปทาง web dev (TypeScript, React, Python) — agent flow กับโปรเจกต์ C#/.NET หรือ Vector Search บน Azure Cosmos DB อาจไม่ลื่นเท่า ต้องทดสอบกับ stack จริงของ GULF</p>
-                    <small>Action: เพิ่ม benchmark กับ repo .NET/Cosmos DB จริงเป็นเกณฑ์ผ่าน pilot</small>
-                </article>
-                <article class="matrix-card">
-                    <span class="tag-warn">Not reviewed</span>
-                    <h3>4. Pricing Model ยังไม่ได้รีวิว</h3>
-                    <p>เอกสารฉบับนี้ยังไม่ได้เปรียบเทียบโครงสร้างราคา (per-seat vs pay-as-you-go vs API overage) ระหว่างเจ้า</p>
-                    <small>Note: ต้องทำ TCO review แยกอีกฉบับก่อนตัดสินใจงบประมาณระยะยาว</small>
+                    <p>คะแนนต่ำเพราะตารางวัดมุม dev tool — Claude อยู่กลุ่ม Co-work จึงควรอ่านเป็นเครื่องมือเสริม ไม่ใช่คู่แข่งตรง</p>
                 </article>
             </div>
-        </section>
 
-        <section class="section" aria-labelledby="matrix-title">
-            <div class="section-head">
-                <div>
-                    <span class="kicker">04 / Decision cards</span>
-                    <h2 id="matrix-title">สรุปการตัดสินใจแบบไม่วน</h2>
-                </div>
-                <p>เปลี่ยนจากตารางยาวเป็นการ์ด เพื่อให้อ่านทีละโจทย์แล้วตัดสินใจต่อได้ทันที</p>
-            </div>
-
-            <div class="matrix-grid">
-                <article class="matrix-card">
-                    <span>Start here</span>
-                    <h3>ถ้าโจทย์คือให้ AI แก้โค้ดจนจบ task</h3>
-                    <p>เริ่ม pilot ด้วย Cursor เพราะ workflow ถูกออกแบบมาสำหรับ repository-based automation</p>
-                    <small>Measure: diff quality, test pass rate, review rounds</small>
-                </article>
-                <article class="matrix-card">
-                    <span>Safe path</span>
-                    <h3>ถ้าโจทย์คือใช้งานใน Microsoft stack</h3>
-                    <p>เริ่มด้วย GitHub Copilot เพราะเข้ากับ VS Code, GitHub และ Azure ได้ตรงที่สุด</p>
-                    <small>Measure: adoption, extension compatibility, Azure friction</small>
-                </article>
-                <article class="matrix-card">
-                    <span>Co-work</span>
-                    <h3>ถ้าโจทย์คือทำงานร่วมกับ business users</h3>
-                    <p>ใช้ Claude สำหรับสรุป วิเคราะห์ และแชร์ context ระหว่างทีม พร้อม governance view</p>
-                    <small>Measure: reuse of context, usage visibility, budget control</small>
-                </article>
-                <article class="matrix-card">
-                    <span>Hybrid</span>
-                    <h3>ถ้าโจทย์คือ rollout ระดับองค์กร</h3>
-                    <p>ใช้หลายเครื่องมือแบบมี policy กลาง แทนการบังคับใช้ตัวเดียวทุก use case</p>
-                    <small>Measure: data access, audit, team policy, cost</small>
-                </article>
-            </div>
-        </section>
-
-        <section class="section" aria-labelledby="pilot-title">
-            <div class="section-head">
-                <div>
-                    <span class="kicker">05 / Pilot plan</span>
-                    <h2 id="pilot-title">ข้อเสนอสำหรับรอบทดลอง</h2>
-                </div>
-                <p>เน้นวัดผลจากงานจริง แทนการดู feature list อย่างเดียว</p>
-            </div>
-
-            <div class="pilot-grid">
+            <div class="pilot-grid takeaway-grid">
                 <article class="glass-panel">
-                    <h3>ทดลอง 4 use cases ที่วัดผลได้</h3>
+                    <h3>Take aways</h3>
                     <ol class="steps">
-                        <li><b>1</b><span>Privacy &amp; IP task (priority แรก): เปิด Privacy Mode/ZDR จริง, trace data flow ของ cloud agent กับเอกสารอ่อนไหว, ยืนยัน opt-out training และ indemnification ในสัญญา</span></li>
-                        <li><b>2</b><span>Developer task: bug fix, refactor, unit test generation — รวม repo C#/.NET และ Azure Cosmos DB จริง</span></li>
-                        <li><b>3</b><span>Ecosystem task: VS Code, GitHub, Azure Functions, Azure DevOps</span></li>
-                        <li><b>4</b><span>Governance task: audit log, usage report, budget alert, access control</span></li>
+                        <li><b>1</b><span>Copilot กับ Cursor คะแนนใกล้กันมาก — Copilot ชนะด้วย ecosystem/Microsoft fit ส่วน Cursor ชนะจากการใช้จริงเรื่อง automation, sandbox และการคุม agent</span></li>
+                        <li><b>2</b><span>Claude เป็นอีกกลุ่ม (Co-work) — ใช้เสริมงานข้ามทีม ไม่ใช่ตัวแทน IDE assistant</span></li>
+                        <li><b>3</b><span>Privacy &amp; IP ต้องปิดก่อน rollout: ทุกเจ้าทำ no-training/ZDR ได้ แต่ indemnification ต่างกัน — Copilot ผูกเงื่อนไข filter/tier, Cursor ต้องต่อรองในสัญญา, Claude มีแบบจำกัด cap<a class="ref" href="#ref-16">[16]</a><a class="ref" href="#ref-17">[17]</a><a class="ref" href="#ref-18">[18]</a></span></li>
+                        <li><b>4</b><span>Hybrid 3 เจ้ามีต้นทุนแฝง (สัญญา + security review หลายรอบ) — เริ่ม 2 เจ้าพร้อม central policy และโครงสร้างราคายังไม่ได้รีวิว ต้องทำ TCO แยกอีกฉบับ</span></li>
                     </ol>
                 </article>
                 <article class="glass-panel">
-                    <h3>ผลลัพธ์ที่ควรใช้ตัดสิน</h3>
+                    <h3>Lab รอบถัดไป</h3>
                     <ul class="point-list">
-                        <li>คุณภาพ output และจำนวนรอบแก้</li>
-                        <li>เวลาที่ลดได้ต่อ task จริง</li>
-                        <li>ความเข้ากับ workflow และ security policy เดิม</li>
-                        <li>ค่าใช้จ่ายและการควบคุม usage ระดับทีม</li>
+                        <li>Privacy &amp; IP (priority แรก): เปิด Privacy Mode/ZDR จริง + trace data flow ของ cloud agent</li>
+                        <li>Benchmark กับ repo C#/.NET และ Azure Cosmos DB จริงของ GULF</li>
+                        <li>ทดสอบ Azure DevOps integration ที่ยังเป็นคอขวดของ Cursor</li>
+                        <li>ลอง Scheduled Automation จริง: Cursor Automations เทียบ GitHub Actions cron</li>
                     </ul>
                 </article>
-            </div>
-        </section>
-
-        <section class="section" aria-labelledby="sources-title">
-            <div class="source-note">
-                <h3 id="sources-title">Icon source notes</h3>
-                <ul>
-                    <li>Cursor icon: compact SVG from <a href="https://github.com/lobehub/lobe-icons" target="_blank" rel="noreferrer">LobeHub Icons</a>, referencing Cursor official site/brand assets.</li>
-                    <li>GitHub Copilot icon: official <a href="https://primer.github.io/octicons/copilot-24/" target="_blank" rel="noreferrer">Primer Octicon - copilot-24</a>.</li>
-                    <li>Claude icon: Claude symbol SVG from <a href="https://commons.wikimedia.org/wiki/File:Claude_AI_symbol.svg" target="_blank" rel="noreferrer">Wikimedia Commons</a>, sourced from Anthropic.</li>
-                </ul>
             </div>
         </section>
 
@@ -1633,28 +1577,5 @@
         </footer>
     </main>
 
-    <script>
-        const buttons = document.querySelectorAll(".tool-button");
-        const panels = document.querySelectorAll("[data-panel]");
-        const cards = document.querySelectorAll("[data-card]");
-
-        function selectTool(tool) {
-            buttons.forEach((button) => {
-                button.classList.toggle("is-active", button.dataset.tool === tool);
-            });
-
-            panels.forEach((panel) => {
-                panel.classList.toggle("is-active", panel.dataset.panel === tool);
-            });
-
-            cards.forEach((card) => {
-                card.classList.toggle("is-highlighted", card.dataset.card === tool);
-            });
-        }
-
-        buttons.forEach((button) => {
-            button.addEventListener("click", () => selectTool(button.dataset.tool));
-        });
-    </script>
 </body>
 </html>
