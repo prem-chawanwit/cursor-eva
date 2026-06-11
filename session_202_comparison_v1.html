@@ -825,6 +825,13 @@
             text-decoration: underline;
         }
 
+        .metrics-footnote {
+            margin: 12px 2px 0;
+            color: var(--muted);
+            font-size: 12.5px;
+            line-height: 1.6;
+        }
+
         .vendor-pros {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1353,6 +1360,12 @@
                             <td class="col-cowork"><span class="status none">ไม่มี</span><span class="note">ใช้ Anthropic models เท่านั้น ไม่ multi-vendor</span></td>
                         </tr>
                         <tr>
+                            <th scope="row">Codebase Vector Index &amp; Semantic Search<small>ทำ index โค้ดเป็น vector แล้วค้นหาเชิงความหมายได้</small></th>
+                            <td class="col-baseline"><span class="status full">มี</span><span class="note">Remote semantic index สร้างโดย GitHub อัตโนมัติสำหรับ repo บน GitHub/Azure DevOps ส่วน local index จำกัด ~2,500 ไฟล์<a class="ref" href="#ref-12">[12]</a></span></td>
+                            <td><span class="status full">มี</span><span class="strength-flag">จุดแข็ง</span><span class="note">Index ลึกสุด: tree-sitter chunking + custom embedding + vector DB, sync อัตโนมัติทุก 5 นาที, encrypt path และไม่เก็บ source code บน server<a class="ref" href="#ref-13">[13]</a></span></td>
+                            <td class="col-cowork"><span class="status none">ไม่มี</span><span class="note">Claude Code เลือกไม่ทำ index โดยตั้งใจ ใช้ agentic search (grep/glob) — Anthropic ให้เหตุผลเรื่องความสดของข้อมูลและ security<a class="ref" href="#ref-14">[14]</a></span></td>
+                        </tr>
+                        <tr>
                             <th scope="row">Org Knowledge &amp; Context Sharing<small>Knowledge base และการแชร์ context ระดับองค์กร</small></th>
                             <td class="col-baseline"><span class="status full">มี</span><span class="note">Copilot Spaces + extensions ใน GitHub ecosystem<a class="ref" href="#ref-6">[6]</a></span></td>
                             <td><span class="status partial">บางส่วน</span><span class="note">Rules/Memories ระดับ repo แต่ไม่มี org-wide Spaces แบบ GitHub</span></td>
@@ -1367,6 +1380,8 @@
                     </tbody>
                 </table>
             </div>
+
+            <p class="metrics-footnote">หมายเหตุแถว Vector Index: จาก research ของ Cursor เอง semantic search เพิ่มความแม่นยำราว 12.5% เทียบกับใช้ grep อย่างเดียว และเห็นผลชัดใน repo ขนาด 1,000+ ไฟล์<a class="ref" href="#ref-13">[13]</a> — ยังไม่พบหลักฐานอิสระว่าความต่างในงานจริง significant มาก ฝั่ง Anthropic เองยืนยันว่า agentic search ทำงานได้ดีโดยไม่ต้องมี index<a class="ref" href="#ref-14">[14]</a> จึงควรพิสูจน์ด้วย pilot กับ repo จริงของ GULF</p>
 
             <div class="vendor-pros" aria-label="Vendor strengths and gaps">
                 <div class="insight">
@@ -1406,6 +1421,9 @@
                     <li id="ref-9">Claude Docs — <a href="https://platform.claude.com/docs/en/manage-claude/compliance-api" target="_blank" rel="noreferrer">Compliance API</a> และ <a href="https://claude.com/resources/tutorials/claude-enterprise-administrator-guide" target="_blank" rel="noreferrer">Enterprise Administrator Guide</a> (SAML/OIDC SSO, SCIM, audit logs)</li>
                     <li id="ref-10">Microsoft — <a href="https://github.com/microsoft/vscode" target="_blank" rel="noreferrer">VS Code repository (MIT license)</a> — editor เป็น open source ใช้ฟรีแม้ไม่มี AI license</li>
                     <li id="ref-11">Cursor — <a href="https://cursor.com/pricing" target="_blank" rel="noreferrer">Pricing</a> — Hobby plan ฟรีแบบจำกัด การใช้งานจริง/องค์กรต้องซื้อ Pro/Business ต่อ seat</li>
+                    <li id="ref-12">VS Code Docs — <a href="https://code.visualstudio.com/docs/agents/reference/workspace-context" target="_blank" rel="noreferrer">How Copilot understands your workspace</a> และ GitHub Docs — <a href="https://docs.github.com/copilot/concepts/indexing-repositories-for-copilot-chat" target="_blank" rel="noreferrer">Indexing repositories for Copilot</a> (remote/local semantic index)</li>
+                    <li id="ref-13">Cursor Docs — <a href="https://cursor.com/docs/agent/tools/search" target="_blank" rel="noreferrer">Semantic &amp; Agentic Search</a> (custom embeddings, sync ทุก 5 นาที, ตัวเลข +12.5% accuracy เทียบ grep)</li>
+                    <li id="ref-14">Community — <a href="https://vadim.blog/claude-code-no-indexing" target="_blank" rel="noreferrer">Claude Code Doesn't Index Your Codebase</a> (อ้างคำอธิบายจากทีม Anthropic บน Hacker News เรื่องเลิกใช้ RAG/vector index)</li>
                 </ol>
             </div>
         </section>
