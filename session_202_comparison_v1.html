@@ -810,6 +810,27 @@
             display: block;
         }
 
+        .stars {
+            display: inline-block;
+            margin-bottom: 5px;
+            color: #e8a33d;
+            font-size: 15px;
+            letter-spacing: 2px;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .stars-inline {
+            color: #e8a33d;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .legend-stars {
+            color: #e8a33d;
+            letter-spacing: 1px;
+        }
+
         .metrics-table .note a.ref,
         .vendor-pros a.ref {
             margin-left: 1px;
@@ -1401,14 +1422,14 @@
                     <span class="kicker">02 / Key metrics</span>
                     <h2 id="metrics-title">Key Metrics: เทียบฟีเจอร์หลักจากมุม GitHub Copilot</h2>
                 </div>
-                <p>ใช้ฟีเจอร์ของ GitHub Copilot เป็นจุดอ้างอิง — ทุกช่องแสดงสถานะจริงของแต่ละเจ้า อ้างอิงจาก official docs ตามเลข [n]</p>
+                <p>ใช้ฟีเจอร์ของ GitHub Copilot เป็นจุดอ้างอิง — ทุกช่องให้คะแนนเป็นดาว 0-5 ตามระดับความสามารถจริง อ้างอิง official docs ตามเลข [n]</p>
             </div>
 
             <div class="metrics-legend" aria-label="Status legend">
                 <span class="legend-chip"><span class="baseline-flag">Baseline</span> จุดอ้างอิงในการเทียบ — ไม่ได้แปลว่าดีกว่า</span>
-                <span class="legend-chip"><span class="status full">มี</span> รองรับเต็มรูปแบบ</span>
-                <span class="legend-chip"><span class="status partial">บางส่วน</span> มีแต่ขอบเขตจำกัด</span>
-                <span class="legend-chip"><span class="status none">ไม่มี</span> ไม่อยู่ในขอบเขตผลิตภัณฑ์</span>
+                <span class="legend-chip"><span class="legend-stars">★★★★★</span> ครบ/ดีที่สุด</span>
+                <span class="legend-chip"><span class="legend-stars">★★★☆☆</span> มีแต่ขอบเขตจำกัด</span>
+                <span class="legend-chip"><span class="legend-stars">☆☆☆☆☆</span> ไม่อยู่ในขอบเขตผลิตภัณฑ์</span>
                 <span class="legend-chip"><span class="strength-flag">จุดแข็ง</span> เจ้าที่เด่นที่สุดในแถวนั้น</span>
                 <span class="legend-chip"><span class="legend-dash" aria-hidden="true"></span> เส้นประ = Claude อยู่อีกกลุ่ม (Co-work) แต่เทียบร่วมในตาราง</span>
             </div>
@@ -1427,69 +1448,69 @@
                     <tbody>
                         <tr>
                             <th scope="row">Inline Code Completion<small>เติมโค้ด inline ขณะพิมพ์ใน IDE</small></th>
-                            <td class="col-baseline"><span class="status full">มี</span><span class="note">จุดแข็งดั้งเดิม adoption สูงใน VS Code และ Visual Studio</span></td>
-                            <td><span class="status full">มี</span><span class="note">Tab model เร็ว คาดเดาการแก้แบบ multi-line ได้ดี</span></td>
-                            <td class="col-cowork"><span class="status none">ไม่มี</span><span class="note">ไม่มี inline completion ใน IDE ต้องใช้ Claude Code/chat แทน</span></td>
+                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">จุดแข็งดั้งเดิม adoption สูงใน VS Code และ Visual Studio</span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">Tab model เร็ว คาดเดาการแก้แบบ multi-line ได้ดี</span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="0 จาก 5">☆☆☆☆☆</span><span class="note">ไม่มี inline completion ใน IDE ต้องใช้ Claude Code/chat แทน</span></td>
                         </tr>
                         <tr>
                             <th scope="row">Chat in IDE<small>ถาม-ตอบใน editor ผูกกับไฟล์และ workspace</small></th>
-                            <td class="col-baseline"><span class="status full">มี</span><span class="note">Copilot Chat ผูกกับไฟล์ที่เปิดและ @workspace เลือก model ได้<a class="ref" href="#ref-5">[5]</a></span></td>
-                            <td><span class="status full">มี</span><span class="note">Agent/Plan/Ask mode ใน editor ทำงาน multi-file ได้ลึก</span></td>
-                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">มี Claude Code extension ใน VS Code/JetBrains แต่ขอบเขตแคบกว่า IDE-native<a class="ref" href="#ref-8">[8]</a></span></td>
+                            <td class="col-baseline"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Copilot Chat ผูกกับไฟล์ที่เปิดและ @workspace เลือก model ได้<a class="ref" href="#ref-5">[5]</a></span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">Agent/Plan/Ask mode ใน editor ทำงาน multi-file ได้ลึก</span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">มี Claude Code extension ใน VS Code/JetBrains แต่ขอบเขตแคบกว่า IDE-native<a class="ref" href="#ref-8">[8]</a></span></td>
                         </tr>
                         <tr>
                             <th scope="row">Open-source IDE Base<small>License เสียบกับ editor ฟรีได้ ไม่ผูกกับ IDE เฉพาะ</small></th>
-                            <td class="col-baseline"><span class="status full">มี</span><span class="strength-flag">จุดแข็ง</span><span class="note">VS Code เป็น open source ใช้ฟรี — Copilot เป็น extension เสียบเข้า editor เดิม ถ้าหยุดจ่าย license ยังใช้ VS Code เขียนโค้ดต่อได้<a class="ref" href="#ref-10">[10]</a></span></td>
-                            <td><span class="status none">ไม่มี</span><span class="note">เป็น proprietary fork ของ VS Code ต้องใช้ IDE ของ Cursor เอง — มี Hobby plan ฟรีแบบจำกัด แต่ใช้งานจริงต้องซื้อ subscription และถ้าเลิกใช้ต้องย้าย editor<a class="ref" href="#ref-11">[11]</a></span></td>
-                            <td class="col-cowork"><span class="status full">มี</span><span class="note">ไม่มี IDE ของตัวเอง — ใช้ license ผ่าน Claude Code extension/CLI บน VS Code, JetBrains หรือ terminal ได้<a class="ref" href="#ref-8">[8]</a></span></td>
+                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="strength-flag">จุดแข็ง</span><span class="note">VS Code เป็น open source ใช้ฟรี — Copilot เป็น extension เสียบเข้า editor เดิม ถ้าหยุดจ่าย license ยังใช้ VS Code เขียนโค้ดต่อได้<a class="ref" href="#ref-10">[10]</a></span></td>
+                            <td><span class="stars" aria-label="1 จาก 5">★☆☆☆☆</span><span class="note">เป็น proprietary fork ของ VS Code ต้องใช้ IDE ของ Cursor เอง — มี Hobby plan ฟรีแบบจำกัด แต่ใช้งานจริงต้องซื้อ subscription และถ้าเลิกใช้ต้องย้าย editor<a class="ref" href="#ref-11">[11]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">ไม่มี IDE ของตัวเอง — ใช้ license ผ่าน Claude Code extension/CLI บน VS Code, JetBrains หรือ terminal ได้<a class="ref" href="#ref-8">[8]</a></span></td>
                         </tr>
                         <tr>
                             <th scope="row">Coding Agent (Issue &#8594; PR)<small>มอบหมายงานจาก GitHub ให้ AI สร้าง PR</small></th>
-                            <td class="col-baseline"><span class="status full">มี</span><span class="note">Assign GitHub Issue ให้ cloud agent สร้าง branch/PR ใน GitHub Actions<a class="ref" href="#ref-4">[4]</a></span></td>
-                            <td><span class="status full">มี</span><span class="note">สั่ง Cloud Agent ได้จาก @cursor ใน GitHub issue/PR, Slack, Linear และ web<a class="ref" href="#ref-2">[2]</a></span></td>
-                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">@claude ผ่าน GitHub Actions ได้ แต่ค่า default push branch แล้วให้คนเปิด PR เอง<a class="ref" href="#ref-8">[8]</a></span></td>
+                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">Assign GitHub Issue ให้ cloud agent สร้าง branch/PR ใน GitHub Actions<a class="ref" href="#ref-4">[4]</a></span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">สั่ง Cloud Agent ได้จาก @cursor ใน GitHub issue/PR, Slack, Linear และ web<a class="ref" href="#ref-2">[2]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">@claude ผ่าน GitHub Actions ได้ แต่ค่า default push branch แล้วให้คนเปิด PR เอง<a class="ref" href="#ref-8">[8]</a></span></td>
                         </tr>
                         <tr>
                             <th scope="row">Scheduled Automation<small>ตั้งเวลา/ตั้ง trigger ให้ agent ทำงานเองอัตโนมัติ</small></th>
-                            <td class="col-baseline"><span class="status partial">บางส่วน</span><span class="note">ไม่มี scheduler ในตัว Copilot — ตั้งเวลาได้ผ่าน GitHub Actions cron แล้วเขียน workflow เรียก agent เอง<a class="ref" href="#ref-20">[20]</a></span></td>
-                            <td><span class="status full">มี</span><span class="strength-flag">จุดแข็ง</span><span class="note">Automations: ตั้ง cron หรือ trigger จาก GitHub/Slack/Linear/PagerDuty/webhook ผ่าน UI ได้เลย ไม่ต้องเขียน workflow<a class="ref" href="#ref-19">[19]</a></span></td>
-                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">ตั้ง schedule ผ่าน claude-code-action + Actions cron ได้ แต่ต้องเขียน workflow เอง<a class="ref" href="#ref-8">[8]</a></span></td>
+                            <td class="col-baseline"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">ไม่มี scheduler ในตัว Copilot — ตั้งเวลาได้ผ่าน GitHub Actions cron แล้วเขียน workflow เรียก agent เอง<a class="ref" href="#ref-20">[20]</a></span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="strength-flag">จุดแข็ง</span><span class="note">Automations: ตั้ง cron หรือ trigger จาก GitHub/Slack/Linear/PagerDuty/webhook ผ่าน UI ได้เลย ไม่ต้องเขียน workflow<a class="ref" href="#ref-19">[19]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">ตั้ง schedule ผ่าน claude-code-action + Actions cron ได้ แต่ต้องเขียน workflow เอง<a class="ref" href="#ref-8">[8]</a></span></td>
                         </tr>
                         <tr>
                             <th scope="row">Sandboxed Execution<small>รันคำสั่งใน sandbox ที่ผู้ใช้กำหนดขอบเขตและเข้าควบคุมได้</small></th>
-                            <td class="col-baseline"><span class="status partial">บางส่วน</span><span class="note">Cloud agent รันใน GitHub Actions แบบ ephemeral + firewall ปรับผ่าน setup file ได้ แต่เข้าไปควบคุมเครื่องระหว่างรันไม่ได้<a class="ref" href="#ref-4">[4]</a></span></td>
-                            <td><span class="status full">มี</span><span class="strength-flag">จุดแข็ง</span><span class="note">Sandbox ระดับ OS ในเครื่อง คุม filesystem/network เองได้ผ่าน sandbox.json + allowlist และ takeover remote desktop ของ cloud agent ได้<a class="ref" href="#ref-1">[1]</a><a class="ref" href="#ref-2">[2]</a></span></td>
-                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">/sandbox ใน Claude Code แยก filesystem/network ได้ดี แต่เป็น opt-in และครอบเฉพาะ Bash tool<a class="ref" href="#ref-7">[7]</a></span></td>
+                            <td class="col-baseline"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">Cloud agent รันใน GitHub Actions แบบ ephemeral + firewall ปรับผ่าน setup file ได้ แต่เข้าไปควบคุมเครื่องระหว่างรันไม่ได้<a class="ref" href="#ref-4">[4]</a></span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="strength-flag">จุดแข็ง</span><span class="note">Sandbox ระดับ OS ในเครื่อง คุม filesystem/network เองได้ผ่าน sandbox.json + allowlist และ takeover remote desktop ของ cloud agent ได้<a class="ref" href="#ref-1">[1]</a><a class="ref" href="#ref-2">[2]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">/sandbox ใน Claude Code แยก filesystem/network ได้ดี แต่เป็น opt-in และครอบเฉพาะ Bash tool<a class="ref" href="#ref-7">[7]</a></span></td>
                         </tr>
                         <tr>
                             <th scope="row">Code Review on PRs<small>Review PR อัตโนมัติใน Git workflow</small></th>
-                            <td class="col-baseline"><span class="status full">มี</span><span class="note">Copilot code review ฝังใน GitHub PR flow ไม่ต้องออกจาก toolchain</span></td>
-                            <td><span class="status full">มี</span><span class="note">BugBot comment inline ใน GitHub PR + check + Autofix<a class="ref" href="#ref-3">[3]</a></span></td>
-                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">ทำ auto review ผ่าน claude-code-action ได้ แต่ต้อง setup Actions เอง<a class="ref" href="#ref-8">[8]</a></span></td>
+                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">Copilot code review ฝังใน GitHub PR flow ไม่ต้องออกจาก toolchain</span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">BugBot comment inline ใน GitHub PR + check + Autofix<a class="ref" href="#ref-3">[3]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">ทำ auto review ผ่าน claude-code-action ได้ แต่ต้อง setup Actions เอง<a class="ref" href="#ref-8">[8]</a></span></td>
                         </tr>
                         <tr>
                             <th scope="row">GitHub / Azure Integration<small>ผูก VS Code, GitHub.com, Azure DevOps และ Entra</small></th>
-                            <td class="col-baseline"><span class="status full">มี</span><span class="strength-flag">จุดแข็ง</span><span class="note">Native ทั้ง Microsoft stack ตรงกับ GULF ที่ใช้ GitHub + Azure<a class="ref" href="#ref-4">[4]</a></span></td>
-                            <td><span class="status partial">บางส่วน</span><span class="note">มี GitHub integration (BugBot, @cursor) แต่ Azure DevOps ยังต้อง pilot จริง</span></td>
-                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="note">เชื่อมผ่าน Actions/MCP ได้ แต่ไม่ native กับ Microsoft governance</span></td>
+                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="strength-flag">จุดแข็ง</span><span class="note">Native ทั้ง Microsoft stack ตรงกับ GULF ที่ใช้ GitHub + Azure<a class="ref" href="#ref-4">[4]</a></span></td>
+                            <td><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">มี GitHub integration (BugBot, @cursor) แต่ Azure DevOps ยังต้อง pilot จริง</span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">เชื่อมผ่าน Actions/MCP ได้ แต่ไม่ native กับ Microsoft governance</span></td>
                         </tr>
                         <tr>
                             <th scope="row">Model Choice<small>เลือก model ได้ตาม task</small></th>
-                            <td class="col-baseline"><span class="status full">มี</span><span class="note">เลือก GPT / Claude / Gemini ใน model picker ขึ้นกับ plan (Pro+/Business/Enterprise)<a class="ref" href="#ref-5">[5]</a></span></td>
-                            <td><span class="status full">มี</span><span class="note">สลับหลาย model ใน IDE เดียว ไม่ผูกกับ vendor ใดรายเดียว</span></td>
-                            <td class="col-cowork"><span class="status none">ไม่มี</span><span class="note">ใช้ Anthropic models เท่านั้น ไม่ multi-vendor</span></td>
+                            <td class="col-baseline"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">เลือก GPT / Claude / Gemini ใน model picker ขึ้นกับ plan (Pro+/Business/Enterprise)<a class="ref" href="#ref-5">[5]</a></span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">สลับหลาย model ใน IDE เดียว ไม่ผูกกับ vendor ใดรายเดียว</span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="1 จาก 5">★☆☆☆☆</span><span class="note">ใช้ Anthropic models เท่านั้น ไม่ multi-vendor</span></td>
                         </tr>
                         <tr>
                             <th scope="row">Codebase Vector Index &amp; Semantic Search<small>ทำ index โค้ดเป็น vector แล้วค้นหาเชิงความหมายได้</small></th>
-                            <td class="col-baseline"><span class="status full">มี</span><span class="note">Remote semantic index สร้างโดย GitHub อัตโนมัติสำหรับ repo บน GitHub/Azure DevOps ส่วน local index จำกัด ~2,500 ไฟล์<a class="ref" href="#ref-12">[12]</a></span></td>
-                            <td><span class="status full">มี</span><span class="strength-flag">จุดแข็ง</span><span class="note">Index ลึกสุด: tree-sitter chunking + custom embedding + vector DB, sync อัตโนมัติทุก 5 นาที, encrypt path และไม่เก็บ source code บน server<a class="ref" href="#ref-13">[13]</a></span></td>
-                            <td class="col-cowork"><span class="status none">ไม่มี</span><span class="note">Claude Code เลือกไม่ทำ index โดยตั้งใจ ใช้ agentic search (grep/glob) — Anthropic ให้เหตุผลเรื่องความสดของข้อมูลและ security<a class="ref" href="#ref-14">[14]</a></span></td>
+                            <td class="col-baseline"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Remote semantic index สร้างโดย GitHub อัตโนมัติสำหรับ repo บน GitHub/Azure DevOps ส่วน local index จำกัด ~2,500 ไฟล์<a class="ref" href="#ref-12">[12]</a></span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="strength-flag">จุดแข็ง</span><span class="note">Index ลึกสุด: tree-sitter chunking + custom embedding + vector DB, sync อัตโนมัติทุก 5 นาที, encrypt path และไม่เก็บ source code บน server<a class="ref" href="#ref-13">[13]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="1 จาก 5">★☆☆☆☆</span><span class="note">Claude Code เลือกไม่ทำ index โดยตั้งใจ ใช้ agentic search (grep/glob) — Anthropic ให้เหตุผลเรื่องความสดของข้อมูลและ security<a class="ref" href="#ref-14">[14]</a></span></td>
                         </tr>
                         <tr>
                             <th scope="row">Org Knowledge &amp; Context Sharing<small>Knowledge base และการแชร์ context ระดับองค์กร</small></th>
-                            <td class="col-baseline"><span class="status full">มี</span><span class="note">Copilot Spaces + extensions ใน GitHub ecosystem<a class="ref" href="#ref-6">[6]</a></span></td>
-                            <td><span class="status full">มี</span><span class="note">Team Rules ตั้ง rule/มาตรฐานระดับองค์กรจาก dashboard ใช้กับทุกคนทุก repo และ enforce ไม่ให้ปิดได้ — รูปแบบเป็น rules ต่างจาก Spaces ที่เป็นพื้นที่แชร์ไฟล์/โค้ด<a class="ref" href="#ref-15">[15]</a></span></td>
-                            <td class="col-cowork"><span class="status partial">บางส่วน</span><span class="strength-flag">จุดแข็ง</span><span class="note">Projects แชร์ context ข้ามทีม business + dev ได้ดีที่สุดในมุม Co-work แต่ไม่ใช่ dev extension model</span></td>
+                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">Copilot Spaces + extensions ใน GitHub ecosystem<a class="ref" href="#ref-6">[6]</a></span></td>
+                            <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Team Rules ตั้ง rule/มาตรฐานระดับองค์กรจาก dashboard ใช้กับทุกคนทุก repo และ enforce ไม่ให้ปิดได้ — รูปแบบเป็น rules ต่างจาก Spaces ที่เป็นพื้นที่แชร์ไฟล์/โค้ด<a class="ref" href="#ref-15">[15]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="strength-flag">จุดแข็ง</span><span class="note">Projects แชร์ context ข้ามทีม business + dev ได้ดีที่สุดในมุม Co-work แต่ไม่ใช่ dev extension model</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1499,46 +1520,86 @@
 
         </section>
 
+        <section class="section" aria-labelledby="perspective-title">
+            <div class="section-head">
+                <div>
+                    <span class="kicker">03 / Perspectives</span>
+                    <h2 id="perspective-title">อีก 3 มุมมอง แยกจากตารางฟีเจอร์</h2>
+                </div>
+                <p>ประเมินจากการใช้งานจริงใน lab ของทีม — เป็นมุมมองเชิงคุณภาพ ควรยืนยันซ้ำด้วย benchmark ใน pilot</p>
+            </div>
+
+            <div class="metrics-wrap">
+                <table class="metrics-table">
+                    <caption>มุมมองเพิ่มเติม 3 ด้าน: ความเร็ว ความง่าย และคุณภาพโค้ด</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">มุมมอง</th>
+                            <th scope="col" class="col-baseline">GitHub Copilot<span class="baseline-flag">Baseline</span><small>Microsoft ecosystem</small></th>
+                            <th scope="col">Cursor<small>Agentic development</small></th>
+                            <th scope="col" class="col-cowork">Claude<span class="group-flag">อีกกลุ่ม · Co-work</span><small>Co-work &amp; governance</small></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1. ความเร็วในการพัฒนาเว็บ<small>เวลาจากโจทย์ถึงงานเสร็จจริง</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">เร็วมากในงานเล็กด้วย inline completion ที่ mature แต่ใน lab เจอ crash บ่อยเมื่อ task ใหญ่ ทำให้งานสะดุด</span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">เร็วสุดจากการใช้จริง: pipeline automation ทำง่าย จัดการ sub-agent ระหว่างงานได้ และ Tab คาดเดา multi-line แม่น</span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">เหตุผลเชิงโค้ดดี แต่ไม่มี inline completion ใน IDE ทำให้ loop พัฒนาเว็บช้ากว่าสองเจ้าแรก</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2. ความง่ายสำหรับ Dev ใหม่<small>Learning curve ของคนเพิ่งเข้าทีม</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">ง่ายสุด — อยู่ใน VS Code/Visual Studio ที่ทีมใช้อยู่แล้ว ไม่ต้องเรียนรู้เครื่องมือใหม่</span></td>
+                            <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">ต้องย้ายมาใช้ IDE ใหม่ แต่ UX ใกล้ VS Code มาก และ Plan/Ask Mode ช่วยนำทางคนใหม่ได้ดี</span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">Paradigm chat/terminal ต่างจากที่ dev ส่วนใหญ่คุ้น ต้องปรับวิธีทำงานมากกว่า</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3. Code Quality จาก Output<small>คุณภาพโค้ดที่ได้เทียบรอบแก้</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">Review ฝังใน PR flow ช่วยคุมคุณภาพ แต่ lab พบ crash ใน task ใหญ่กระทบความครบถ้วนของ output</span></td>
+                            <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Multi-model review + majority vote และ BugBot ช่วยยกคุณภาพและลดรอบแก้จากการใช้จริง</span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">โมเดล Anthropic ขึ้นชื่อเรื่องคุณภาพโค้ด แต่ขั้นตอน review ใน IDE มีน้อยกว่าสองเจ้าแรก</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="metrics-footnote">หมายเหตุ: ทั้ง 3 เจ้าเรียกใช้โมเดลตระกูลเดียวกันได้ (เช่น Claude ใน Copilot/Cursor) คุณภาพโค้ดจึงขึ้นกับ model ที่เลือก + ขั้นตอน review มากกว่าตัวแบรนด์ — คะแนนชุดนี้มาจากประสบการณ์ lab ของทีม ควรวัดซ้ำด้วยโจทย์มาตรฐานเดียวกันใน pilot</p>
+        </section>
+
         <section class="section" aria-labelledby="takeaway-title">
             <div class="section-head">
                 <div>
-                    <span class="kicker">03 / Take away</span>
+                    <span class="kicker">04 / Take away</span>
                     <h2 id="takeaway-title">คะแนนจากตาราง และสิ่งที่ต้องทำต่อ</h2>
                 </div>
-                <p>นับจากตาราง 02 แบบเข้าใจง่าย: มี = 1 คะแนน, บางส่วน = 0.5, ไม่มี = 0 (เต็ม 11 ข้อ)</p>
+                <p>รวมดาวจากตาราง 02 (11 ฟีเจอร์ × เต็ม 5 ดาว = 55) พร้อมสรุปดาวจาก 3 มุมมองใน 03</p>
             </div>
 
             <div class="score-grid">
-                <article class="score-card baseline-score">
-                    <h3>GitHub Copilot</h3>
-                    <div class="score-num">10<small>/11</small></div>
-                    <div class="score-bar"><i style="width: 91%;"></i></div>
-                    <div class="score-counts">
-                        <span class="status full">มี 9</span>
-                        <span class="status partial">บางส่วน 2</span>
-                        <span class="status none">ไม่มี 0</span>
-                    </div>
-                    <p>ครบที่สุดในมุม Microsoft stack — เสียคะแนนแค่ sandbox ที่เข้าควบคุมไม่ได้ และไม่มี scheduler ในตัว</p>
-                </article>
                 <article class="score-card">
                     <h3>Cursor</h3>
-                    <div class="score-num">9.5<small>/11</small></div>
-                    <div class="score-bar"><i style="width: 86%;"></i></div>
+                    <div class="score-num">48<small>/55 ดาว</small></div>
+                    <div class="score-bar"><i style="width: 87%;"></i></div>
                     <div class="score-counts">
-                        <span class="status full">มี 9</span>
-                        <span class="status partial">บางส่วน 1</span>
-                        <span class="status none">ไม่มี 1</span>
+                        <span class="legend-chip"><span class="stars-inline">★</span> เร็ว 5 · Dev ใหม่ 4 · Quality 4</span>
                     </div>
-                    <p>ตามหลัง 0.5 คะแนน — เด่นกว่าเรื่อง sandbox, scheduled automation และการคุม agent แต่เสียคะแนนจาก proprietary IDE</p>
+                    <p>ขึ้นนำเมื่อใช้สเกลดาว — ได้เต็มด้านความลึกของ agent, sandbox, automation และ model choice แต่เสียดาวจาก proprietary IDE</p>
+                </article>
+                <article class="score-card baseline-score">
+                    <h3>GitHub Copilot</h3>
+                    <div class="score-num">46<small>/55 ดาว</small></div>
+                    <div class="score-bar"><i style="width: 84%;"></i></div>
+                    <div class="score-counts">
+                        <span class="legend-chip"><span class="stars-inline">★</span> เร็ว 4 · Dev ใหม่ 5 · Quality 3</span>
+                    </div>
+                    <p>ตามหลังแค่ 2 ดาว — เต็มทุกแถว ecosystem/GitHub/Azure และง่ายสุดสำหรับ dev ใหม่ แต่เสียดาวเรื่อง sandbox กับ scheduler</p>
                 </article>
                 <article class="score-card cowork-score">
                     <h3>Claude</h3>
-                    <div class="score-num">4.5<small>/11</small></div>
-                    <div class="score-bar"><i style="width: 41%;"></i></div>
+                    <div class="score-num">23<small>/55 ดาว</small></div>
+                    <div class="score-bar"><i style="width: 42%;"></i></div>
                     <div class="score-counts">
-                        <span class="status full">มี 1</span>
-                        <span class="status partial">บางส่วน 7</span>
-                        <span class="status none">ไม่มี 3</span>
+                        <span class="legend-chip"><span class="stars-inline">★</span> เร็ว 3 · Dev ใหม่ 3 · Quality 4</span>
                     </div>
                     <p>คะแนนต่ำเพราะตารางวัดมุม dev tool — Claude อยู่กลุ่ม Co-work จึงควรอ่านเป็นเครื่องมือเสริม ไม่ใช่คู่แข่งตรง</p>
                 </article>
@@ -1547,7 +1608,7 @@
             <article class="glass-panel">
                 <h3>Take aways</h3>
                 <ol class="steps">
-                    <li><b>1</b><span>Copilot กับ Cursor คะแนนใกล้กันมาก — Copilot ชนะด้วย ecosystem/Microsoft fit ส่วน Cursor ชนะจากการใช้จริงเรื่อง automation, sandbox และการคุม agent</span></li>
+                    <li><b>1</b><span>Cursor กับ Copilot สูสีมาก (48 vs 46 จาก 55 ดาว) — สเกลดาวสะท้อนความลึกของฟีเจอร์ ทำให้ Cursor ขยับขึ้นนำเล็กน้อยจากด้าน agent/sandbox/automation ขณะที่ Copilot ยังเด่นสุดเรื่อง ecosystem และความง่ายสำหรับ dev ใหม่</span></li>
                     <li><b>2</b><span>Claude เป็นอีกกลุ่ม (Co-work) — ใช้เสริมงานข้ามทีม ไม่ใช่ตัวแทน IDE assistant</span></li>
                     <li><b>3</b><span>Privacy &amp; IP ต้องปิดก่อน rollout: ทุกเจ้าทำ no-training/ZDR ได้ แต่ indemnification ต่างกัน — Copilot ผูกเงื่อนไข filter/tier, Cursor ต้องต่อรองในสัญญา, Claude มีแบบจำกัด cap<a class="ref" href="#ref-16">[16]</a><a class="ref" href="#ref-17">[17]</a><a class="ref" href="#ref-18">[18]</a></span></li>
                     <li><b>4</b><span>Hybrid 3 เจ้ามีต้นทุนแฝง (สัญญา + security review หลายรอบ) — เริ่ม 2 เจ้าพร้อม central policy และโครงสร้างราคายังไม่ได้รีวิว ต้องทำ TCO แยกอีกฉบับ</span></li>
