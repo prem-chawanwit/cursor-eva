@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GULF Project Update - AI Assistant Evaluation</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 12mm;
+            background: #ffffff;
+        }
+
+        :root {
+            --gulf-blue: #003f70;
+            --gulf-blue-2: #075f94;
+            --gulf-blue-3: #e7f2f8;
+            --gulf-green: #63bd74;
+            --gulf-green-2: #35a865;
+            --ink: #15384f;
+            --muted: #647788;
+            --line: #dbe8ef;
+            --panel: rgba(255, 255, 255, 0.94);
+            --shadow: 0 22px 56px rgba(0, 63, 112, 0.14);
+            --radius-lg: 32px;
+            --radius-md: 22px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            color: var(--ink);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 15px;
+            line-height: 1.65;
+            background:
+                radial-gradient(circle at -8% -6%, #003f70 0 23rem, transparent 23.1rem),
+                radial-gradient(circle at 106% 95%, #63bd74 0 17rem, transparent 17.1rem),
+                linear-gradient(135deg, #ffffff 0%, #f8fcff 48%, #ffffff 100%);
+        }
+
+        body::before,
+        body::after {
+            position: fixed;
+            z-index: -1;
+            content: "";
+            border-radius: 999px;
+            pointer-events: none;
+        }
+
+        body::before {
+            top: -260px;
+            left: -260px;
+            width: 620px;
+            height: 620px;
+            border: 86px solid rgba(0, 63, 112, 0.12);
+        }
+
+        body::after {
+            right: -210px;
+            bottom: -190px;
+            width: 480px;
+            height: 480px;
+            background: rgba(99, 189, 116, 0.1);
+        }
+
+        button,
+        a {
+            font: inherit;
+        }
+
+        .page {
+            width: min(1160px, calc(100% - 36px));
+            margin: 0 auto;
+            padding: 28px 0 44px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            min-height: 64px;
+        }
+
+        .doc-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 13px;
+            color: var(--gulf-blue);
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            box-shadow: 0 12px 30px rgba(0, 63, 112, 0.08);
+        }
+
+        .doc-label::before {
+            width: 9px;
+            height: 9px;
+            content: "";
+            background: var(--gulf-green);
+            border-radius: 50%;
+        }
+
+        .gulf-logo {
+            display: inline-flex;
+            align-items: center;
+            height: 48px;
+            padding: 0 20px;
+            background: var(--gulf-blue);
+            border-radius: 999px;
+            box-shadow: 0 16px 36px rgba(0, 63, 112, 0.18);
+        }
+
+        .gulf-logo svg {
+            display: block;
+            flex: 0 0 auto;
+            width: 104px;
+            height: auto;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 370px;
+            gap: 28px;
+            align-items: stretch;
+            margin-top: 34px;
+        }
+
+        .hero-main,
+        .hero-side,
+        .glass-panel,
+        .tool-card,
+        .detail-panel,
+        .matrix-card,
+        .source-note {
+            background: var(--panel);
+            border: 1px solid rgba(219, 232, 239, 0.92);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+        }
+
+        .hero-main {
+            position: relative;
+            min-height: 390px;
+            overflow: hidden;
+            padding: clamp(30px, 5vw, 58px);
+            border-radius: var(--radius-lg);
+        }
+
+        .hero-main::before {
+            position: absolute;
+            right: -110px;
+            bottom: -170px;
+            width: 390px;
+            height: 390px;
+            content: "";
+            background: var(--gulf-green);
+            border-radius: 50%;
+            opacity: 0.22;
+        }
+
+        .hero-main::after {
+            position: absolute;
+            top: -190px;
+            left: -170px;
+            width: 390px;
+            height: 390px;
+            content: "";
+            background: var(--gulf-blue);
+            border-radius: 50%;
+            opacity: 0.12;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 760px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            margin-bottom: 24px;
+            padding: 7px 13px;
+            color: var(--gulf-green-2);
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: #e9f8ef;
+            border-radius: 999px;
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--gulf-blue);
+            font-size: clamp(42px, 7vw, 82px);
+            line-height: 0.98;
+            letter-spacing: -0.065em;
+        }
+
+        .subtitle {
+            max-width: 620px;
+            margin: 20px 0 0;
+            color: #31566d;
+            font-size: clamp(18px, 2.2vw, 25px);
+            font-weight: 750;
+            line-height: 1.4;
+        }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 34px;
+        }
+
+        .meta-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 13px;
+            color: var(--gulf-blue);
+            font-size: 13px;
+            font-weight: 850;
+            background: #f2f8fb;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+        }
+
+        .meta-chip::before {
+            width: 8px;
+            height: 8px;
+            content: "";
+            background: var(--gulf-green);
+            border-radius: 50%;
+        }
+
+        .hero-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 26px;
+            border-radius: var(--radius-lg);
+        }
+
+        .recommendation-label {
+            display: inline-flex;
+            width: fit-content;
+            padding: 6px 12px;
+            color: #176a3c;
+            font-size: 12px;
+            font-weight: 950;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: #e6f7ec;
+            border-radius: 999px;
+        }
+
+        .hero-side h2 {
+            margin: 16px 0 10px;
+            color: var(--gulf-blue);
+            font-size: 26px;
+            line-height: 1.16;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-side p {
+            margin: 0;
+            color: #385a70;
+        }
+
+        .quick-score {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .score-box {
+            padding: 13px;
+            background: #f6fbfd;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+        }
+
+        .score-box strong {
+            display: block;
+            color: var(--gulf-blue);
+            font-size: 20px;
+            line-height: 1.1;
+        }
+
+        .score-box span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .section {
+            margin-top: 34px;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 22px;
+            margin-bottom: 18px;
+        }
+
+        .kicker {
+            display: inline-flex;
+            margin-bottom: 8px;
+            color: var(--gulf-green-2);
+            font-size: 12px;
+            font-weight: 950;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .section h2 {
+            margin: 0;
+            color: var(--gulf-blue);
+            font-size: clamp(25px, 3vw, 34px);
+            line-height: 1.15;
+            letter-spacing: -0.045em;
+        }
+
+        .section-head p {
+            max-width: 440px;
+            margin: 0;
+            color: var(--muted);
+            text-align: right;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .tool-button {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            min-height: 68px;
+            padding: 12px 16px;
+            color: var(--gulf-blue);
+            text-align: left;
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            box-shadow: 0 12px 28px rgba(0, 63, 112, 0.08);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .tool-button:hover,
+        .tool-button:focus-visible {
+            transform: translateY(-2px);
+            border-color: rgba(0, 63, 112, 0.28);
+            box-shadow: 0 18px 38px rgba(0, 63, 112, 0.14);
+            outline: none;
+        }
+
+        .tool-button.is-active {
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--gulf-blue), #075f94);
+            border-color: transparent;
+        }
+
+        .tool-button small {
+            display: block;
+            color: currentColor;
+            font-size: 12px;
+            font-weight: 600;
+            opacity: 0.74;
+        }
+
+        .brand-icon {
+            display: inline-grid;
+            place-items: center;
+            flex: 0 0 auto;
+            width: 46px;
+            height: 46px;
+            color: #14161a;
+            background: #ffffff;
+            border: 1px solid rgba(0, 63, 112, 0.12);
+            border-radius: 16px;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+        }
+
+        .brand-icon svg {
+            display: block;
+            width: 28px;
+            height: 28px;
+        }
+
+        .brand-icon.cursor {
+            color: #111827;
+        }
+
+        .brand-icon.copilot {
+            color: #24292f;
+        }
+
+        .brand-icon.claude {
+            color: #c15f3c;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .tool-card {
+            position: relative;
+            min-height: 275px;
+            overflow: hidden;
+            padding: 22px;
+            border-radius: var(--radius-md);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .tool-card::after {
+            position: absolute;
+            right: -52px;
+            bottom: -54px;
+            width: 150px;
+            height: 150px;
+            content: "";
+            background: var(--gulf-green);
+            border-radius: 50%;
+            opacity: 0.11;
+        }
+
+        .tool-card.is-highlighted {
+            transform: translateY(-3px);
+            border-color: rgba(99, 189, 116, 0.78);
+        }
+
+        .tool-card-head {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .tool-card h3 {
+            margin: 0;
+            color: var(--gulf-blue);
+            font-size: 22px;
+            line-height: 1.2;
+        }
+
+        .tool-card .role {
+            display: inline-flex;
+            position: relative;
+            z-index: 1;
+            width: fit-content;
+            margin-top: 18px;
+            padding: 6px 11px;
+            color: var(--gulf-blue);
+            font-size: 12px;
+            font-weight: 950;
+            background: var(--gulf-blue-3);
+            border-radius: 999px;
+        }
+
+        .tool-card p {
+            position: relative;
+            z-index: 1;
+            margin: 14px 0 0;
+            color: #385a70;
+        }
+
+        .point-list {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            gap: 9px;
+            margin: 16px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .point-list li {
+            display: grid;
+            grid-template-columns: 10px 1fr;
+            gap: 9px;
+            color: #24465c;
+        }
+
+        .point-list li::before {
+            width: 9px;
+            height: 9px;
+            margin-top: 8px;
+            content: "";
+            background: var(--gulf-green);
+            border-radius: 50%;
+        }
+
+        .detail-panel {
+            display: none;
+            padding: 24px;
+            border-radius: var(--radius-md);
+        }
+
+        .detail-panel.is-active {
+            display: block;
+        }
+
+        .detail-layout {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 22px;
+            align-items: start;
+        }
+
+        .detail-panel h3 {
+            margin: 0;
+            color: var(--gulf-blue);
+            font-size: 28px;
+            line-height: 1.16;
+            letter-spacing: -0.04em;
+        }
+
+        .detail-panel p {
+            margin: 12px 0 0;
+            color: #385a70;
+        }
+
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .insight {
+            min-height: 124px;
+            padding: 16px;
+            background: #f6fbfd;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+        }
+
+        .insight strong {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--gulf-blue);
+            font-size: 15px;
+        }
+
+        .insight span {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .metrics-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-bottom: 14px;
+        }
+
+        .legend-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 12px;
+            color: var(--gulf-blue);
+            font-size: 12.5px;
+            font-weight: 850;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+        }
+
+        .metrics-wrap {
+            overflow-x: auto;
+            background: var(--panel);
+            border: 1px solid rgba(219, 232, 239, 0.92);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+        }
+
+        .metrics-table {
+            width: 100%;
+            min-width: 880px;
+            border-collapse: collapse;
+        }
+
+        .metrics-table caption {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+        }
+
+        .metrics-table th,
+        .metrics-table td {
+            padding: 14px 16px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .metrics-table thead th {
+            color: var(--gulf-blue);
+            font-size: 15px;
+            font-weight: 900;
+            white-space: nowrap;
+            background: #f2f8fb;
+            border-bottom: 2px solid rgba(0, 63, 112, 0.18);
+        }
+
+        .metrics-table thead th small {
+            display: block;
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 11.5px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .metrics-table tbody tr:nth-child(even) td,
+        .metrics-table tbody tr:nth-child(even) th {
+            background: #f9fcfe;
+        }
+
+        .metrics-table tbody tr:last-child th,
+        .metrics-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .metrics-table tbody th {
+            width: 24%;
+            min-width: 200px;
+            color: var(--gulf-blue);
+            font-size: 14.5px;
+            font-weight: 850;
+            line-height: 1.4;
+        }
+
+        .metrics-table tbody th small {
+            display: block;
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 650;
+        }
+
+        .metrics-table td {
+            width: 25.33%;
+            color: #385a70;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .metrics-table .col-baseline {
+            background: #eef5fb !important;
+            border-left: 1px solid rgba(0, 63, 112, 0.2);
+            border-right: 1px solid rgba(0, 63, 112, 0.2);
+        }
+
+        .metrics-table thead th.col-baseline {
+            border-top: 3px solid var(--gulf-blue-2);
+        }
+
+        .metrics-table .col-cowork {
+            background: #f4f7f9 !important;
+            border-left: 2px dashed rgba(0, 63, 112, 0.28);
+        }
+
+        .metrics-table thead th.col-cowork {
+            background: #f0f4f7 !important;
+            border-top: 2px solid rgba(100, 119, 136, 0.35);
+        }
+
+        .metrics-table td.col-cowork {
+            color: #4a6275;
+        }
+
+        .group-flag {
+            display: inline-flex;
+            margin-left: 7px;
+            padding: 2px 8px;
+            color: var(--muted);
+            font-size: 10.5px;
+            font-weight: 950;
+            letter-spacing: 0.04em;
+            background: #edf1f4;
+            border: 1px solid rgba(100, 119, 136, 0.25);
+            border-radius: 999px;
+            vertical-align: middle;
+        }
+
+        .legend-dash {
+            display: inline-block;
+            flex: 0 0 auto;
+            width: 12px;
+            height: 14px;
+            border-left: 2px dashed rgba(0, 63, 112, 0.45);
+        }
+
+        .baseline-flag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 7px;
+            padding: 2px 8px;
+            color: var(--gulf-blue);
+            font-size: 10.5px;
+            font-weight: 950;
+            letter-spacing: 0.04em;
+            background: #dcecf7;
+            border: 1px solid rgba(0, 63, 112, 0.18);
+            border-radius: 999px;
+            vertical-align: middle;
+        }
+
+        .baseline-flag::before {
+            content: "\25CE";
+            font-size: 10px;
+        }
+
+        .strength-flag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 6px;
+            padding: 4px 9px;
+            color: #176a3c;
+            font-size: 11px;
+            font-weight: 950;
+            background: #d9f2e2;
+            border-radius: 999px;
+            vertical-align: middle;
+        }
+
+        .strength-flag::before {
+            content: "\2191";
+            font-size: 10px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 6px;
+            padding: 4px 11px;
+            font-size: 12px;
+            font-weight: 900;
+            border-radius: 999px;
+        }
+
+        .status::before {
+            font-size: 11px;
+        }
+
+        .status.full {
+            color: #176a3c;
+            background: #e0f5e8;
+        }
+
+        .status.full::before {
+            content: "\2713";
+        }
+
+        .status.partial {
+            color: #8a5a14;
+            background: #fdf2dc;
+        }
+
+        .status.partial::before {
+            content: "\25D1";
+        }
+
+        .status.none {
+            color: #5d6f7e;
+            background: #edf1f4;
+        }
+
+        .status.none::before {
+            content: "\2014";
+        }
+
+        .metrics-table .note {
+            display: block;
+        }
+
+        .stars {
+            display: inline-block;
+            margin-bottom: 5px;
+            color: #e8a33d;
+            font-size: 15px;
+            letter-spacing: 2px;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .stars-inline {
+            color: #e8a33d;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .legend-stars {
+            color: #e8a33d;
+            letter-spacing: 1px;
+        }
+
+        .metrics-table .note a.ref,
+        .vendor-pros a.ref {
+            margin-left: 1px;
+            color: var(--gulf-blue-2);
+            font-size: 10.5px;
+            font-weight: 850;
+            text-decoration: none;
+            vertical-align: super;
+        }
+
+        .metrics-table .note a.ref:hover,
+        .vendor-pros a.ref:hover {
+            text-decoration: underline;
+        }
+
+        .lab-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+        .lab-head h3 {
+            margin: 0;
+        }
+
+        .lab-cols {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+            margin-top: 14px;
+        }
+
+        .lab-tag {
+            display: inline-flex;
+            margin-bottom: 12px;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: 950;
+            border-radius: 999px;
+        }
+
+        .lab-tag.pro-tag {
+            color: #176a3c;
+            background: #e0f5e8;
+        }
+
+        .lab-tag.con-tag {
+            color: #8a5a14;
+            background: #fdf2dc;
+        }
+
+        .lab-obs {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .score-card {
+            padding: 24px;
+            background: var(--panel);
+            border: 1px solid rgba(219, 232, 239, 0.92);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+        }
+
+        .score-card.baseline-score {
+            border-top: 4px solid var(--gulf-blue-2);
+        }
+
+        .score-card.cowork-score {
+            border-top: 4px dashed rgba(0, 63, 112, 0.35);
+        }
+
+        .score-card h3 {
+            margin: 0;
+            color: var(--gulf-blue);
+            font-size: 19px;
+        }
+
+        .score-num {
+            margin: 8px 0 2px;
+            color: var(--gulf-blue);
+            font-size: 46px;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.04em;
+        }
+
+        .score-num small {
+            color: var(--muted);
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .score-bar {
+            height: 10px;
+            margin: 12px 0;
+            overflow: hidden;
+            background: #e8eff4;
+            border-radius: 999px;
+        }
+
+        .score-bar i {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, var(--gulf-blue-2), var(--gulf-green-2));
+            border-radius: 999px;
+        }
+
+        .score-counts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .score-counts .status {
+            margin-bottom: 0;
+        }
+
+        .score-card p {
+            margin: 12px 0 0;
+            color: #385a70;
+            font-size: 13.5px;
+        }
+
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .risk-grid .matrix-card {
+            min-height: 0;
+        }
+
+        .risk-grid .matrix-card span.tag-warn {
+            color: #8a5a14;
+            background: #fdf2dc;
+        }
+
+        .privacy-panel .insight strong small {
+            display: block;
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .privacy-panel .insight ul {
+            display: grid;
+            gap: 5px;
+            margin: 8px 0 0;
+            padding: 0;
+            list-style: none;
+            color: #385a70;
+            font-size: 12.5px;
+            line-height: 1.55;
+        }
+
+        .privacy-panel .insight li {
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .privacy-panel .insight li::before {
+            position: absolute;
+            top: 7px;
+            left: 0;
+            width: 7px;
+            height: 7px;
+            content: "";
+            background: var(--gulf-blue-2);
+            border-radius: 50%;
+        }
+
+        .metrics-footnote {
+            margin: 12px 2px 0;
+            color: var(--muted);
+            font-size: 12.5px;
+            line-height: 1.6;
+        }
+
+        .vendor-pros {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .vendor-pros .insight ul {
+            display: grid;
+            gap: 5px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .vendor-pros .insight li {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 7px;
+        }
+
+        .vendor-pros .insight li b {
+            font-size: 12px;
+        }
+
+        .vendor-pros .insight li.pro b {
+            color: var(--gulf-green-2);
+        }
+
+        .vendor-pros .insight li.con b {
+            color: #8a5a14;
+        }
+
+        .ref-note {
+            margin-top: 16px;
+        }
+
+        .ref-note ol {
+            display: grid;
+            gap: 4px;
+            margin: 0;
+            padding-left: 19px;
+            color: #385a70;
+            font-size: 12.5px;
+        }
+
+        .ref-note a {
+            color: var(--gulf-blue);
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .ref-note a:hover {
+            text-decoration: underline;
+        }
+
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .matrix-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 240px;
+            padding: 18px;
+            border-radius: 22px;
+        }
+
+        .matrix-card span {
+            width: fit-content;
+            margin-bottom: 15px;
+            padding: 5px 10px;
+            color: #176a3c;
+            font-size: 12px;
+            font-weight: 950;
+            background: #e6f7ec;
+            border-radius: 999px;
+        }
+
+        .matrix-card h3 {
+            margin: 0;
+            color: var(--gulf-blue);
+            font-size: 18px;
+            line-height: 1.24;
+        }
+
+        .matrix-card p {
+            margin: 12px 0 0;
+            color: #385a70;
+        }
+
+        .matrix-card small {
+            display: block;
+            margin-top: auto;
+            padding-top: 16px;
+            color: var(--muted);
+            font-weight: 800;
+        }
+
+        .pilot-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 18px;
+        }
+
+        .glass-panel {
+            padding: 24px;
+            border-radius: var(--radius-md);
+        }
+
+        .glass-panel h3 {
+            margin: 0 0 12px;
+            color: var(--gulf-blue);
+            font-size: 23px;
+            letter-spacing: -0.03em;
+        }
+
+        .steps {
+            display: grid;
+            gap: 12px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .steps li {
+            display: grid;
+            grid-template-columns: 34px 1fr;
+            gap: 12px;
+            align-items: start;
+            color: #385a70;
+        }
+
+        .steps b {
+            display: inline-grid;
+            place-items: center;
+            width: 34px;
+            height: 34px;
+            color: #ffffff;
+            background: var(--gulf-blue);
+            border-radius: 12px;
+        }
+
+        .source-note {
+            padding: 18px 20px;
+            border-radius: 20px;
+        }
+
+        .source-note h3 {
+            margin: 0 0 9px;
+            color: var(--gulf-blue);
+            font-size: 17px;
+        }
+
+        .source-note ul {
+            margin: 0;
+            padding-left: 19px;
+            color: #385a70;
+        }
+
+        .source-note a {
+            color: var(--gulf-blue);
+            font-weight: 850;
+        }
+
+        .footer {
+            margin-top: 28px;
+            padding-top: 18px;
+            color: var(--muted);
+            font-size: 13px;
+            text-align: center;
+            border-top: 1px solid var(--line);
+        }
+
+        @media (max-width: 980px) {
+            body {
+                background:
+                    radial-gradient(circle at -8% -4%, #003f70 0 14rem, transparent 14.1rem),
+                    radial-gradient(circle at 106% 100%, #63bd74 0 12rem, transparent 12.1rem),
+                    #ffffff;
+            }
+
+            .topbar,
+            .section-head {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .section-head p {
+                text-align: left;
+            }
+
+            .hero,
+            .detail-layout,
+            .pilot-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-main {
+                min-height: auto;
+            }
+
+            .controls,
+            .tool-grid,
+            .matrix-grid,
+            .insight-grid,
+            .vendor-pros,
+            .risk-grid,
+            .lab-cols,
+            .lab-obs,
+            .score-grid,
+            .quick-score {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            body {
+                background: #ffffff;
+                font-size: 10pt;
+            }
+
+            body::before,
+            body::after {
+                display: none;
+            }
+
+            .page {
+                width: 100%;
+                padding: 0;
+            }
+
+            .hero,
+            .detail-layout,
+            .pilot-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-main,
+            .hero-side,
+            .glass-panel,
+            .tool-card,
+            .detail-panel,
+            .matrix-card,
+            .metrics-wrap,
+            .source-note {
+                box-shadow: none;
+            }
+
+            .metrics-table {
+                min-width: 0;
+            }
+
+            .metrics-table tr {
+                page-break-inside: avoid;
+            }
+
+            .controls {
+                display: none;
+            }
+
+            .detail-panel {
+                display: block;
+                page-break-inside: avoid;
+            }
+
+            h1 {
+                font-size: 40pt;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <nav class="topbar" aria-label="Report header">
+            <span class="doc-label">Project Update / Session 202 v.3</span>
+            <div class="gulf-logo">
+                <svg viewBox="0 0 135 30" role="img" aria-label="GULF" focusable="false">
+                    <path d="M47.4781 13.6014V18.9304H56.0071C55.5261 20.7114 53.6391 23.4844 49.1451 23.4844C43.4701 23.4844 40.9301 18.9934 40.9301 14.5414C40.9301 8.41737 45.0361 5.67537 49.1061 5.67537C50.7277 5.58334 52.3298 6.06631 53.6303 7.03925C54.9309 8.0122 55.8465 9.41275 56.2161 10.9944L61.9741 8.94437C60.9021 5.30937 57.2271 0.00236855 49.1061 0.00236855C47.1995 -0.0326781 45.3059 0.321531 43.5409 1.04334C41.776 1.76515 40.1768 2.83938 38.8412 4.20035C37.5056 5.56132 36.4617 7.18042 35.7732 8.95864C35.0847 10.7369 34.7662 12.6368 34.8371 14.5424C34.7495 16.4514 35.0574 18.358 35.7414 20.1425C36.4254 21.927 37.4707 23.5509 38.8119 24.9124C40.1531 26.2738 41.7611 27.3434 43.5351 28.0541C45.3091 28.7648 47.2109 29.1013 49.1211 29.0424C53.2581 29.0424 56.5061 27.7894 58.7751 25.3184C62.8361 20.8964 62.2641 13.6014 62.2641 13.6014H47.4781ZM83.3701 17.1684C83.3701 21.1624 81.7421 23.3114 78.0301 23.3114C74.2961 23.3114 72.6901 21.1624 72.6901 17.1684V0.410369H66.3511L66.4811 17.2554C66.5251 24.8554 69.8461 29.0424 78.0291 29.0424C86.1911 29.0424 89.5121 24.8524 89.5771 17.2554L89.7071 0.410369H83.3681L83.3701 17.1684ZM134.887 5.83837V0.410369H116.218V28.6304H122.557V16.9734H133.194V12.0034H122.557V5.83837H134.887ZM100.827 0.410369H94.4881V28.6304H112.267V23.1364H100.827V0.410369Z" fill="#ffffff"/>
+                    <path d="M19.5923 9.78895C16.6113 13.853 14.7246 18.615 14.1133 23.618C14.5953 25.3822 14.8077 27.2092 14.7433 29.037C19.8513 29.118 23.9183 25.527 26.5023 20.453C29.6253 14.322 30.4743 4.56495 33.5903 0.00195312C28.1713 1.13795 23.2843 4.60495 19.5923 9.78895Z" fill="#ffffff"/>
+                    <path d="M0 13.8828C2.308 19.3308 3.749 28.7478 14.744 29.0388C14.975 20.3678 9.975 14.1458 0 13.8828Z" fill="#ffffff"/>
+                </svg>
+            </div>
+        </nav>
+
+        <header class="hero">
+            <section class="hero-main" aria-labelledby="hero-title">
+                <div class="hero-content">
+                    <span class="eyebrow">Enterprise AI Assistant Evaluation</span>
+                    <h1 id="hero-title">AI Tools<br>Project Update</h1>
+                    <p class="subtitle">
+                        สรุปให้ตัดสินใจง่ายขึ้นว่า Cursor, GitHub Copilot และ Claude ควรใช้กับงานประเภทใด
+                        พร้อมข้อควรทดสอบก่อน rollout ระดับองค์กร
+                    </p>
+                    <div class="meta-row" aria-label="Report focus">
+                        <span class="meta-chip">Developer workflow</span>
+                        <span class="meta-chip">Microsoft ecosystem</span>
+                        <span class="meta-chip">Governance</span>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="hero-side">
+                <div>
+                    <span class="recommendation-label">Recommendation</span>
+                    <h2>ใช้แบบแบ่งบทบาท แทนการเลือกเครื่องมือเดียว</h2>
+                    <p>
+                        Cursor เหมาะกับงานลงมือแก้โค้ด, Copilot เหมาะกับทีมที่อยู่ใน Microsoft/GitHub workflow,
+                        ส่วน Claude เหมาะกับ Co-work และ governance
+                    </p>
+                </div>
+                <div class="quick-score" aria-label="Executive quick score">
+                    <div class="score-box"><strong>Cursor</strong><span>Build task</span></div>
+                    <div class="score-box"><strong>Copilot</strong><span>MS stack</span></div>
+                    <div class="score-box"><strong>Claude</strong><span>Co-work</span></div>
+                    <div class="score-box"><strong>Pilot</strong><span>Before rollout</span></div>
+                </div>
+            </aside>
+        </header>
+
+        <section class="section" aria-labelledby="lab-title">
+            <div class="section-head">
+                <div>
+                    <span class="kicker">01 / Lab findings</span>
+                    <h2 id="lab-title">เทียบ 3 เจ้า จากการใช้งานจริงของทีม</h2>
+                </div>
+                <p>สรุปจากการลองใช้จริงใน lab ไม่ใช่จาก spec sheet — รอบนี้ใช้ Cursor เป็นตัวหลัก</p>
+            </div>
+
+            <article class="glass-panel">
+                <div class="lab-head">
+                    <span class="brand-icon cursor" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M22.106 5.68L12.5.135a.998.998 0 00-.998 0L1.893 5.68a.84.84 0 00-.419.726v11.186c0 .3.16.577.42.727l9.607 5.547a.999.999 0 00.998 0l9.608-5.547a.84.84 0 00.42-.727V6.407a.84.84 0 00-.42-.726zm-.603 1.176L12.228 22.92c-.063.108-.228.064-.228-.061V12.34a.59.59 0 00-.295-.51l-9.11-5.26c-.107-.062-.063-.228.062-.228h18.55c.264 0 .428.286.296.514z"/></svg>
+                    </span>
+                    <h3>Cursor — เครื่องมือหลักที่ทดลอง</h3>
+                </div>
+                <div class="lab-cols">
+                    <div>
+                        <span class="lab-tag pro-tag">ทำได้ดี</span>
+                        <ul class="point-list">
+                            <li>Automation &amp; Workflow: ทำ pipeline automation ของ development task ได้ง่าย ดูสถานะและจัดการ sub-agent ระหว่างสั่งงานได้ดี</li>
+                            <li>Plan Mode ให้ workflow ที่เข้าใจง่าย, Ask Mode ถามกลับเมื่อ agent ไม่แน่ใจ และมี built-in doc ให้ agent อ้างอิง</li>
+                            <li>Multi-model review: สั่งหลาย model รีวิวโค้ดพร้อมกันแล้วทำ majority vote ได้</li>
+                            <li>Team &amp; Enterprise: Team Rules บังคับ coding standard ทั้งทีม, ตั้ง spend alert/limit ง่าย, dashboard analytics ครบ, เห็น usage รายคนละเอียด</li>
+                            <li>Audit &amp; Traceability: ดู Agent Line of Code ได้ใน metric และ audit log บอกว่าใครทำอะไร เช่น เพิ่ม MCP</li>
+                            <li>เสถียร: native desktop app และการแจ้งเตือนแบบ native ใช้ได้ดี พร้อม Cloud Sandbox ที่ควบคุมผ่าน UI ได้</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="lab-tag con-tag">ข้อจำกัดที่เจอ</span>
+                        <ul class="point-list">
+                            <li>ไม่มี mode Co-work — ผูกกับ repository เน้น code เป็นหลัก เหมาะกับ Developer &amp; SE มากกว่า end user</li>
+                            <li>Microsoft extension ไม่ครบเท่า VS Code: ขาด Azure Functions (deploy Function App / list resource) ส่วน C# Dev Kit มีแต่ไม่ใช่ official และบางครั้ง conflict กับ extension อื่น</li>
+                            <li>Cloud Agent ยังไม่ native support Azure DevOps repository (กำลัง explore เพิ่มเติม)</li>
+                            <li>ต้องใช้เวลา research + config เพิ่ม ถ้าจะใช้ Cloud Agents เต็มรูปแบบ</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <div class="lab-obs">
+                <article class="glass-panel">
+                    <div class="lab-head">
+                        <span class="brand-icon copilot" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M23.922 16.992c-.861 1.495-5.859 5.023-11.922 5.023-6.063 0-11.061-3.528-11.922-5.023A.641.641 0 0 1 0 16.736v-2.869a.841.841 0 0 1 .053-.22c.372-.935 1.347-2.292 2.605-2.656.167-.429.414-1.055.644-1.517a10.195 10.195 0 0 1-.052-1.086c0-1.331.282-2.499 1.132-3.368.397-.406.89-.717 1.474-.952 1.399-1.136 3.392-2.093 6.122-2.093 2.731 0 4.767.957 6.166 2.093.584.235 1.077.546 1.474.952.85.869 1.132 2.037 1.132 3.368 0 .368-.014.733-.052 1.086.23.462.477 1.088.644 1.517 1.258.364 2.233 1.721 2.605 2.656a.832.832 0 0 1 .053.22v2.869a.641.641 0 0 1-.078.256ZM12.172 11h-.344a4.323 4.323 0 0 1-.355.508C10.703 12.455 9.555 13 7.965 13c-1.725 0-2.989-.359-3.782-1.259a2.005 2.005 0 0 1-.085-.104L4 11.741v6.585c1.435.779 4.514 2.179 8 2.179 3.486 0 6.565-1.4 8-2.179v-6.585l-.098-.104s-.033.045-.085.104c-.793.9-2.057 1.259-3.782 1.259-1.59 0-2.738-.545-3.508-1.492a4.323 4.323 0 0 1-.355-.508h-.016.016Zm.641-2.935c.136 1.057.403 1.913.878 2.497.442.544 1.134.938 2.344.938 1.573 0 2.292-.337 2.657-.751.384-.435.558-1.15.558-2.361 0-1.14-.243-1.847-.705-2.319-.477-.488-1.319-.862-2.824-1.025-1.487-.161-2.192.138-2.533.529-.269.307-.437.808-.438 1.578v.021c0 .265.021.562.063.893Zm-1.626 0c.042-.331.063-.628.063-.894v-.02c-.001-.77-.169-1.271-.438-1.578-.341-.391-1.046-.69-2.533-.529-1.505.163-2.347.537-2.824 1.025-.462.472-.705 1.179-.705 2.319 0 1.211.175 1.926.558 2.361.365.414 1.084.751 2.657.751 1.21 0 1.902-.394 2.344-.938.475-.584.742-1.44.878-2.497Z"/><path fill="currentColor" d="M14.5 14.25a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Zm-5 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Z"/></svg>
+                        </span>
+                        <h3>GitHub Copilot — ข้อสังเกตจากการใช้</h3>
+                    </div>
+                    <ul class="point-list">
+                        <li>Crash บ่อยเมื่อเจอ task ขนาดใหญ่</li>
+                        <li>จุดแข็งคือความเข้ากับ VS Code / GitHub / Azure ดูรายละเอียดในตาราง 02</li>
+                    </ul>
+                </article>
+                <article class="glass-panel">
+                    <div class="lab-head">
+                        <span class="brand-icon claude" aria-hidden="true">
+                            <svg viewBox="0 0 100 100"><path fill="currentColor" d="m19.6 66.5 19.7-11 .3-1-.3-.5h-1l-3.3-.2-11.2-.3L14 53l-9.5-.5-2.4-.5L0 49l.2-1.5 2-1.3 2.9.2 6.3.5 9.5.6 6.9.4L38 49.1h1.6l.2-.7-.5-.4-.4-.4L29 41l-10.6-7-5.6-4.1-3-2-1.5-2-.6-4.2 2.7-3 3.7.3.9.2 3.7 2.9 8 6.1L37 36l1.5 1.2.6-.4.1-.3-.7-1.1L33 25l-6-10.4-2.7-4.3-.7-2.6c-.3-1-.4-2-.4-3l3-4.2L28 0l4.2.6L33.8 2l2.6 6 4.1 9.3L47 29.9l2 3.8 1 3.4.3 1h.7v-.5l.5-7.2 1-8.7 1-11.2.3-3.2 1.6-3.8 3-2L61 2.6l2 2.9-.3 1.8-1.1 7.7L59 27.1l-1.5 8.2h.9l1-1.1 4.1-5.4 6.9-8.6 3-3.5L77 13l2.3-1.8h4.3l3.1 4.7-1.4 4.9-4.4 5.6-3.7 4.7-5.3 7.1-3.2 5.7.3.4h.7l12-2.6 6.4-1.1 7.6-1.3 3.5 1.6.4 1.6-1.4 3.4-8.2 2-9.6 2-14.3 3.3-.2.1.2.3 6.4.6 2.8.2h6.8l12.6 1 3.3 2 1.9 2.7-.3 2-5.1 2.6-6.8-1.6-16-3.8-5.4-1.3h-.8v.4l4.6 4.5 8.3 7.5L89 80.1l.5 2.4-1.3 2-1.4-.2-9.2-7-3.6-3-8-6.8h-.5v.7l1.8 2.7 9.8 14.7.5 4.5-.7 1.4-2.6 1-2.7-.6-5.8-8-6-9-4.7-8.2-.5.4-2.9 30.2-1.3 1.5-3 1.2-2.5-2-1.4-3 1.4-6.2 1.6-8 1.3-6.4 1.2-7.9.7-2.6v-.2H49L43 72l-9 12.3-7.2 7.6-1.7.7-3-1.5.3-2.8L24 86l10-12.8 6-7.9 4-4.6-.1-.5h-.3L17.2 77.4l-4.7.6-2-2 .2-3 1-1 8-5.5Z"/></svg>
+                        </span>
+                        <h3>Claude — ข้อสังเกตจากการใช้</h3>
+                    </div>
+                    <ul class="point-list">
+                        <li>Co-work เกิด crash ในบางกรณี เช่น งานที่ไล่ step 1, 2, 3 ต่อเนื่อง</li>
+                        <li>เด่นเรื่องแชร์ context ระหว่างทีม technical กับ business — เป็นคนละกลุ่มกับ IDE assistant</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="metrics-title">
+            <div class="section-head">
+                <div>
+                    <span class="kicker">02 / Key metrics</span>
+                    <h2 id="metrics-title">Key Metrics: เทียบฟีเจอร์หลักจากมุม GitHub Copilot</h2>
+                </div>
+                <p>ใช้ฟีเจอร์ของ GitHub Copilot เป็นจุดอ้างอิง — ทุกช่องให้คะแนนเป็นดาว 0-5 ตามระดับความสามารถจริง อ้างอิง official docs ตามเลข [n]</p>
+            </div>
+
+            <div class="metrics-legend" aria-label="Status legend">
+                <span class="legend-chip"><span class="baseline-flag">Baseline</span> จุดอ้างอิงในการเทียบ — ไม่ได้แปลว่าดีกว่า</span>
+                <span class="legend-chip"><span class="legend-stars">★★★★★</span> ครบ/ดีที่สุด</span>
+                <span class="legend-chip"><span class="legend-stars">★★★☆☆</span> มีแต่ขอบเขตจำกัด</span>
+                <span class="legend-chip"><span class="legend-stars">☆☆☆☆☆</span> ไม่อยู่ในขอบเขตผลิตภัณฑ์</span>
+                <span class="legend-chip"><span class="strength-flag">จุดแข็ง</span> เจ้าที่เด่นที่สุดในแถวนั้น</span>
+                <span class="legend-chip"><span class="legend-dash" aria-hidden="true"></span> เส้นประ = Claude อยู่อีกกลุ่ม (Co-work) แต่เทียบร่วมในตาราง</span>
+            </div>
+
+            <div class="metrics-wrap">
+                <table class="metrics-table">
+                    <caption>เปรียบเทียบฟีเจอร์หลักของ GitHub Copilot กับ Cursor และ Claude (Co-work)</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Key Feature</th>
+                            <th scope="col" class="col-baseline">GitHub Copilot<span class="baseline-flag">Baseline</span><small>Microsoft ecosystem</small></th>
+                            <th scope="col">Cursor<small>Agentic development</small></th>
+                            <th scope="col" class="col-cowork">Claude<span class="group-flag">อีกกลุ่ม · Co-work</span><small>Co-work &amp; governance</small></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Inline Code Completion<small>เติมโค้ด inline ขณะพิมพ์ใน IDE</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">จุดแข็งดั้งเดิม adoption สูงใน VS Code และ Visual Studio</span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">Tab model เร็ว คาดเดาการแก้แบบ multi-line ได้ดี</span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="0 จาก 5">☆☆☆☆☆</span><span class="note">ไม่มี inline completion ใน IDE ต้องใช้ Claude Code/chat แทน</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Experience in IDE<small>ประสบการณ์ใช้งานใน editor รวมความง่ายสำหรับ Dev ใหม่</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">ง่ายสุดสำหรับ dev ใหม่ — อยู่ใน VS Code/Visual Studio เดิม ไม่ต้องเรียนรู้เครื่องมือใหม่ และ Chat ผูกกับไฟล์/@workspace<a class="ref" href="#ref-5">[5]</a></span></td>
+                            <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Agent/Plan/Ask mode ทำงาน multi-file ได้ลึกและช่วยนำทางคนใหม่ แต่ต้องย้ายมาใช้ IDE ใหม่ (UX ใกล้ VS Code)</span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">มี Claude Code extension ใน VS Code/JetBrains แต่ขอบเขตแคบกว่า และ paradigm chat/terminal ต้องปรับตัวมากกว่า<a class="ref" href="#ref-8">[8]</a></span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Open-source IDE Base<small>License เสียบกับ editor ฟรีได้ ไม่ผูกกับ IDE เฉพาะ</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="strength-flag">จุดแข็ง</span><span class="note">VS Code เป็น open source ใช้ฟรี — Copilot เป็น extension เสียบเข้า editor เดิม ถ้าหยุดจ่าย license ยังใช้ VS Code เขียนโค้ดต่อได้<a class="ref" href="#ref-10">[10]</a></span></td>
+                            <td><span class="stars" aria-label="1 จาก 5">★☆☆☆☆</span><span class="note">เป็น proprietary fork ของ VS Code ต้องใช้ IDE ของ Cursor เอง — มี Hobby plan ฟรีแบบจำกัด แต่ใช้งานจริงต้องซื้อ subscription และถ้าเลิกใช้ต้องย้าย editor<a class="ref" href="#ref-11">[11]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">ไม่มี IDE ของตัวเอง — ใช้ license ผ่าน Claude Code extension/CLI บน VS Code, JetBrains หรือ terminal ได้<a class="ref" href="#ref-8">[8]</a></span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Coding Agent (Issue &#8594; PR)<small>มอบหมายงานจาก GitHub ให้ AI สร้าง PR</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">Assign GitHub Issue ให้ cloud agent สร้าง branch/PR ใน GitHub Actions<a class="ref" href="#ref-4">[4]</a></span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">สั่ง Cloud Agent ได้จาก @cursor ใน GitHub issue/PR, Slack, Linear และ web<a class="ref" href="#ref-2">[2]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">@claude ผ่าน GitHub Actions ได้ แต่ค่า default push branch แล้วให้คนเปิด PR เอง<a class="ref" href="#ref-8">[8]</a></span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Scheduled Automation<small>ตั้งเวลา/ตั้ง trigger ให้ agent ทำงานเองอัตโนมัติ</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">ไม่มี scheduler ในตัว Copilot — ตั้งเวลาได้ผ่าน GitHub Actions cron แล้วเขียน workflow เรียก agent เอง<a class="ref" href="#ref-20">[20]</a></span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="strength-flag">จุดแข็ง</span><span class="note">Automations: ตั้ง cron หรือ trigger จาก GitHub/Slack/Linear/PagerDuty/webhook ผ่าน UI ได้เลย ไม่ต้องเขียน workflow<a class="ref" href="#ref-19">[19]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">ตั้ง schedule ผ่าน claude-code-action + Actions cron ได้ แต่ต้องเขียน workflow เอง<a class="ref" href="#ref-8">[8]</a></span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Runtime Duration / Limit<small>agent รันต่อเนื่องได้นานแค่ไหนต่อ session</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">Cloud agent จำกัด 59 นาที/session แบบ hard limit ขยายไม่ได้ — งานใหญ่ต้องซอยเป็น task ย่อย<a class="ref" href="#ref-4">[4]</a></span></td>
+                            <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">ไม่พบ limit ตายตัวใน official docs — community ระบุ cloud agent default ~24 ชม. ปรับผ่าน API ได้ ส่วน Automations จำกัด ~30 นาที/run<a class="ref" href="#ref-19">[19]</a><a class="ref" href="#ref-21">[21]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Claude Code ใน terminal ไม่มี hard time limit ส่วนการรันผ่าน GitHub Actions จำกัดที่ 6 ชม./job ตาม runner (ตั้ง timeout-minutes เองได้)<a class="ref" href="#ref-8">[8]</a><a class="ref" href="#ref-20">[20]</a></span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Sandboxed Execution<small>รันคำสั่งใน sandbox ที่ผู้ใช้กำหนดขอบเขตและเข้าควบคุมได้</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">Cloud agent รันใน GitHub Actions แบบ ephemeral + firewall ปรับผ่าน setup file ได้ แต่เข้าไปควบคุมเครื่องระหว่างรันไม่ได้<a class="ref" href="#ref-4">[4]</a></span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="strength-flag">จุดแข็ง</span><span class="note">Sandbox ระดับ OS ในเครื่อง คุม filesystem/network เองได้ผ่าน sandbox.json + allowlist และ takeover remote desktop ของ cloud agent ได้<a class="ref" href="#ref-1">[1]</a><a class="ref" href="#ref-2">[2]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">/sandbox ใน Claude Code แยก filesystem/network ได้ดี แต่เป็น opt-in และครอบเฉพาะ Bash tool<a class="ref" href="#ref-7">[7]</a></span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Code Review on PRs<small>Review PR อัตโนมัติใน Git workflow</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">Copilot code review ฝังใน GitHub PR flow ไม่ต้องออกจาก toolchain</span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">BugBot comment inline ใน GitHub PR + check + Autofix<a class="ref" href="#ref-3">[3]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">ทำ auto review ผ่าน claude-code-action ได้ แต่ต้อง setup Actions เอง<a class="ref" href="#ref-8">[8]</a></span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">GitHub / Azure Integration<small>ผูก VS Code, GitHub.com, Azure DevOps และ Entra</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="strength-flag">จุดแข็ง</span><span class="note">Native ทั้ง Microsoft stack ตรงกับ GULF ที่ใช้ GitHub + Azure<a class="ref" href="#ref-4">[4]</a></span></td>
+                            <td><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">มี GitHub integration (BugBot, @cursor) แต่ Azure DevOps ยังต้อง pilot จริง</span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">เชื่อมผ่าน Actions/MCP ได้ แต่ไม่ native กับ Microsoft governance</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Model Choice<small>เลือก model ได้ตาม task</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">เลือก GPT / Claude / Gemini ใน model picker ขึ้นกับ plan (Pro+/Business/Enterprise)<a class="ref" href="#ref-5">[5]</a></span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">สลับหลาย model ใน IDE เดียว ไม่ผูกกับ vendor ใดรายเดียว</span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="1 จาก 5">★☆☆☆☆</span><span class="note">ใช้ Anthropic models เท่านั้น ไม่ multi-vendor</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Codebase Vector Index &amp; Semantic Search<small>ทำ index โค้ดเป็น vector แล้วค้นหาเชิงความหมายได้</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Remote semantic index สร้างโดย GitHub อัตโนมัติสำหรับ repo บน GitHub/Azure DevOps ส่วน local index จำกัด ~2,500 ไฟล์<a class="ref" href="#ref-12">[12]</a></span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="strength-flag">จุดแข็ง</span><span class="note">Index ลึกสุด: tree-sitter chunking + custom embedding + vector DB, sync อัตโนมัติทุก 5 นาที, encrypt path และไม่เก็บ plaintext source code (แต่ยังเก็บ embeddings + obfuscated path บน infra ของ Cursor — request วิ่งผ่าน server เสมอ)<a class="ref" href="#ref-13">[13]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="1 จาก 5">★☆☆☆☆</span><span class="note">Claude Code เลือกไม่ทำ index โดยตั้งใจ ใช้ agentic search (grep/glob) — Anthropic ให้เหตุผลเรื่องความสดของข้อมูลและ security<a class="ref" href="#ref-14">[14]</a></span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Org Knowledge &amp; Context Sharing<small>Knowledge base และการแชร์ context ระดับองค์กร</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">Copilot Spaces + extensions ใน GitHub ecosystem<a class="ref" href="#ref-6">[6]</a></span></td>
+                            <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Team Rules ตั้ง rule/มาตรฐานระดับองค์กรจาก dashboard ใช้กับทุกคนทุก repo และ enforce ไม่ให้ปิดได้ — รูปแบบเป็น rules ต่างจาก Spaces ที่เป็นพื้นที่แชร์ไฟล์/โค้ด<a class="ref" href="#ref-15">[15]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="strength-flag">จุดแข็ง</span><span class="note">Projects แชร์ context ข้ามทีม business + dev ได้ดีที่สุดในมุม Co-work แต่ไม่ใช่ dev extension model</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Development Speed<small>เวลาจากโจทย์ถึงงานเสร็จจริง (จาก lab)</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">เร็วมากในงานเล็กด้วย inline completion ที่ mature แต่ lab เจอ crash บ่อยเมื่อ task ใหญ่ ทำให้งานสะดุด</span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">เร็วสุดจากการใช้จริง: pipeline automation ทำง่าย จัดการ sub-agent ระหว่างงานได้ และ Tab คาดเดา multi-line แม่น</span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">เหตุผลเชิงโค้ดดี แต่ไม่มี inline completion ใน IDE ทำให้ loop พัฒนาเว็บช้ากว่าสองเจ้าแรก</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Code Quality จาก Output<small>คุณภาพโค้ดที่ได้เทียบรอบแก้ (จาก lab)</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">Review ฝังใน PR flow ช่วยคุมคุณภาพ แต่ lab พบ crash ใน task ใหญ่กระทบความครบถ้วนของ output</span></td>
+                            <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Multi-model review + majority vote และ BugBot ช่วยยกคุณภาพและลดรอบแก้จากการใช้จริง</span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">โมเดล Anthropic ขึ้นชื่อเรื่องคุณภาพโค้ด แต่ขั้นตอน review ใน IDE มีน้อยกว่าสองเจ้าแรก</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="metrics-footnote">หมายเหตุแถว Vector Index: จาก research ของ Cursor เอง semantic search เพิ่มความแม่นยำราว 12.5% เทียบกับใช้ grep อย่างเดียว และเห็นผลชัดใน repo ขนาด 1,000+ ไฟล์<a class="ref" href="#ref-13">[13]</a> — ยังไม่พบหลักฐานอิสระว่าความต่างในงานจริง significant มาก ฝั่ง Anthropic เองยืนยันว่า agentic search ทำงานได้ดีโดยไม่ต้องมี index<a class="ref" href="#ref-14">[14]</a> จึงควรพิสูจน์ด้วย pilot กับ repo จริงของ GULF — สองแถวสุดท้าย (Development Speed, Code Quality) ให้ดาวจากประสบการณ์ lab ของทีม ทั้งนี้ทุกเจ้าเรียกใช้โมเดลตระกูลเดียวกันได้ คุณภาพจึงขึ้นกับ model + review ที่เลือก</p>
+
+        </section>
+
+        <section class="section" aria-labelledby="takeaway-title">
+            <div class="section-head">
+                <div>
+                    <span class="kicker">03 / Take away</span>
+                    <h2 id="takeaway-title">คะแนนจากตาราง และสิ่งที่ต้องทำต่อ</h2>
+                </div>
+                <p>รวมดาวจากตาราง 02 ทั้ง 14 ข้อ (เต็ม 5 ดาว ต่อข้อ = 70 ดาว)</p>
+            </div>
+
+            <div class="score-grid">
+                <article class="score-card">
+                    <h3>Cursor</h3>
+                    <div class="score-num">60<small>/70 ดาว</small></div>
+                    <div class="score-bar"><i style="width: 86%;"></i></div>
+                    <div class="score-counts">
+                        <span class="legend-chip"><span class="stars-inline">★★★★★</span> เต็ม 5 ดาว 8 จาก 14 ข้อ</span>
+                    </div>
+                    <p>นำจากความลึกของ agent, sandbox, automation, model choice และความเร็วจากการใช้จริง — เสียดาวหลักจาก proprietary IDE</p>
+                </article>
+                <article class="score-card baseline-score">
+                    <h3>GitHub Copilot</h3>
+                    <div class="score-num">56<small>/70 ดาว</small></div>
+                    <div class="score-bar"><i style="width: 80%;"></i></div>
+                    <div class="score-counts">
+                        <span class="legend-chip"><span class="stars-inline">★★★★★</span> เต็ม 5 ดาว 7 จาก 14 ข้อ</span>
+                    </div>
+                    <p>ตามหลัง 4 ดาว — เต็มทุกข้อด้าน ecosystem/GitHub/Azure และ Experience in IDE ที่ง่ายสุดสำหรับ dev ใหม่ แต่เสียดาวเรื่อง sandbox, scheduler และ runtime limit 59 นาที</p>
+                </article>
+                <article class="score-card cowork-score">
+                    <h3>Claude</h3>
+                    <div class="score-num">34<small>/70 ดาว</small></div>
+                    <div class="score-bar"><i style="width: 49%;"></i></div>
+                    <div class="score-counts">
+                        <span class="legend-chip"><span class="stars-inline">★★★★☆</span> เด่นสุดที่ Code Quality และ Runtime (4 ดาว)</span>
+                    </div>
+                    <p>คะแนนต่ำเพราะตารางวัดมุม dev tool — Claude อยู่กลุ่ม Co-work จึงควรอ่านเป็นเครื่องมือเสริม ไม่ใช่คู่แข่งตรง</p>
+                </article>
+            </div>
+
+            <article class="glass-panel">
+                <h3>Take aways</h3>
+                <ol class="steps">
+                    <li><b>1</b><span>Cursor นำ Copilot (60 vs 56 จาก 70 ดาว) — จากความลึกของ agent/sandbox/automation, ความเร็วจากการใช้จริง และ runtime ที่ยาวกว่า ขณะที่ Copilot เด่นสุดเรื่อง ecosystem และ Experience in IDE ที่ง่ายสุดสำหรับ dev ใหม่ แต่ติด runtime limit 59 นาที</span></li>
+                    <li><b>2</b><span>Claude เป็นอีกกลุ่ม (Co-work) — ใช้เสริมงานข้ามทีม ไม่ใช่ตัวแทน IDE assistant</span></li>
+                    <li><b>3</b><span>Privacy &amp; IP ต้องปิดก่อน rollout: ทุกเจ้าทำ no-training/ZDR ได้ แต่ indemnification ต่างกัน — Copilot ผูกเงื่อนไข filter/tier, Cursor ต้องต่อรองในสัญญา, Claude มีแบบจำกัด cap<a class="ref" href="#ref-16">[16]</a><a class="ref" href="#ref-17">[17]</a><a class="ref" href="#ref-18">[18]</a></span></li>
+                    <li><b>4</b><span>Hybrid 3 เจ้ามีต้นทุนแฝง (สัญญา + security review หลายรอบ) — เริ่ม 2 เจ้าพร้อม central policy และโครงสร้างราคายังไม่ได้รีวิว ต้องทำ TCO แยกอีกฉบับ</span></li>
+                </ol>
+            </article>
+        </section>
+
+        <section class="section" aria-labelledby="metrics-refs">
+            <div class="source-note ref-note">
+                <h3 id="metrics-refs">References — Official docs ที่ใช้ตรวจสอบข้อมูลในตาราง</h3>
+                <p class="metrics-footnote"><strong>ตรวจสอบล่าสุด (as-of): 11 มิถุนายน 2026</strong> — ฟีเจอร์ ราคา รุ่นโมเดล และ limit ของทั้งสามเจ้าเปลี่ยนแปลงบ่อยมาก ควรยืนยันกับเอกสารทางการ (ตามลิงก์ด้านล่าง) อีกครั้งก่อนตัดสินใจจัดซื้อ และสถานะในตารางอ้างอิงตาม tier/plan ที่ระบุเป็นค่า default เป็นหลัก</p>
+                <ol>
+                    <li id="ref-1">Cursor Docs — <a href="https://cursor.com/docs/agent/tools/terminal" target="_blank" rel="noreferrer">Terminal &amp; Sandbox execution</a> และ <a href="https://cursor.com/docs/reference/sandbox" target="_blank" rel="noreferrer">sandbox.json reference</a> (filesystem/network policy, allowlist, Run Modes)</li>
+                    <li id="ref-2">Cursor Docs — <a href="https://cursor.com/docs/cloud-agent/capabilities" target="_blank" rel="noreferrer">Cloud Agent capabilities</a> (isolated VM, remote desktop takeover, สั่งจาก @cursor บน GitHub/Slack/Linear)</li>
+                    <li id="ref-3">Cursor Docs — <a href="https://cursor.com/docs/bugbot" target="_blank" rel="noreferrer">Bugbot</a> (inline PR comments, GitHub check, Autofix)</li>
+                    <li id="ref-4">GitHub Docs — <a href="https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent" target="_blank" rel="noreferrer">About Copilot cloud agent</a> และ <a href="https://docs.github.com/copilot/how-tos/use-copilot-agents/coding-agent/customize-the-agent-environment" target="_blank" rel="noreferrer">Configure the development environment</a> (ephemeral GitHub Actions, firewall, 59-minute limit)</li>
+                    <li id="ref-5">GitHub Docs — <a href="https://docs.github.com/en/copilot/how-tos/use-ai-models/change-the-chat-model" target="_blank" rel="noreferrer">Changing the AI model for Copilot Chat</a> (model picker: OpenAI / Anthropic / Google ตาม plan)</li>
+                    <li id="ref-6">GitHub Changelog — <a href="https://github.blog/changelog/2025-05-29-introducing-copilot-spaces-a-new-way-to-work-with-code-and-context/" target="_blank" rel="noreferrer">Introducing Copilot Spaces</a></li>
+                    <li id="ref-7">Anthropic — <a href="https://code.claude.com/docs/en/sandboxing" target="_blank" rel="noreferrer">Claude Code sandboxed Bash tool</a> และ <a href="https://www.anthropic.com/engineering/claude-code-sandboxing" target="_blank" rel="noreferrer">engineering blog</a> (opt-in /sandbox, Seatbelt/bubblewrap)</li>
+                    <li id="ref-8">Anthropic — <a href="https://code.claude.com/docs/en/github-actions" target="_blank" rel="noreferrer">Claude Code GitHub Actions</a> (@claude mention, default push branch ไม่เปิด PR อัตโนมัติ)</li>
+                    <li id="ref-9">Claude Docs — <a href="https://platform.claude.com/docs/en/manage-claude/compliance-api" target="_blank" rel="noreferrer">Compliance API</a> และ <a href="https://claude.com/resources/tutorials/claude-enterprise-administrator-guide" target="_blank" rel="noreferrer">Enterprise Administrator Guide</a> (SAML/OIDC SSO, SCIM, audit logs)</li>
+                    <li id="ref-10">Microsoft — <a href="https://github.com/microsoft/vscode" target="_blank" rel="noreferrer">VS Code repository (MIT license)</a> — editor เป็น open source ใช้ฟรีแม้ไม่มี AI license</li>
+                    <li id="ref-11">Cursor — <a href="https://cursor.com/pricing" target="_blank" rel="noreferrer">Pricing</a> — Hobby plan ฟรีแบบจำกัด การใช้งานจริง/องค์กรต้องซื้อ Pro/Business ต่อ seat</li>
+                    <li id="ref-12">VS Code Docs — <a href="https://code.visualstudio.com/docs/agents/reference/workspace-context" target="_blank" rel="noreferrer">How Copilot understands your workspace</a> และ GitHub Docs — <a href="https://docs.github.com/copilot/concepts/indexing-repositories-for-copilot-chat" target="_blank" rel="noreferrer">Indexing repositories for Copilot</a> (remote/local semantic index)</li>
+                    <li id="ref-13">Cursor Docs — <a href="https://cursor.com/docs/agent/tools/search" target="_blank" rel="noreferrer">Semantic &amp; Agentic Search</a> (custom embeddings, sync ทุก 5 นาที, ตัวเลข +12.5% accuracy เทียบ grep)</li>
+                    <li id="ref-14">Community — <a href="https://vadim.blog/claude-code-no-indexing" target="_blank" rel="noreferrer">Claude Code Doesn't Index Your Codebase</a> (อ้างคำอธิบายจากทีม Anthropic บน Hacker News เรื่องเลิกใช้ RAG/vector index)</li>
+                    <li id="ref-15">Cursor Docs — <a href="https://cursor.com/docs/rules" target="_blank" rel="noreferrer">Rules (Team Rules)</a> — ตั้ง rule ระดับทีม/องค์กรจาก dashboard ใช้กับสมาชิกทุกคนทุก repo และ enforce ไม่ให้ปิดได้ (Team/Enterprise plan)</li>
+                    <li id="ref-16">Cursor — <a href="https://cursor.com/docs/enterprise/privacy-and-data-governance" target="_blank" rel="noreferrer">Privacy and Data Governance</a> และ <a href="https://cursor.com/security" target="_blank" rel="noreferrer">Security</a> (Privacy Mode, ZDR agreements, SOC 2 Type II, CMEK)</li>
+                    <li id="ref-17">Microsoft — <a href="https://blogs.microsoft.com/on-the-issues/2023/09/07/copilot-copyright-commitment-ai-legal-concerns/" target="_blank" rel="noreferrer">Copilot Copyright Commitment</a> และ <a href="https://techcommunity.microsoft.com/blog/azuredevcommunityblog/demystifying-github-copilot-security-controls-easing-concerns-for-organizational/4468193" target="_blank" rel="noreferrer">GitHub Copilot Security Controls</a> (no-training, prompt retention, SOC 2/ISO 27001, เงื่อนไข indemnification)</li>
+                    <li id="ref-18">Community/legal — <a href="https://thebrightbyte.com/playbook/expertise/ai-generated-code-ownership-banking" target="_blank" rel="noreferrer">Who Owns AI-Generated Code</a> (เทียบ ownership + indemnification caps ของ Copilot/Cursor/Claude ใน enterprise terms)</li>
+                    <li id="ref-19">Cursor Docs — <a href="https://cursor.com/docs/cloud-agent/automations" target="_blank" rel="noreferrer">Automations</a> (scheduled cron + event triggers จาก GitHub/Slack/Linear/webhook ตั้งผ่าน UI)</li>
+                    <li id="ref-20">GitHub Docs — <a href="https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule" target="_blank" rel="noreferrer">GitHub Actions schedule trigger</a> (cron-based workflow สำหรับเรียก agent ตามเวลา; job บน GitHub-hosted runner จำกัด 6 ชม.)</li>
+                    <li id="ref-21">Community — <a href="https://www.digitalapplied.com/blog/cursor-automations-always-on-agentic-coding-agents-guide" target="_blank" rel="noreferrer">Cursor Automations guide</a> (Automations ~30 นาที/run; cloud agent background default ~24 ชม. ปรับได้ — ตัวเลขจาก community ควรยืนยันกับ Cursor อีกครั้ง)</li>
+                </ol>
+            </div>
+        </section>
+
+        <footer class="footer">
+            GULF Project Update - Enterprise AI Assistant Evaluation • Session 202 v.3<br>
+            ข้อมูลตรวจสอบล่าสุด (as-of): 11 มิถุนายน 2026 — ควรยืนยันกับ official docs อีกครั้งก่อนตัดสินใจ<br>
+            Made by Fable 5 • Review Bug by Gemini 3.5 Pro • Steering by Dev
+        </footer>
+    </main>
+
+</body>
+</html>
