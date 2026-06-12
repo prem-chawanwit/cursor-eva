@@ -1503,7 +1503,7 @@
                         <tr>
                             <th scope="row">Codebase Vector Index &amp; Semantic Search<small>ทำ index โค้ดเป็น vector แล้วค้นหาเชิงความหมายได้</small></th>
                             <td class="col-baseline"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Remote semantic index สร้างโดย GitHub อัตโนมัติสำหรับ repo บน GitHub/Azure DevOps ส่วน local index จำกัด ~2,500 ไฟล์<a class="ref" href="#ref-12">[12]</a></span></td>
-                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="strength-flag">จุดแข็ง</span><span class="note">Index ลึกสุด: tree-sitter chunking + custom embedding + vector DB, sync อัตโนมัติทุก 5 นาที, encrypt path และไม่เก็บ source code บน server<a class="ref" href="#ref-13">[13]</a></span></td>
+                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="strength-flag">จุดแข็ง</span><span class="note">Index ลึกสุด: tree-sitter chunking + custom embedding + vector DB, sync อัตโนมัติทุก 5 นาที, encrypt path และไม่เก็บ plaintext source code (แต่ยังเก็บ embeddings + obfuscated path บน infra ของ Cursor — request วิ่งผ่าน server เสมอ)<a class="ref" href="#ref-13">[13]</a></span></td>
                             <td class="col-cowork"><span class="stars" aria-label="1 จาก 5">★☆☆☆☆</span><span class="note">Claude Code เลือกไม่ทำ index โดยตั้งใจ ใช้ agentic search (grep/glob) — Anthropic ให้เหตุผลเรื่องความสดของข้อมูลและ security<a class="ref" href="#ref-14">[14]</a></span></td>
                         </tr>
                         <tr>
@@ -1625,6 +1625,7 @@
         <section class="section" aria-labelledby="metrics-refs">
             <div class="source-note ref-note">
                 <h3 id="metrics-refs">References — Official docs ที่ใช้ตรวจสอบข้อมูลในตาราง</h3>
+                <p class="metrics-footnote"><strong>ตรวจสอบล่าสุด (as-of): 11 มิถุนายน 2026</strong> — ฟีเจอร์ ราคา รุ่นโมเดล และ limit ของทั้งสามเจ้าเปลี่ยนแปลงบ่อยมาก ควรยืนยันกับเอกสารทางการ (ตามลิงก์ด้านล่าง) อีกครั้งก่อนตัดสินใจจัดซื้อ และสถานะในตารางอ้างอิงตาม tier/plan ที่ระบุเป็นค่า default เป็นหลัก</p>
                 <ol>
                     <li id="ref-1">Cursor Docs — <a href="https://cursor.com/docs/agent/tools/terminal" target="_blank" rel="noreferrer">Terminal &amp; Sandbox execution</a> และ <a href="https://cursor.com/docs/reference/sandbox" target="_blank" rel="noreferrer">sandbox.json reference</a> (filesystem/network policy, allowlist, Run Modes)</li>
                     <li id="ref-2">Cursor Docs — <a href="https://cursor.com/docs/cloud-agent/capabilities" target="_blank" rel="noreferrer">Cloud Agent capabilities</a> (isolated VM, remote desktop takeover, สั่งจาก @cursor บน GitHub/Slack/Linear)</li>
@@ -1652,6 +1653,7 @@
 
         <footer class="footer">
             GULF Project Update - Enterprise AI Assistant Evaluation • Session 202 v.3<br>
+            ข้อมูลตรวจสอบล่าสุด (as-of): 11 มิถุนายน 2026 — ควรยืนยันกับ official docs อีกครั้งก่อนตัดสินใจ<br>
             Made by Fable 5 • Review Bug by Gemini 3.5 Pro • Steering by Dev
         </footer>
     </main>
