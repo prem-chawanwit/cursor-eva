@@ -1453,10 +1453,10 @@
                             <td class="col-cowork"><span class="stars" aria-label="0 จาก 5">☆☆☆☆☆</span><span class="note">ไม่มี inline completion ใน IDE ต้องใช้ Claude Code/chat แทน</span></td>
                         </tr>
                         <tr>
-                            <th scope="row">Chat in IDE<small>ถาม-ตอบใน editor ผูกกับไฟล์และ workspace</small></th>
-                            <td class="col-baseline"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Copilot Chat ผูกกับไฟล์ที่เปิดและ @workspace เลือก model ได้<a class="ref" href="#ref-5">[5]</a></span></td>
-                            <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">Agent/Plan/Ask mode ใน editor ทำงาน multi-file ได้ลึก</span></td>
-                            <td class="col-cowork"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">มี Claude Code extension ใน VS Code/JetBrains แต่ขอบเขตแคบกว่า IDE-native<a class="ref" href="#ref-8">[8]</a></span></td>
+                            <th scope="row">Experience in IDE<small>ประสบการณ์ใช้งานใน editor รวมความง่ายสำหรับ Dev ใหม่</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">ง่ายสุดสำหรับ dev ใหม่ — อยู่ใน VS Code/Visual Studio เดิม ไม่ต้องเรียนรู้เครื่องมือใหม่ และ Chat ผูกกับไฟล์/@workspace<a class="ref" href="#ref-5">[5]</a></span></td>
+                            <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Agent/Plan/Ask mode ทำงาน multi-file ได้ลึกและช่วยนำทางคนใหม่ แต่ต้องย้ายมาใช้ IDE ใหม่ (UX ใกล้ VS Code)</span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">มี Claude Code extension ใน VS Code/JetBrains แต่ขอบเขตแคบกว่า และ paradigm chat/terminal ต้องปรับตัวมากกว่า<a class="ref" href="#ref-8">[8]</a></span></td>
                         </tr>
                         <tr>
                             <th scope="row">Open-source IDE Base<small>License เสียบกับ editor ฟรีได้ ไม่ผูกกับ IDE เฉพาะ</small></th>
@@ -1512,55 +1512,20 @@
                             <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Team Rules ตั้ง rule/มาตรฐานระดับองค์กรจาก dashboard ใช้กับทุกคนทุก repo และ enforce ไม่ให้ปิดได้ — รูปแบบเป็น rules ต่างจาก Spaces ที่เป็นพื้นที่แชร์ไฟล์/โค้ด<a class="ref" href="#ref-15">[15]</a></span></td>
                             <td class="col-cowork"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="strength-flag">จุดแข็ง</span><span class="note">Projects แชร์ context ข้ามทีม business + dev ได้ดีที่สุดในมุม Co-work แต่ไม่ใช่ dev extension model</span></td>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <p class="metrics-footnote">หมายเหตุแถว Vector Index: จาก research ของ Cursor เอง semantic search เพิ่มความแม่นยำราว 12.5% เทียบกับใช้ grep อย่างเดียว และเห็นผลชัดใน repo ขนาด 1,000+ ไฟล์<a class="ref" href="#ref-13">[13]</a> — ยังไม่พบหลักฐานอิสระว่าความต่างในงานจริง significant มาก ฝั่ง Anthropic เองยืนยันว่า agentic search ทำงานได้ดีโดยไม่ต้องมี index<a class="ref" href="#ref-14">[14]</a> จึงควรพิสูจน์ด้วย pilot กับ repo จริงของ GULF</p>
-
-        </section>
-
-        <section class="section" aria-labelledby="perspective-title">
-            <div class="section-head">
-                <div>
-                    <span class="kicker">03 / Perspectives</span>
-                    <h2 id="perspective-title">อีก 4 มุมมอง แยกจากตารางฟีเจอร์</h2>
-                </div>
-                <p>ประเมินจากการใช้งานจริงใน lab ของทีม — เป็นมุมมองเชิงคุณภาพ ควรยืนยันซ้ำด้วย benchmark ใน pilot</p>
-            </div>
-
-            <div class="metrics-wrap">
-                <table class="metrics-table">
-                    <caption>มุมมองเพิ่มเติม 4 ด้าน: ความเร็ว ความง่าย คุณภาพโค้ด และงาน Data Engineering</caption>
-                    <thead>
                         <tr>
-                            <th scope="col">มุมมอง</th>
-                            <th scope="col" class="col-baseline">GitHub Copilot<span class="baseline-flag">Baseline</span><small>Microsoft ecosystem</small></th>
-                            <th scope="col">Cursor<small>Agentic development</small></th>
-                            <th scope="col" class="col-cowork">Claude<span class="group-flag">อีกกลุ่ม · Co-work</span><small>Co-work &amp; governance</small></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1. ความเร็วในการพัฒนาเว็บ<small>เวลาจากโจทย์ถึงงานเสร็จจริง</small></th>
-                            <td class="col-baseline"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">เร็วมากในงานเล็กด้วย inline completion ที่ mature แต่ใน lab เจอ crash บ่อยเมื่อ task ใหญ่ ทำให้งานสะดุด</span></td>
+                            <th scope="row">Development Speed<small>เวลาจากโจทย์ถึงงานเสร็จจริง (จาก lab)</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">เร็วมากในงานเล็กด้วย inline completion ที่ mature แต่ lab เจอ crash บ่อยเมื่อ task ใหญ่ ทำให้งานสะดุด</span></td>
                             <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">เร็วสุดจากการใช้จริง: pipeline automation ทำง่าย จัดการ sub-agent ระหว่างงานได้ และ Tab คาดเดา multi-line แม่น</span></td>
                             <td class="col-cowork"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">เหตุผลเชิงโค้ดดี แต่ไม่มี inline completion ใน IDE ทำให้ loop พัฒนาเว็บช้ากว่าสองเจ้าแรก</span></td>
                         </tr>
                         <tr>
-                            <th scope="row">2. ความง่ายสำหรับ Dev ใหม่<small>Learning curve ของคนเพิ่งเข้าทีม</small></th>
-                            <td class="col-baseline"><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="note">ง่ายสุด — อยู่ใน VS Code/Visual Studio ที่ทีมใช้อยู่แล้ว ไม่ต้องเรียนรู้เครื่องมือใหม่</span></td>
-                            <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">ต้องย้ายมาใช้ IDE ใหม่ แต่ UX ใกล้ VS Code มาก และ Plan/Ask Mode ช่วยนำทางคนใหม่ได้ดี</span></td>
-                            <td class="col-cowork"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">Paradigm chat/terminal ต่างจากที่ dev ส่วนใหญ่คุ้น ต้องปรับวิธีทำงานมากกว่า</span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3. Code Quality จาก Output<small>คุณภาพโค้ดที่ได้เทียบรอบแก้</small></th>
+                            <th scope="row">Code Quality จาก Output<small>คุณภาพโค้ดที่ได้เทียบรอบแก้ (จาก lab)</small></th>
                             <td class="col-baseline"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">Review ฝังใน PR flow ช่วยคุมคุณภาพ แต่ lab พบ crash ใน task ใหญ่กระทบความครบถ้วนของ output</span></td>
                             <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Multi-model review + majority vote และ BugBot ช่วยยกคุณภาพและลดรอบแก้จากการใช้จริง</span></td>
                             <td class="col-cowork"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">โมเดล Anthropic ขึ้นชื่อเรื่องคุณภาพโค้ด แต่ขั้นตอน review ใน IDE มีน้อยกว่าสองเจ้าแรก</span></td>
                         </tr>
                         <tr>
-                            <th scope="row">4. DE Quality<small>คุณภาพงาน Data Engineering: pipeline, ETL, SQL</small></th>
+                            <th scope="row">DE Quality<small>คุณภาพงาน Data Engineering: pipeline, ETL, SQL (จาก lab)</small></th>
                             <td class="col-baseline"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">เข้ากับ Microsoft data stack (Fabric, Synapse, Databricks notebook ใน VS Code) ได้ตรงที่สุด แต่ agent งานยาวยังสะดุดจาก crash</span></td>
                             <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Lab ยืนยันทำ pipeline automation ได้ง่ายและ refactor multi-file ดี แต่ความเข้ากับ Cosmos DB / .NET data stack ยังไม่ถูกพิสูจน์</span></td>
                             <td class="col-cowork"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">เด่นการวิเคราะห์/แปลง logic ซับซ้อนและ co-work กับ analyst แต่ integration กับ data toolchain ใน IDE น้อยกว่า</span></td>
@@ -1569,43 +1534,44 @@
                 </table>
             </div>
 
-            <p class="metrics-footnote">หมายเหตุ: ทั้ง 3 เจ้าเรียกใช้โมเดลตระกูลเดียวกันได้ (เช่น Claude ใน Copilot/Cursor) คุณภาพโค้ดจึงขึ้นกับ model ที่เลือก + ขั้นตอน review มากกว่าตัวแบรนด์ — คะแนนชุดนี้มาจากประสบการณ์ lab ของทีม ควรวัดซ้ำด้วยโจทย์มาตรฐานเดียวกันใน pilot โดยเฉพาะข้อ DE Quality ที่ยังไม่ได้ทดสอบกับ pipeline จริงของ GULF (Cosmos DB / Fabric)</p>
+            <p class="metrics-footnote">หมายเหตุแถว Vector Index: จาก research ของ Cursor เอง semantic search เพิ่มความแม่นยำราว 12.5% เทียบกับใช้ grep อย่างเดียว และเห็นผลชัดใน repo ขนาด 1,000+ ไฟล์<a class="ref" href="#ref-13">[13]</a> — ยังไม่พบหลักฐานอิสระว่าความต่างในงานจริง significant มาก ฝั่ง Anthropic เองยืนยันว่า agentic search ทำงานได้ดีโดยไม่ต้องมี index<a class="ref" href="#ref-14">[14]</a> จึงควรพิสูจน์ด้วย pilot กับ repo จริงของ GULF — สามแถวสุดท้าย (Development Speed, Code Quality, DE Quality) ให้ดาวจากประสบการณ์ lab ของทีม ทั้งนี้ทุกเจ้าเรียกใช้โมเดลตระกูลเดียวกันได้ คุณภาพจึงขึ้นกับ model + review ที่เลือก และ DE Quality ยังไม่ได้ทดสอบกับ pipeline จริงของ GULF (Cosmos DB / Fabric)</p>
+
         </section>
 
         <section class="section" aria-labelledby="takeaway-title">
             <div class="section-head">
                 <div>
-                    <span class="kicker">04 / Take away</span>
+                    <span class="kicker">03 / Take away</span>
                     <h2 id="takeaway-title">คะแนนจากตาราง และสิ่งที่ต้องทำต่อ</h2>
                 </div>
-                <p>รวมดาวจากตาราง 02 (11 ฟีเจอร์ × เต็ม 5 ดาว = 55) พร้อมสรุปดาวจาก 4 มุมมองใน 03</p>
+                <p>รวมดาวจากตาราง 02 ทั้ง 14 ข้อ (เต็ม 5 ดาว ต่อข้อ = 70 ดาว)</p>
             </div>
 
             <div class="score-grid">
                 <article class="score-card">
                     <h3>Cursor</h3>
-                    <div class="score-num">48<small>/55 ดาว</small></div>
-                    <div class="score-bar"><i style="width: 87%;"></i></div>
+                    <div class="score-num">60<small>/70 ดาว</small></div>
+                    <div class="score-bar"><i style="width: 86%;"></i></div>
                     <div class="score-counts">
-                        <span class="legend-chip"><span class="stars-inline">★</span> เร็ว 5 · Dev ใหม่ 4 · Quality 4 · DE 4</span>
+                        <span class="legend-chip"><span class="stars-inline">★★★★★</span> เต็ม 5 ดาว 8 จาก 14 ข้อ</span>
                     </div>
-                    <p>ขึ้นนำเมื่อใช้สเกลดาว — ได้เต็มด้านความลึกของ agent, sandbox, automation และ model choice แต่เสียดาวจาก proprietary IDE</p>
+                    <p>นำจากความลึกของ agent, sandbox, automation, model choice และความเร็วจากการใช้จริง — เสียดาวหลักจาก proprietary IDE</p>
                 </article>
                 <article class="score-card baseline-score">
                     <h3>GitHub Copilot</h3>
-                    <div class="score-num">46<small>/55 ดาว</small></div>
-                    <div class="score-bar"><i style="width: 84%;"></i></div>
+                    <div class="score-num">58<small>/70 ดาว</small></div>
+                    <div class="score-bar"><i style="width: 83%;"></i></div>
                     <div class="score-counts">
-                        <span class="legend-chip"><span class="stars-inline">★</span> เร็ว 4 · Dev ใหม่ 5 · Quality 3 · DE 4</span>
+                        <span class="legend-chip"><span class="stars-inline">★★★★★</span> เต็ม 5 ดาว 7 จาก 14 ข้อ</span>
                     </div>
-                    <p>ตามหลังแค่ 2 ดาว — เต็มทุกแถว ecosystem/GitHub/Azure และง่ายสุดสำหรับ dev ใหม่ แต่เสียดาวเรื่อง sandbox กับ scheduler</p>
+                    <p>ตามหลังแค่ 2 ดาว — เต็มทุกข้อด้าน ecosystem/GitHub/Azure และ Experience in IDE ที่ง่ายสุดสำหรับ dev ใหม่ แต่เสียดาวเรื่อง sandbox, scheduler และ crash ใน task ใหญ่</p>
                 </article>
                 <article class="score-card cowork-score">
                     <h3>Claude</h3>
-                    <div class="score-num">23<small>/55 ดาว</small></div>
-                    <div class="score-bar"><i style="width: 42%;"></i></div>
+                    <div class="score-num">33<small>/70 ดาว</small></div>
+                    <div class="score-bar"><i style="width: 47%;"></i></div>
                     <div class="score-counts">
-                        <span class="legend-chip"><span class="stars-inline">★</span> เร็ว 3 · Dev ใหม่ 3 · Quality 4 · DE 3</span>
+                        <span class="legend-chip"><span class="stars-inline">★★★★☆</span> เด่นสุดที่ Code Quality (4 ดาว)</span>
                     </div>
                     <p>คะแนนต่ำเพราะตารางวัดมุม dev tool — Claude อยู่กลุ่ม Co-work จึงควรอ่านเป็นเครื่องมือเสริม ไม่ใช่คู่แข่งตรง</p>
                 </article>
@@ -1614,7 +1580,7 @@
             <article class="glass-panel">
                 <h3>Take aways</h3>
                 <ol class="steps">
-                    <li><b>1</b><span>Cursor กับ Copilot สูสีมาก (48 vs 46 จาก 55 ดาว) — สเกลดาวสะท้อนความลึกของฟีเจอร์ ทำให้ Cursor ขยับขึ้นนำเล็กน้อยจากด้าน agent/sandbox/automation ขณะที่ Copilot ยังเด่นสุดเรื่อง ecosystem และความง่ายสำหรับ dev ใหม่</span></li>
+                    <li><b>1</b><span>Cursor กับ Copilot สูสีมาก (60 vs 58 จาก 70 ดาว) — Cursor นำเล็กน้อยจากความลึกของ agent/sandbox/automation และความเร็วจากการใช้จริง ขณะที่ Copilot เด่นสุดเรื่อง ecosystem และ Experience in IDE ที่ง่ายสุดสำหรับ dev ใหม่</span></li>
                     <li><b>2</b><span>Claude เป็นอีกกลุ่ม (Co-work) — ใช้เสริมงานข้ามทีม ไม่ใช่ตัวแทน IDE assistant</span></li>
                     <li><b>3</b><span>Privacy &amp; IP ต้องปิดก่อน rollout: ทุกเจ้าทำ no-training/ZDR ได้ แต่ indemnification ต่างกัน — Copilot ผูกเงื่อนไข filter/tier, Cursor ต้องต่อรองในสัญญา, Claude มีแบบจำกัด cap<a class="ref" href="#ref-16">[16]</a><a class="ref" href="#ref-17">[17]</a><a class="ref" href="#ref-18">[18]</a></span></li>
                     <li><b>4</b><span>Hybrid 3 เจ้ามีต้นทุนแฝง (สัญญา + security review หลายรอบ) — เริ่ม 2 เจ้าพร้อม central policy และโครงสร้างราคายังไม่ได้รีวิว ต้องทำ TCO แยกอีกฉบับ</span></li>
