@@ -1477,6 +1477,12 @@
                             <td class="col-cowork"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">ตั้ง schedule ผ่าน claude-code-action + Actions cron ได้ แต่ต้องเขียน workflow เอง<a class="ref" href="#ref-8">[8]</a></span></td>
                         </tr>
                         <tr>
+                            <th scope="row">Runtime Duration / Limit<small>agent รันต่อเนื่องได้นานแค่ไหนต่อ session</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">Cloud agent จำกัด 59 นาที/session แบบ hard limit ขยายไม่ได้ — งานใหญ่ต้องซอยเป็น task ย่อย<a class="ref" href="#ref-4">[4]</a></span></td>
+                            <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">ไม่พบ limit ตายตัวใน official docs — community ระบุ cloud agent default ~24 ชม. ปรับผ่าน API ได้ ส่วน Automations จำกัด ~30 นาที/run<a class="ref" href="#ref-19">[19]</a><a class="ref" href="#ref-21">[21]</a></span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Claude Code ใน terminal ไม่มี hard time limit ส่วนการรันผ่าน GitHub Actions จำกัดที่ 6 ชม./job ตาม runner (ตั้ง timeout-minutes เองได้)<a class="ref" href="#ref-8">[8]</a><a class="ref" href="#ref-20">[20]</a></span></td>
+                        </tr>
+                        <tr>
                             <th scope="row">Sandboxed Execution<small>รันคำสั่งใน sandbox ที่ผู้ใช้กำหนดขอบเขตและเข้าควบคุมได้</small></th>
                             <td class="col-baseline"><span class="stars" aria-label="2 จาก 5">★★☆☆☆</span><span class="note">Cloud agent รันใน GitHub Actions แบบ ephemeral + firewall ปรับผ่าน setup file ได้ แต่เข้าไปควบคุมเครื่องระหว่างรันไม่ได้<a class="ref" href="#ref-4">[4]</a></span></td>
                             <td><span class="stars" aria-label="5 จาก 5">★★★★★</span><span class="strength-flag">จุดแข็ง</span><span class="note">Sandbox ระดับ OS ในเครื่อง คุม filesystem/network เองได้ผ่าน sandbox.json + allowlist และ takeover remote desktop ของ cloud agent ได้<a class="ref" href="#ref-1">[1]</a><a class="ref" href="#ref-2">[2]</a></span></td>
@@ -1524,17 +1530,11 @@
                             <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Multi-model review + majority vote และ BugBot ช่วยยกคุณภาพและลดรอบแก้จากการใช้จริง</span></td>
                             <td class="col-cowork"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">โมเดล Anthropic ขึ้นชื่อเรื่องคุณภาพโค้ด แต่ขั้นตอน review ใน IDE มีน้อยกว่าสองเจ้าแรก</span></td>
                         </tr>
-                        <tr>
-                            <th scope="row">DE Quality<small>คุณภาพงาน Data Engineering: pipeline, ETL, SQL (จาก lab)</small></th>
-                            <td class="col-baseline"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">เข้ากับ Microsoft data stack (Fabric, Synapse, Databricks notebook ใน VS Code) ได้ตรงที่สุด แต่ agent งานยาวยังสะดุดจาก crash</span></td>
-                            <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Lab ยืนยันทำ pipeline automation ได้ง่ายและ refactor multi-file ดี แต่ความเข้ากับ Cosmos DB / .NET data stack ยังไม่ถูกพิสูจน์</span></td>
-                            <td class="col-cowork"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">เด่นการวิเคราะห์/แปลง logic ซับซ้อนและ co-work กับ analyst แต่ integration กับ data toolchain ใน IDE น้อยกว่า</span></td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
 
-            <p class="metrics-footnote">หมายเหตุแถว Vector Index: จาก research ของ Cursor เอง semantic search เพิ่มความแม่นยำราว 12.5% เทียบกับใช้ grep อย่างเดียว และเห็นผลชัดใน repo ขนาด 1,000+ ไฟล์<a class="ref" href="#ref-13">[13]</a> — ยังไม่พบหลักฐานอิสระว่าความต่างในงานจริง significant มาก ฝั่ง Anthropic เองยืนยันว่า agentic search ทำงานได้ดีโดยไม่ต้องมี index<a class="ref" href="#ref-14">[14]</a> จึงควรพิสูจน์ด้วย pilot กับ repo จริงของ GULF — สามแถวสุดท้าย (Development Speed, Code Quality, DE Quality) ให้ดาวจากประสบการณ์ lab ของทีม ทั้งนี้ทุกเจ้าเรียกใช้โมเดลตระกูลเดียวกันได้ คุณภาพจึงขึ้นกับ model + review ที่เลือก และ DE Quality ยังไม่ได้ทดสอบกับ pipeline จริงของ GULF (Cosmos DB / Fabric)</p>
+            <p class="metrics-footnote">หมายเหตุแถว Vector Index: จาก research ของ Cursor เอง semantic search เพิ่มความแม่นยำราว 12.5% เทียบกับใช้ grep อย่างเดียว และเห็นผลชัดใน repo ขนาด 1,000+ ไฟล์<a class="ref" href="#ref-13">[13]</a> — ยังไม่พบหลักฐานอิสระว่าความต่างในงานจริง significant มาก ฝั่ง Anthropic เองยืนยันว่า agentic search ทำงานได้ดีโดยไม่ต้องมี index<a class="ref" href="#ref-14">[14]</a> จึงควรพิสูจน์ด้วย pilot กับ repo จริงของ GULF — สองแถวสุดท้าย (Development Speed, Code Quality) ให้ดาวจากประสบการณ์ lab ของทีม ทั้งนี้ทุกเจ้าเรียกใช้โมเดลตระกูลเดียวกันได้ คุณภาพจึงขึ้นกับ model + review ที่เลือก</p>
 
         </section>
 
@@ -1559,19 +1559,19 @@
                 </article>
                 <article class="score-card baseline-score">
                     <h3>GitHub Copilot</h3>
-                    <div class="score-num">58<small>/70 ดาว</small></div>
-                    <div class="score-bar"><i style="width: 83%;"></i></div>
+                    <div class="score-num">56<small>/70 ดาว</small></div>
+                    <div class="score-bar"><i style="width: 80%;"></i></div>
                     <div class="score-counts">
                         <span class="legend-chip"><span class="stars-inline">★★★★★</span> เต็ม 5 ดาว 7 จาก 14 ข้อ</span>
                     </div>
-                    <p>ตามหลังแค่ 2 ดาว — เต็มทุกข้อด้าน ecosystem/GitHub/Azure และ Experience in IDE ที่ง่ายสุดสำหรับ dev ใหม่ แต่เสียดาวเรื่อง sandbox, scheduler และ crash ใน task ใหญ่</p>
+                    <p>ตามหลัง 4 ดาว — เต็มทุกข้อด้าน ecosystem/GitHub/Azure และ Experience in IDE ที่ง่ายสุดสำหรับ dev ใหม่ แต่เสียดาวเรื่อง sandbox, scheduler และ runtime limit 59 นาที</p>
                 </article>
                 <article class="score-card cowork-score">
                     <h3>Claude</h3>
-                    <div class="score-num">33<small>/70 ดาว</small></div>
-                    <div class="score-bar"><i style="width: 47%;"></i></div>
+                    <div class="score-num">34<small>/70 ดาว</small></div>
+                    <div class="score-bar"><i style="width: 49%;"></i></div>
                     <div class="score-counts">
-                        <span class="legend-chip"><span class="stars-inline">★★★★☆</span> เด่นสุดที่ Code Quality (4 ดาว)</span>
+                        <span class="legend-chip"><span class="stars-inline">★★★★☆</span> เด่นสุดที่ Code Quality และ Runtime (4 ดาว)</span>
                     </div>
                     <p>คะแนนต่ำเพราะตารางวัดมุม dev tool — Claude อยู่กลุ่ม Co-work จึงควรอ่านเป็นเครื่องมือเสริม ไม่ใช่คู่แข่งตรง</p>
                 </article>
@@ -1580,7 +1580,7 @@
             <article class="glass-panel">
                 <h3>Take aways</h3>
                 <ol class="steps">
-                    <li><b>1</b><span>Cursor กับ Copilot สูสีมาก (60 vs 58 จาก 70 ดาว) — Cursor นำเล็กน้อยจากความลึกของ agent/sandbox/automation และความเร็วจากการใช้จริง ขณะที่ Copilot เด่นสุดเรื่อง ecosystem และ Experience in IDE ที่ง่ายสุดสำหรับ dev ใหม่</span></li>
+                    <li><b>1</b><span>Cursor นำ Copilot (60 vs 56 จาก 70 ดาว) — จากความลึกของ agent/sandbox/automation, ความเร็วจากการใช้จริง และ runtime ที่ยาวกว่า ขณะที่ Copilot เด่นสุดเรื่อง ecosystem และ Experience in IDE ที่ง่ายสุดสำหรับ dev ใหม่ แต่ติด runtime limit 59 นาที</span></li>
                     <li><b>2</b><span>Claude เป็นอีกกลุ่ม (Co-work) — ใช้เสริมงานข้ามทีม ไม่ใช่ตัวแทน IDE assistant</span></li>
                     <li><b>3</b><span>Privacy &amp; IP ต้องปิดก่อน rollout: ทุกเจ้าทำ no-training/ZDR ได้ แต่ indemnification ต่างกัน — Copilot ผูกเงื่อนไข filter/tier, Cursor ต้องต่อรองในสัญญา, Claude มีแบบจำกัด cap<a class="ref" href="#ref-16">[16]</a><a class="ref" href="#ref-17">[17]</a><a class="ref" href="#ref-18">[18]</a></span></li>
                     <li><b>4</b><span>Hybrid 3 เจ้ามีต้นทุนแฝง (สัญญา + security review หลายรอบ) — เริ่ม 2 เจ้าพร้อม central policy และโครงสร้างราคายังไม่ได้รีวิว ต้องทำ TCO แยกอีกฉบับ</span></li>
@@ -1612,7 +1612,8 @@
                     <li id="ref-17">Microsoft — <a href="https://blogs.microsoft.com/on-the-issues/2023/09/07/copilot-copyright-commitment-ai-legal-concerns/" target="_blank" rel="noreferrer">Copilot Copyright Commitment</a> และ <a href="https://techcommunity.microsoft.com/blog/azuredevcommunityblog/demystifying-github-copilot-security-controls-easing-concerns-for-organizational/4468193" target="_blank" rel="noreferrer">GitHub Copilot Security Controls</a> (no-training, prompt retention, SOC 2/ISO 27001, เงื่อนไข indemnification)</li>
                     <li id="ref-18">Community/legal — <a href="https://thebrightbyte.com/playbook/expertise/ai-generated-code-ownership-banking" target="_blank" rel="noreferrer">Who Owns AI-Generated Code</a> (เทียบ ownership + indemnification caps ของ Copilot/Cursor/Claude ใน enterprise terms)</li>
                     <li id="ref-19">Cursor Docs — <a href="https://cursor.com/docs/cloud-agent/automations" target="_blank" rel="noreferrer">Automations</a> (scheduled cron + event triggers จาก GitHub/Slack/Linear/webhook ตั้งผ่าน UI)</li>
-                    <li id="ref-20">GitHub Docs — <a href="https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule" target="_blank" rel="noreferrer">GitHub Actions schedule trigger</a> (cron-based workflow สำหรับเรียก agent ตามเวลา)</li>
+                    <li id="ref-20">GitHub Docs — <a href="https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule" target="_blank" rel="noreferrer">GitHub Actions schedule trigger</a> (cron-based workflow สำหรับเรียก agent ตามเวลา; job บน GitHub-hosted runner จำกัด 6 ชม.)</li>
+                    <li id="ref-21">Community — <a href="https://www.digitalapplied.com/blog/cursor-automations-always-on-agentic-coding-agents-guide" target="_blank" rel="noreferrer">Cursor Automations guide</a> (Automations ~30 นาที/run; cloud agent background default ~24 ชม. ปรับได้ — ตัวเลขจาก community ควรยืนยันกับ Cursor อีกครั้ง)</li>
                 </ol>
             </div>
         </section>
