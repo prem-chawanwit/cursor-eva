@@ -1524,14 +1524,14 @@
             <div class="section-head">
                 <div>
                     <span class="kicker">03 / Perspectives</span>
-                    <h2 id="perspective-title">อีก 3 มุมมอง แยกจากตารางฟีเจอร์</h2>
+                    <h2 id="perspective-title">อีก 4 มุมมอง แยกจากตารางฟีเจอร์</h2>
                 </div>
                 <p>ประเมินจากการใช้งานจริงใน lab ของทีม — เป็นมุมมองเชิงคุณภาพ ควรยืนยันซ้ำด้วย benchmark ใน pilot</p>
             </div>
 
             <div class="metrics-wrap">
                 <table class="metrics-table">
-                    <caption>มุมมองเพิ่มเติม 3 ด้าน: ความเร็ว ความง่าย และคุณภาพโค้ด</caption>
+                    <caption>มุมมองเพิ่มเติม 4 ด้าน: ความเร็ว ความง่าย คุณภาพโค้ด และงาน Data Engineering</caption>
                     <thead>
                         <tr>
                             <th scope="col">มุมมอง</th>
@@ -1559,11 +1559,17 @@
                             <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Multi-model review + majority vote และ BugBot ช่วยยกคุณภาพและลดรอบแก้จากการใช้จริง</span></td>
                             <td class="col-cowork"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">โมเดล Anthropic ขึ้นชื่อเรื่องคุณภาพโค้ด แต่ขั้นตอน review ใน IDE มีน้อยกว่าสองเจ้าแรก</span></td>
                         </tr>
+                        <tr>
+                            <th scope="row">4. DE Quality<small>คุณภาพงาน Data Engineering: pipeline, ETL, SQL</small></th>
+                            <td class="col-baseline"><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">เข้ากับ Microsoft data stack (Fabric, Synapse, Databricks notebook ใน VS Code) ได้ตรงที่สุด แต่ agent งานยาวยังสะดุดจาก crash</span></td>
+                            <td><span class="stars" aria-label="4 จาก 5">★★★★☆</span><span class="note">Lab ยืนยันทำ pipeline automation ได้ง่ายและ refactor multi-file ดี แต่ความเข้ากับ Cosmos DB / .NET data stack ยังไม่ถูกพิสูจน์</span></td>
+                            <td class="col-cowork"><span class="stars" aria-label="3 จาก 5">★★★☆☆</span><span class="note">เด่นการวิเคราะห์/แปลง logic ซับซ้อนและ co-work กับ analyst แต่ integration กับ data toolchain ใน IDE น้อยกว่า</span></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
-            <p class="metrics-footnote">หมายเหตุ: ทั้ง 3 เจ้าเรียกใช้โมเดลตระกูลเดียวกันได้ (เช่น Claude ใน Copilot/Cursor) คุณภาพโค้ดจึงขึ้นกับ model ที่เลือก + ขั้นตอน review มากกว่าตัวแบรนด์ — คะแนนชุดนี้มาจากประสบการณ์ lab ของทีม ควรวัดซ้ำด้วยโจทย์มาตรฐานเดียวกันใน pilot</p>
+            <p class="metrics-footnote">หมายเหตุ: ทั้ง 3 เจ้าเรียกใช้โมเดลตระกูลเดียวกันได้ (เช่น Claude ใน Copilot/Cursor) คุณภาพโค้ดจึงขึ้นกับ model ที่เลือก + ขั้นตอน review มากกว่าตัวแบรนด์ — คะแนนชุดนี้มาจากประสบการณ์ lab ของทีม ควรวัดซ้ำด้วยโจทย์มาตรฐานเดียวกันใน pilot โดยเฉพาะข้อ DE Quality ที่ยังไม่ได้ทดสอบกับ pipeline จริงของ GULF (Cosmos DB / Fabric)</p>
         </section>
 
         <section class="section" aria-labelledby="takeaway-title">
@@ -1572,7 +1578,7 @@
                     <span class="kicker">04 / Take away</span>
                     <h2 id="takeaway-title">คะแนนจากตาราง และสิ่งที่ต้องทำต่อ</h2>
                 </div>
-                <p>รวมดาวจากตาราง 02 (11 ฟีเจอร์ × เต็ม 5 ดาว = 55) พร้อมสรุปดาวจาก 3 มุมมองใน 03</p>
+                <p>รวมดาวจากตาราง 02 (11 ฟีเจอร์ × เต็ม 5 ดาว = 55) พร้อมสรุปดาวจาก 4 มุมมองใน 03</p>
             </div>
 
             <div class="score-grid">
@@ -1581,7 +1587,7 @@
                     <div class="score-num">48<small>/55 ดาว</small></div>
                     <div class="score-bar"><i style="width: 87%;"></i></div>
                     <div class="score-counts">
-                        <span class="legend-chip"><span class="stars-inline">★</span> เร็ว 5 · Dev ใหม่ 4 · Quality 4</span>
+                        <span class="legend-chip"><span class="stars-inline">★</span> เร็ว 5 · Dev ใหม่ 4 · Quality 4 · DE 4</span>
                     </div>
                     <p>ขึ้นนำเมื่อใช้สเกลดาว — ได้เต็มด้านความลึกของ agent, sandbox, automation และ model choice แต่เสียดาวจาก proprietary IDE</p>
                 </article>
@@ -1590,7 +1596,7 @@
                     <div class="score-num">46<small>/55 ดาว</small></div>
                     <div class="score-bar"><i style="width: 84%;"></i></div>
                     <div class="score-counts">
-                        <span class="legend-chip"><span class="stars-inline">★</span> เร็ว 4 · Dev ใหม่ 5 · Quality 3</span>
+                        <span class="legend-chip"><span class="stars-inline">★</span> เร็ว 4 · Dev ใหม่ 5 · Quality 3 · DE 4</span>
                     </div>
                     <p>ตามหลังแค่ 2 ดาว — เต็มทุกแถว ecosystem/GitHub/Azure และง่ายสุดสำหรับ dev ใหม่ แต่เสียดาวเรื่อง sandbox กับ scheduler</p>
                 </article>
@@ -1599,7 +1605,7 @@
                     <div class="score-num">23<small>/55 ดาว</small></div>
                     <div class="score-bar"><i style="width: 42%;"></i></div>
                     <div class="score-counts">
-                        <span class="legend-chip"><span class="stars-inline">★</span> เร็ว 3 · Dev ใหม่ 3 · Quality 4</span>
+                        <span class="legend-chip"><span class="stars-inline">★</span> เร็ว 3 · Dev ใหม่ 3 · Quality 4 · DE 3</span>
                     </div>
                     <p>คะแนนต่ำเพราะตารางวัดมุม dev tool — Claude อยู่กลุ่ม Co-work จึงควรอ่านเป็นเครื่องมือเสริม ไม่ใช่คู่แข่งตรง</p>
                 </article>
